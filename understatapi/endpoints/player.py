@@ -13,9 +13,6 @@ class PlayerEndpoint(BaseEndpoint):
 
     queries = ["matchesData", "shotsData", "groupsData"]
 
-    def __init__(self):
-        pass
-
     def get_data(self, player: str, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-player basis

@@ -18,10 +18,7 @@ class BaseEndpoint:
 
     base_url = "https://understat.com/"
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
-    queries = []
-
-    def __init__(self) -> None:
-        pass
+    queries: List[str] = []
 
     def _check_args(
         self, league: str = None, season: str = None, query: str = None
