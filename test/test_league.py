@@ -6,7 +6,7 @@ from understatapi.endpoints import LeagueEndpoint, BaseEndpoint
 
 @patch.object(BaseEndpoint, "get_response")
 class TestLeagueEndpoint(unittest.TestCase):
-    """ Tests for LeagueEndpoint """
+    """ Tests for `LeagueEndpoint` """
 
     def setUp(self):
         """ setUp """
@@ -30,9 +30,11 @@ class TestLeagueEndpoint(unittest.TestCase):
             element="script",
         )
 
-    def test_get_fixtures(self, mock_get_response):
-        """ test `get_fixtures()` """
-        self.league.get_fixtures(league="EPL", season="2019", element="script")
+    def test_get_match_data(self, mock_get_response):
+        """ test `get_match_data()` """
+        self.league.get_match_data(
+            league="EPL", season="2019", element="script"
+        )
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
             query="datesData",

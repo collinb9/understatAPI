@@ -31,12 +31,12 @@ class TestCheckArgs(unittest.TestCase):
     def test_invalid_query(self):
         """ test that `_check_args()` raises InvalidQuery """
         with self.assertRaises(InvalidQuery):
-            self.base._check_args(query="invalidQuery")
+            self.base._check_args(query="datesData")
 
 
 @patch("requests.get", side_effect=mocked_requests_get)
 class TestBaseRequests(unittest.TestCase):
-    """ Tests for BaseEndpoint methods that use requests module"""
+    """ Tests for `BaseEndpoint` methods that use requests module"""
 
     def setUp(self):
         """ setUp """
@@ -120,7 +120,7 @@ class TestBaseRequests(unittest.TestCase):
 
 
 class TestExtractData(unittest.TestCase):
-    """ Tests for BaseEndpoint methods involved in data extraction """
+    """ Tests for `BaseEndpoint` methods involved in data extraction """
 
     def setUp(self):
         """ setUp """

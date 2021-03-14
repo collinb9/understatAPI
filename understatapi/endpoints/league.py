@@ -9,6 +9,8 @@ class LeagueEndpoint(BaseEndpoint):
     https://understat.com/league/<league>/<season>
     """
 
+    queries = ["teamsData", "datesData", "playersData"]
+
     def get_data(
         self, league: str, season: str, query: str, **kwargs: str
     ) -> pd.DataFrame:
@@ -19,7 +21,8 @@ class LeagueEndpoint(BaseEndpoint):
             one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param season: str: Season to get data for
         :param query: str: Identifies the type of data to get,
-            one of {teamsData, playersData}
+            one of {teamsData, playersData, datesData}
+        :param kwargs: Keyword argument to pass to `BaseEndpoint.get_response()`
         """
         self._check_args(league=league, season=season, query=query)
         url = self.base_url + "league/" + league + "/" + season
@@ -44,7 +47,7 @@ class LeagueEndpoint(BaseEndpoint):
         )
         return data
 
-    def get_fixtures(
+    def get_match_data(
         self, league: str, season: str, **kwargs: str
     ) -> pd.DataFrame:
         """

@@ -18,7 +18,7 @@ class BaseEndpoint:
 
     base_url = "https://understat.com/"
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
-    queries = ["teamsData", "datesData", "playersData"]
+    queries = []
 
     def __init__(self) -> None:
         pass
@@ -32,7 +32,7 @@ class BaseEndpoint:
         if season is not None and int(season) < 2014:
             raise InvalidSeason(season)
         if query is not None and query not in self.queries:
-            raise InvalidQuery(season)
+            raise InvalidQuery(query)
 
     @staticmethod
     def request_url(*args: str, **kwargs: str) -> Response:
@@ -61,7 +61,7 @@ class BaseEndpoint:
         :param soup: BeautifulSoup: BeautifulSoup object to be parsed
         :param element: str: HTML element to find. Passed to `bs4.BeautifulSoup.find()`
         :param query: Tuple[str, str]: Identifies the particular element that contains
-            the relevant data, one of {teamsData, playersData}
+            the relevant data
         """
         result = soup.find_all(element)
         # Get the part of the HTML that contains the script we are looking for
@@ -94,18 +94,26 @@ class BaseEndpoint:
             data = pd.DataFrame(data)
         return data
 
-    def get_response(self, url: str, **kwargs: str) -> pd.DataFrame:
+    def get_response(
+        self,
+        url: str,
+        element: str = "script",
+        query: str = "teamsData",
+        **kwargs: str
+    ) -> pd.DataFrame:
         """
         Retrieve data from html page
 
         :param url: str: url to parse
-        :param query: str: String to pass to BeautifulSoup.find_all
-            (Default value = "table")
+        :param element: str: HTML element to find. Passed to `bs4.BeautifulSoup.find()`
+        :param query: Tuple[str, str]: Identifies the particular element that contains
+            the relevant data
+        :param kwargs: Keyword arguments to pass to `requuests.get()`
 
         :return: pd.DataFrame: Data retrieved from html page
         """
-        res = self.request_url(url)
+        res = self.request_url(url, **kwargs)
         soup = BeautifulSoup(res.content, "lxml")
-        data = self.extract_data_from_html(soup, **kwargs)
+        data = self.extract_data_from_html(soup, element=element, query=query)
 
         return data
