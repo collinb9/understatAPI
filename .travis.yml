@@ -1,17 +1,32 @@
 language: python
 
-python:
-  - "3.7"
-  - "3.8"
-  - "3.9"
+stages:
+  - lint
+  - test
+
+jobs:
+  include:
+    - name: "Linting"
+      python: 3.9
+      script:
+        - black --check --line-length=79 .
+        - pylint understatapi/ test/
+        - mypy -p understatapi
+  include:
+    - name: "Python 3.7 testing"
+      stage: test
+      python: 3.7
+  include:
+    - name: "Python 3.8 testing"
+      python: 3.8
+  include:
+    - name: "Python 3.9 testing"
+      python: 3.9
 
 install:
   - pip install -r requirements.txt
   - pip install -r test_requirements.txt
 
 script:
-  - black --check --line-length=79 .
-  - pylint understatapi/ test/
-  - mypy -p understatapi
   - coverage run -m unittest discover
   - coverage report --fail-under=100
