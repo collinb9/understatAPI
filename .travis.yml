@@ -12,14 +12,11 @@ jobs:
         - black --check --line-length=79 .
         - pylint understatapi/ test/
         - mypy -p understatapi
-  include:
     - name: "Python 3.7 testing"
       stage: test
       python: 3.7
-  include:
     - name: "Python 3.8 testing"
       python: 3.8
-  include:
     - name: "Python 3.9 testing"
       python: 3.9
 
