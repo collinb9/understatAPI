@@ -1,5 +1,5 @@
 """ Base endpoint """
-from typing import List, Union, Dict, Tuple
+from typing import List, Union, Dict
 import json
 import requests
 from requests import Response
