@@ -1,9 +1,10 @@
 """ Base endpoint """
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Optional
 import json
 import requests
 from requests import Response
 import pandas as pd
+from numpy.typing import ArrayLike
 from bs4 import BeautifulSoup
 from ..exceptions import (
     InvalidQuery,
@@ -19,12 +20,12 @@ class BaseEndpoint:
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
     queries = ["teamsData", "datesData", "playersData"]
 
-    def __init__(self):
+    def __init__(self) -> None:
         pass
 
     def _check_args(
         self, league: str = None, season: str = None, query: str = None
-    ):
+    ) -> None:
         """ Handle invalid arguments """
         if league is not None and league not in self.leagues:
             raise InvalidLeague(league)
@@ -34,7 +35,7 @@ class BaseEndpoint:
             raise InvalidQuery(season)
 
     @staticmethod
-    def request_url(*args, **kwargs) -> Response:
+    def request_url(*args: str, **kwargs: str) -> Response:
         """
         Use the requests module to send a HTTP request to a url, and check
         that this request worked.
@@ -52,7 +53,7 @@ class BaseEndpoint:
         soup: BeautifulSoup,
         element: str = "script",
         query: str = "teamsData",
-    ):
+    ) -> pd.DataFrame:
         """
         Finds a JSON in the HTML according to a query, and returns the dictionary
         corresponding to this JSON.
@@ -83,7 +84,8 @@ class BaseEndpoint:
 
     @staticmethod
     def json_to_dataframe(
-        data: Union[List[dict], Dict], **kwargs
+        data: Union[List[Dict[str, ArrayLike]], Dict[str, ArrayLike]],
+        **kwargs: str
     ) -> pd.DataFrame:
         """ Convert output of `json.loads()` to a dataframe """
         try:
@@ -92,7 +94,7 @@ class BaseEndpoint:
             data = pd.DataFrame(data)
         return data
 
-    def get_response(self, url: str, **kwargs) -> pd.DataFrame:
+    def get_response(self, url: str, **kwargs: str) -> pd.DataFrame:
         """
         Retrieve data from html page
 

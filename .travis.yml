@@ -12,6 +12,6 @@ install:
 script:
   - black --check --line-length=79 .
   - pylint understatapi/ test/
-  - mypy understatapi/
+  - mypy -p understatapi
   - coverage run -m unittest discover
   - coverage report --fail-under=100

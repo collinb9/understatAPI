@@ -1,4 +1,5 @@
 """ League endpoint """
+import pandas as pd
 from .base import BaseEndpoint
 
 
@@ -8,7 +9,9 @@ class LeagueEndpoint(BaseEndpoint):
     https://understat.com/league/<league>/<season>
     """
 
-    def get_data(self, league: str, season: str, query: str, **kwargs):
+    def get_data(
+        self, league: str, season: str, query: str, **kwargs: str
+    ) -> pd.DataFrame:
         """
         Get data on a league-wide basis
 
@@ -25,7 +28,9 @@ class LeagueEndpoint(BaseEndpoint):
 
         return data
 
-    def get_team_data(self, league: str, season: str, **kwargs):
+    def get_team_data(
+        self, league: str, season: str, **kwargs: str
+    ) -> pd.DataFrame:
         """
         Get data for all teams in a given league and season
 
@@ -39,7 +44,9 @@ class LeagueEndpoint(BaseEndpoint):
         )
         return data
 
-    def get_fixtures(self, league: str, season: str, **kwargs):
+    def get_fixtures(
+        self, league: str, season: str, **kwargs: str
+    ) -> pd.DataFrame:
         """
         Get data for all fixtures in a given league and season.
 
@@ -53,7 +60,9 @@ class LeagueEndpoint(BaseEndpoint):
         )
         return data
 
-    def get_player_data(self, league: str, season: str, **kwargs):
+    def get_player_data(
+        self, league: str, season: str, **kwargs: str
+    ) -> pd.DataFrame:
         """
         Get data for all teams in a given league and season
 
