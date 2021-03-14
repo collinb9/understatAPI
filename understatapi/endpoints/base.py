@@ -51,7 +51,7 @@ class BaseEndpoint:
         self,
         soup: BeautifulSoup,
         element: str = "script",
-        query: Tuple[str, str] = "teamsData",
+        query: str = "teamsData",
     ):
         """
         Finds a JSON in the HTML according to a query, and returns the dictionary

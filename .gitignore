@@ -14,6 +14,7 @@ venv
 *.pyc
 __pycache__
 htmlcov
+*.coverage
 
 # vscode files
 *.json
