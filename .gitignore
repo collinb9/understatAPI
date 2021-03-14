@@ -6,6 +6,7 @@ venv
 *.log
 *.txt
 !requirements.txt
+!test_requirements.txt
 
 # Notebooks
 *.ipynb
