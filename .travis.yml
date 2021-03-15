@@ -11,7 +11,7 @@ jobs:
       stage: lint
       python: 3.9
       script:
-        - black --check --line-length=79 .
+        - black --check --line-length=79 understatapi/ test/ setup.py
         - pylint understatapi/ test/
         - mypy -p understatapi
     - name: "Python 3.7 testing"
