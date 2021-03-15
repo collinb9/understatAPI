@@ -53,5 +53,17 @@ class TestLeagueEndpoint(unittest.TestCase):
         )
 
 
+class TestLeagueEndpointDunder(unittest.TestCase):
+    """ Tests for all `__*__()` methods of `LeagueEndpoint()` """
+
+    def setUp(self):
+        """ setUp """
+        self.league = LeagueEndpoint()
+
+    def test_repr(self):
+        """ Test `__repr__()` """
+        self.assertEqual(repr(self.league), "<LeagueEndpoint>")
+
+
 if __name__ == "__main__":
     unittest.main()

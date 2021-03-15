@@ -99,3 +99,15 @@ class TestPlayerEndpointErrors(unittest.TestCase):
             self.player.get_data(
                 player="", query="matchesData", status_code=404
             )
+
+
+class TestPlayerEndpointDunder(unittest.TestCase):
+    """ Tests for all `__*__()` methods of `PlayerEndpoint()` """
+
+    def setUp(self):
+        """ setUp """
+        self.player = PlayerEndpoint()
+
+    def test_repr(self):
+        """ Test `__repr__()` """
+        self.assertEqual(repr(self.player), "<PlayerEndpoint>")

@@ -146,5 +146,17 @@ class TestExtractData(unittest.TestCase):
         self.assertTupleEqual(data.shape, (20, 3))
 
 
+class TestBaseEndpointDunder(unittest.TestCase):
+    """ Tests for all `__*__()` methods of `BaseEndpoint()` """
+
+    def setUp(self):
+        """ setUp """
+        self.base = BaseEndpoint()
+
+    def test_repr(self):
+        """ Test `__repr__()` """
+        self.assertEqual(repr(self.base), "<BaseEndpoint>")
+
+
 if __name__ == "__main__":
     unittest.main()
