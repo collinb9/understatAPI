@@ -23,6 +23,7 @@ jobs:
       python: 3.9
     - name: "Deploy"
     - stage: deploy
+      python: 3.9
       install:
         - pip install -r docs/requirements.txt
         - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v2.1.0 # install vale
