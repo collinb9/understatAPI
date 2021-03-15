@@ -20,7 +20,7 @@ class BaseEndpoint:
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
     queries: List[str] = []
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return "<%s>" % self.__class__.__name__
 
     def _check_args(
