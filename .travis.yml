@@ -22,7 +22,7 @@ jobs:
     - name: "Python 3.9 testing"
       python: 3.9
     - name: "Deploy"
-    - stage: deploy
+      stage: deploy
       python: 3.9
       install:
         - pip install -r docs/requirements.txt
