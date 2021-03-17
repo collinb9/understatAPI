@@ -21,35 +21,26 @@ class TestLeagueEndpoint(unittest.TestCase):
 
     def test_get_team_data(self, mock_get_response):
         """ test `get_team_data()` """
-        self.league.get_team_data(
-            league="EPL", season="2019", element="script"
-        )
+        self.league.get_team_data(league="EPL", season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
             query="teamsData",
-            element="script",
         )
 
     def test_get_match_data(self, mock_get_response):
         """ test `get_match_data()` """
-        self.league.get_match_data(
-            league="EPL", season="2019", element="script"
-        )
+        self.league.get_match_data(league="EPL", season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
             query="datesData",
-            element="script",
         )
 
     def test_getplayer_data(self, mock_get_response):
         """ test `get_player_data()` """
-        self.league.get_player_data(
-            league="EPL", season="2019", element="script"
-        )
+        self.league.get_player_data(league="EPL", season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
             query="playersData",
-            element="script",
         )
 
 

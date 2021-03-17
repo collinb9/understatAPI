@@ -5,7 +5,7 @@ from ast import literal_eval
 from unittest.mock import patch, mock_open
 from test import mocked_requests_get
 from requests.exceptions import HTTPError
-from bs4 import BeautifulSoup
+import numpy as np
 import pandas as pd
 from understatapi.endpoints import BaseEndpoint
 from understatapi.exceptions import InvalidQuery, InvalidLeague, InvalidSeason
@@ -61,7 +61,6 @@ class TestBaseRequests(unittest.TestCase):
         """ Test `get_response()` works with `query='teamsData'` """
         data = self.base.get_response(
             "test/resources/league_epl.html",
-            element="script",
             query="teamsData",
         )
         expected_data = pd.read_csv(
@@ -76,7 +75,6 @@ class TestBaseRequests(unittest.TestCase):
         """ Test `get_response()` works with `query='datesData'` """
         data = self.base.get_response(
             "test/resources/league_epl.html",
-            element="script",
             query="datesData",
         )
         expected_data = pd.read_csv(
@@ -98,7 +96,6 @@ class TestBaseRequests(unittest.TestCase):
         """ Test `get_response()` works with `query='playersData'` """
         data = self.base.get_response(
             "test/resources/league_epl.html",
-            element="script",
             query="playersData",
         )
         expected_data = pd.read_csv(
@@ -126,7 +123,7 @@ class TestExtractData(unittest.TestCase):
         """ setUp """
         self.base = BaseEndpoint()
         with open("test/resources/league_epl.html") as file:
-            self.soup = BeautifulSoup(file, "lxml")
+            self.html = file.read()
 
     def test_extract_data_from_html_fails(self):
         """ test that ectract_data_from_html fails correctly """
@@ -134,16 +131,66 @@ class TestExtractData(unittest.TestCase):
             InvalidQuery,
             "There is no html entry matching the query invalidQuery",
         ):
-            self.base.extract_data_from_html(
-                self.soup, element="", query="invalidQuery"
-            )
+            self.base.extract_data_from_html(self.html, query="invalidQuery")
 
     def test_extract_data_from_html(self):
         """ Test extract_data_from_html """
-        data = self.base.extract_data_from_html(
-            self.soup, element="script", query="teamsData"
-        )
+        data = self.base.extract_data_from_html(self.html, query="teamsData")
         self.assertTupleEqual(data.shape, (20, 3))
+
+    def test_json_to_dataframe_dict(self):
+        """ test `json_to_dataframe()` when it is passed a dict """
+        data = {"col1": [1, 2], "col2": [3, 4]}
+        data = self.base.json_to_dataframe(data)
+        expected_data = pd.DataFrame(
+            data=[[1, 3], [2, 4]], columns=["col1", "col2"]
+        )
+        pd.testing.assert_frame_equal(data, expected_data)
+
+    def test_json_to_dataframe_list_dict(self):
+        """
+        test `json_to_dataframe()` when it is passed a list of dictionaries
+        """
+        data = [{"col1": 1, "col2": 3}, {"col1": 2, "col2": 4}]
+        data = self.base.json_to_dataframe(data)
+        expected_data = pd.DataFrame(
+            data=[[1, 3], [2, 4]], columns=["col1", "col2"]
+        )
+        pd.testing.assert_frame_equal(data, expected_data)
+
+    def test_unpack_dataframe(self):
+        """ test `unpack_dataframe()` """
+        data = pd.DataFrame()
+        data["side"] = ["h", "a"]
+        data["goals"] = [{"h": 1, "a": 0}, {"h": 5, "a": 5}]
+        data = self.base.unpack_dataframe(data)
+        expected_data = pd.DataFrame(
+            data=[["h", 1, 0], ["a", 5, 5]],
+            columns=["side", "goals_h", "goals_a"],
+        )
+        pd.testing.assert_frame_equal(data, expected_data)
+
+    def test_try_json_normalize_use(self):
+        """ test `try_json_normalize()` with a `pd.Series` of dictionaries"""
+        data = pd.Series(
+            [{"h": 1, "a": 0}, {"h": 5, "a": 5}, np.nan], name="goals"
+        )
+        data = self.base.try_json_normalize(data)
+        expected_data = pd.DataFrame(
+            data=[[1, 0], [5, 5], [np.nan, np.nan]],
+            columns=["goals_h", "goals_a"],
+        )
+        pd.testing.assert_frame_equal(data, expected_data)
+
+    def test_try_json_normalize_pass(self):
+        """ test `try_json_normalize()` with a `pd.Series` of integers"""
+        data = pd.Series([1, 2], name="goals")
+        data = self.base.try_json_normalize(data)
+        expected_data = pd.DataFrame(
+            data=[1, 2],
+            columns=["goals"],
+        )
+        pd.testing.assert_frame_equal(data, expected_data)
 
 
 class TestBaseEndpointDunder(unittest.TestCase):

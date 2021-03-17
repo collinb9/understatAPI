@@ -18,6 +18,13 @@ class MockResponse:
             content = file.read()
         return content
 
+    @property
+    def text(self):
+        """ Response.content """
+        with open(self.url) as file:
+            text = file.read()
+        return text
+
     def raise_for_status(self):
         """Raises `HTTPError`, if one occurred."""
 

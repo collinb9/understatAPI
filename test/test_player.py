@@ -2,8 +2,7 @@
 """ Test PlayerEndpoint """
 import unittest
 from unittest.mock import patch
-from test import mocked_requests_get
-from test.utils import assert_data_equal
+from test import mocked_requests_get, assert_data_equal
 import pandas as pd
 from understatapi.endpoints import PlayerEndpoint, BaseEndpoint
 from understatapi.exceptions import InvalidPlayer
@@ -17,6 +16,7 @@ class TestPlayerEndpoint(unittest.TestCase):
     def setUp(self):
         """ setUp """
         self.player = PlayerEndpoint()
+        self.base = BaseEndpoint()
 
     def test_get_match_data_return_value(self, mock_get, mock_request_url):
         """ test `get_match_data()` """
@@ -68,6 +68,7 @@ class TestPlayerEndpoint(unittest.TestCase):
             "test/resources/player.html"
         )
         data = self.player.get_season_data(player="647")
+        data = self.base.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/data/player_groupsdata.csv", index_col=0
         )

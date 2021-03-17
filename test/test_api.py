@@ -16,3 +16,7 @@ class TestAPIClientDunder(unittest.TestCase):
             self.assertEqual(repr(self.understat.league), "<LeagueEndpoint>")
         with self.subTest(test="player_endpoint"):
             self.assertEqual(repr(self.understat.player), "<PlayerEndpoint>")
+        with self.subTest(test="team_endpoint"):
+            self.assertEqual(repr(self.understat.team), "<TeamEndpoint>")
+        with self.subTest(test="match_endpoint"):
+            self.assertEqual(repr(self.understat.match), "<MatchEndpoint>")

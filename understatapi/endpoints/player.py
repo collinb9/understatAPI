@@ -19,7 +19,8 @@ class PlayerEndpoint(BaseEndpoint):
 
         :param league: str: Understat id of the player to get data for
         :param query: str: Identifies the type of data to get
-        :param kwargs: Keyword argument to pass to `BaseEndpoint.get_response()`
+        :param kwargs: Keyword argument to pass to
+            `BaseEndpoint.get_response()`
         """
         self._check_args(query=query)
         url = self.base_url + "player/" + player
@@ -36,7 +37,8 @@ class PlayerEndpoint(BaseEndpoint):
         Get match level data for a player
 
         :param league: str: Understat id of the player to get data for
-        :param kwargs: Keyword argument to pass to `BaseEndpoint.get_response()`
+        :param kwargs: Keyword argument to pass to
+            `BaseEndpoint.get_response()`
         """
         data = self.get_data(player=player, query="matchesData", **kwargs)
         return data
@@ -46,7 +48,8 @@ class PlayerEndpoint(BaseEndpoint):
         Get shot level data for a player
 
         :param league: str: Understat id of the player to get data for
-        :param kwargs: Keyword argument to pass to `BaseEndpoint.get_response()`
+        :param kwargs: Keyword argument to pass to
+            `BaseEndpoint.get_response()`
         """
         data = self.get_data(player=player, query="shotsData", **kwargs)
         return data
@@ -56,7 +59,8 @@ class PlayerEndpoint(BaseEndpoint):
         Get season level data for a player
 
         :param league: str: Understat id of the player to get data for
-        :param kwargs: Keyword argument to pass to `BaseEndpoint.get_response()`
+        :param kwargs: Keyword argument to pass to
+            `BaseEndpoint.get_response()`
         """
         data = self.get_data(player=player, query="groupsData", **kwargs).T
         return data
