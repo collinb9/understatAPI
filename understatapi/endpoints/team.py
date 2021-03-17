@@ -79,13 +79,12 @@ class TeamEndpoint(BaseEndpoint):
         :param team: str: Name of the team to get data for
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
-
+            ``BaseEndpoint.get_response()``
         :return: pd.DataFrame: A dataframe with 6 column, each of which
             relates to a different context int the game. The below tables
-            show the dataframe that you get if you set `unpack=True` for
-            each column, i.e. `get_context_data(team="Manchester_United",
-            season="2019", unpack=True, context="situation") would return
+            show the dataframe that you get if you set ``unpack=True`` for
+            each column, i.e. ``get_context_data(team="Manchester_United",
+            season="2019"``, unpack=True, context="situation") would return
             a dataframe with the rows shown in the first table.
         """
         data = self.get_data(

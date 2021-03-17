@@ -16,6 +16,11 @@ venv
 __pycache__
 htmlcov
 *.coverage
+*.rst
+!index.rst
+build
+dist
+*.egg*
 
 # vscode files
 *.json

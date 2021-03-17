@@ -40,8 +40,8 @@ class BaseEndpoint:
         Use the requests module to send a HTTP request to a url, and check
         that this request worked.
 
-        :param *args: Arguments to pass to `requests.get()`
-        :param **kwargs: Keyword arguments to pass to `requests.get()`
+        :param args: Arguments to pass to `requests.get()`
+        :param kwargs: Keyword arguments to pass to `requests.get()`
         """
         res = requests.get(*args, **kwargs)
         res.raise_for_status()
