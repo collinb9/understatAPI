@@ -1,5 +1,10 @@
 """ understatAPI client """
-from .endpoints import LeagueEndpoint, PlayerEndpoint
+from .endpoints import (
+    LeagueEndpoint,
+    PlayerEndpoint,
+    TeamEndpoint,
+    MatchEndpoint,
+)
 
 
 class APIClient:
@@ -9,3 +14,5 @@ class APIClient:
         """ Initialise APIClient """
         self.league = LeagueEndpoint()
         self.player = PlayerEndpoint()
+        self.team = TeamEndpoint()
+        self.match = MatchEndpoint()

@@ -5,6 +5,8 @@ from understatapi.exceptions import (
     InvalidLeague,
     InvalidSeason,
     InvalidPlayer,
+    InvalidTeam,
+    InvalidMatch,
 )
 
 
@@ -33,7 +35,7 @@ class TestInvalidSeason(unittest.TestCase):
     def test_default(self):
         """ test InvalidSeason with no message """
         with self.assertRaisesRegex(
-            InvalidSeason, "The value of passed to `season` is not valid"
+            InvalidSeason, "The value passed to `season` is not valid"
         ):
             raise InvalidSeason
 
@@ -52,7 +54,7 @@ class TestInvalidPlayer(unittest.TestCase):
     def test_default(self):
         """ test InvalidPlayer with no message """
         with self.assertRaisesRegex(
-            InvalidPlayer, "The value of passed to `player` is not valid"
+            InvalidPlayer, "The value passed to `player` is not valid"
         ):
             raise InvalidPlayer
 
@@ -71,7 +73,7 @@ class TestInvalidLeague(unittest.TestCase):
     def test_default(self):
         """ test InvalidLeague with no message """
         with self.assertRaisesRegex(
-            InvalidLeague, "The value of passed to `league` is not valid"
+            InvalidLeague, "The value passed to `league` is not valid"
         ):
             raise InvalidLeague
 
@@ -82,6 +84,44 @@ class TestInvalidLeague(unittest.TestCase):
             "League is not a valid league",
         ):
             raise InvalidLeague("League")
+
+
+class TestInvalidTeam(unittest.TestCase):
+    """ Test InvalidTeam """
+
+    def test_default(self):
+        """ test InvalidTeam with no message """
+        with self.assertRaisesRegex(
+            InvalidTeam, "The value passed to `team` is not valid"
+        ):
+            raise InvalidTeam
+
+    def test_message(self):
+        """ test InvalidTeam with a message """
+        with self.assertRaisesRegex(
+            InvalidTeam,
+            "Team is not a valid team",
+        ):
+            raise InvalidTeam("Team")
+
+
+class TestInvalidMatch(unittest.TestCase):
+    """ Test InvalidTeam """
+
+    def test_default(self):
+        """ test InvalidTeam with no message """
+        with self.assertRaisesRegex(
+            InvalidMatch, "The value passed to `match` is not valid"
+        ):
+            raise InvalidMatch
+
+    def test_message(self):
+        """ test InvalidTeam with a message """
+        with self.assertRaisesRegex(
+            InvalidMatch,
+            "Match is not a valid match",
+        ):
+            raise InvalidMatch("Match")
 
 
 if __name__ == "__main__":
