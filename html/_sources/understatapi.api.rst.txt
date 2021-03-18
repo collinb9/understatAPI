@@ -1,0 +1,7 @@
+understatapi.api module
+=======================
+
+.. automodule:: understatapi.api
+   :members:
+   :undoc-members:
+   :show-inheritance:

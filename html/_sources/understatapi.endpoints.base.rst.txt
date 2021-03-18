@@ -1,0 +1,7 @@
+understatapi.endpoints.base module
+==================================
+
+.. automodule:: understatapi.endpoints.base
+   :members:
+   :undoc-members:
+   :show-inheritance:

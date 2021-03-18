@@ -1,0 +1,7 @@
+understatapi.endpoints.match module
+===================================
+
+.. automodule:: understatapi.endpoints.match
+   :members:
+   :undoc-members:
+   :show-inheritance:

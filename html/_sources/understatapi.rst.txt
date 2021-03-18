@@ -1,0 +1,27 @@
+understatapi package
+====================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   understatapi.endpoints
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   understatapi.api
+   understatapi.exceptions
+
+Module contents
+---------------
+
+.. automodule:: understatapi
+   :members:
+   :undoc-members:
+   :show-inheritance:

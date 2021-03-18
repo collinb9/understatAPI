@@ -1,0 +1,7 @@
+understatapi.exceptions module
+==============================
+
+.. automodule:: understatapi.exceptions
+   :members:
+   :undoc-members:
+   :show-inheritance:
