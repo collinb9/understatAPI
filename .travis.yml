@@ -12,6 +12,7 @@ jobs:
       stage: lint
       python: 3.9
       script:
+        - pip freeze
         - black --check --line-length=79 understatapi/ test/ setup.py
         - pylint understatapi/ test/
         - mypy -p understatapi
