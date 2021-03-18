@@ -5,6 +5,7 @@ cache: pip
 stages:
   - lint
   - test
+  - deploy
 
 jobs:
   include:
@@ -22,6 +23,22 @@ jobs:
       python: 3.8
     - name: "Python 3.9 testing"
       python: 3.9
+    - name: "Update documentation"
+      stage: deploy
+      python: 3.9
+      install:
+        - pip install -r docs/requirements.txt
+      script:
+        - sphinx-apidoc --separate -f -o docs/source . ./setup.py ./test
+        - cd docs && make html
+      deploy: 
+        provider: pages
+        skip_cleanup: true
+        github_token: "$GITHUB_TOKEN"
+        keep_history: true
+        local_dir: docs/build/
+        on:
+          branch: master
 
 
 install:

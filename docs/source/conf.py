@@ -7,7 +7,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../."))
+sys.path.insert(0, os.path.abspath("../../."))
 
 
 project = "understatAPI"
@@ -28,6 +28,9 @@ extensions = [
     "sphinx.ext.autosummary",
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.viewcode",
+    "sphinx.ext.githubpages",
+    "sphinx_rtd_theme",
+    "recommonmark",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -43,6 +46,11 @@ exclude_patterns = []
 
 
 html_theme = "sphinx_rtd_theme"
+html_context = {
+    "github_user_name": "collinb9",
+    "github_repo_name": "collinb9/understatAPI",
+    "project_name": "understatAPI",
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
