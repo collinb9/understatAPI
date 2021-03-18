@@ -12,7 +12,7 @@ idna==2.10
     # via requests
 numpy==1.20.1
     # via pandas
-pandas==1.1.0
+pandas==1.2.1
     # via -r requirements.in
 python-dateutil==2.8.1
     # via pandas
