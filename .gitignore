@@ -30,6 +30,7 @@ node_modules/
 # data files
 *.csv
 *.pkl
+*.pickle
 *.png
 !test/resources/**
 
