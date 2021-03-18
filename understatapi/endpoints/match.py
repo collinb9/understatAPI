@@ -56,7 +56,7 @@ class MatchEndpoint(BaseEndpoint):
 
     def get_match_info(self, match: str, **kwargs: str) -> pd.DataFrame:
         """
-        Get data about the roster for each team
+        Get information about the match
 
         :param match: str: Id of match to get data for
         :param kwargs: Keyword argument to pass to
