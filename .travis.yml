@@ -12,7 +12,7 @@ jobs:
       stage: lint
       python: 3.9
       script:
-        - pip freeze
+        - apt-get install -y enchant
         - black --check --line-length=79 understatapi/ test/ setup.py
         - pylint understatapi/ test/
         - mypy -p understatapi
