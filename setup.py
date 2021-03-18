@@ -15,7 +15,7 @@ setup(
     author="collinb9",
     author_email="brendan.m.collins@outlook.com",
     license="MIT",
-    install_requires=["pandas>=1.2.1", "requests>=2.0.0"],
+    install_requires=["pandas>=1.1.0", "requests>=2.0.0"],
     keywords=(
         "statistics xG expected goals fpl fantasy"
         "premier league understat football"
