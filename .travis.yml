@@ -21,8 +21,6 @@ jobs:
         - git fetch
       script:
         - ./run_tests.sh
-      after_success:
-        - ./make_docs.sh
     - name: "Deploying"
       stage: deploy
       deploy: 
@@ -61,3 +59,4 @@ install:
 
 script:
   - python setup.py install
+  - ./make_docs.sh
