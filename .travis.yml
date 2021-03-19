@@ -21,9 +21,7 @@ jobs:
         - git remote set-branches --add origin master
         - git fetch
       script:
-        - echo $CHANGED_FILES
-        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
-        - echo $CHANGED_FILES
+        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '` understatapi/api.py
         - black --check --line-length=79 $CHANGED_FILES
         - pylint $CHANGED_FILES
         - mypy -p understatapi
@@ -31,13 +29,9 @@ jobs:
       stage: test
     - name: "Updating documentation"
       stage: deploy
-      install:
-        - pip install -r docs/requirements.txt
-      script:
-        - sphinx-apidoc --separate -f -o docs/source . ./setup.py ./test
-        - cd docs && make html
       deploy: 
         - provider: pages:git
+          script: ./make_docs.sh
           edge: true
           verbose: true
           skip_cleanup: true
