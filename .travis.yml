@@ -17,8 +17,9 @@ jobs:
     - name: "Linting"
       stage: lint
       script:
-        - black --check --line-length=79 $CHANGED_FILES
-        - pylint $CHANGED_FILES
+        - echo ${CHANGED_FILES}
+        - black --check --line-length=79 ${CHANGED_FILES}
+        - pylint ${CHANGED_FILES}
         - mypy -p understatapi
     - name: "Running unit tests"
       stage: test
