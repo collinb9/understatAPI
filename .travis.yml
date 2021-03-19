@@ -9,14 +9,13 @@ cache: pip
 python: 3.8
 
 stages:
-  - lint
   - test
   - deploy
 
 jobs:
   include:
     - name: "Testing"
-      stage: lint
+      stage: test
       before_script:
         - git remote set-branches --add origin master
         - git fetch
