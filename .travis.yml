@@ -18,6 +18,8 @@ jobs:
       stage: lint
       script:
         - echo ${CHANGED_FILES}
+        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+        - echo ${CHANGED_FILES}
         - black --check --line-length=79 ${CHANGED_FILES}
         - pylint ${CHANGED_FILES}
         - mypy -p understatapi
@@ -31,7 +33,7 @@ jobs:
         - sphinx-apidoc --separate -f -o docs/source . ./setup.py ./test
         - cd docs && make html
       deploy: 
-        - provider: pages
+        - provider: pages:git
           edge: true
           skip_cleanup: true
           github_token: "$GITHUB_TOKEN"
