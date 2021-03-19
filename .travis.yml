@@ -10,7 +10,8 @@ stages:
   - deploy
 
 env:
-  - CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+  global:
+    - CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
 
 jobs:
   include:
@@ -18,7 +19,7 @@ jobs:
       stage: lint
       script:
         - echo ${CHANGED_FILES}
-        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
         - echo ${CHANGED_FILES}
         - black --check --line-length=79 ${CHANGED_FILES}
         - pylint ${CHANGED_FILES}
