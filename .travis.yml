@@ -20,11 +20,14 @@ jobs:
       before_script:
         - git remote set-branches --add origin master
         - git fetch
+      script:
+        - ./run_tests.sh
+      after_success:
+        - ./make_docs.sh
     - name: "Deploying"
       stage: deploy
       deploy: 
         - provider: pages:git
-          script: ./make_docs.sh
           edge: true
           verbose: true
           skip_cleanup: true
@@ -55,6 +58,3 @@ jobs:
 install:
   - pip install -r requirements.txt
   - pip install -r test_requirements.txt
-
-script:
-  - ./run_tests.sh
