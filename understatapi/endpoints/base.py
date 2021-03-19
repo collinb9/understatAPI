@@ -14,7 +14,17 @@ from ..exceptions import (
 
 
 class BaseEndpoint:
-    """Base endpoint for understat API"""
+    """
+    Base endpoint for understat API
+
+    Attributes
+    ----------
+
+    :base_url: str: The base url to use for requests, `https://understat.com/`
+    :leagues: List[str]: The available leagues, `EPL`, `La_Liga`, `Bundesliga`,
+        `Serie_A`, `Ligue_1`, `RFPL`
+    :queries: List[str]: Strings that can be searched for in the html pages.
+    """
 
     base_url = "https://understat.com/"
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
