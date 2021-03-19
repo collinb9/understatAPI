@@ -29,7 +29,7 @@ jobs:
         - provider: pages:git
           edge: true
           verbose: true
-          skip_cleanup: true
+          cleanup: false
           token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html
@@ -58,3 +58,6 @@ install:
   - pip install -r requirements.txt
   - pip install -r test_requirements.txt
   - pip install -r docs/requirements.txt
+
+script:
+  - python setup.py install

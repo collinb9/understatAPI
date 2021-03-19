@@ -16,3 +16,13 @@ class APIClient:
         self.player = PlayerEndpoint()
         self.team = TeamEndpoint()
         self.match = MatchEndpoint()
+
+        self.session = None
+        self.args = args
+        self.kwargs = kwargs
+
+    def __enter__(self):
+        pass
+
+    def __exit__(self, exception_type, exception_value, traceback):
+        pass
