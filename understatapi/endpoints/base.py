@@ -17,9 +17,6 @@ class BaseEndpoint:
     """
     Base endpoint for understat API
 
-    Attributes
-    ----------
-
     :base_url: str: The base url to use for requests, `https://understat.com/`
     :leagues: List[str]: The available leagues, `EPL`, `La_Liga`, `Bundesliga`,
         `Serie_A`, `Ligue_1`, `RFPL`
