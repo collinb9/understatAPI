@@ -21,23 +21,16 @@ jobs:
         - git remote set-branches --add origin master
         - git fetch
       script:
-        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '` understatapi/api.py
-        - black --check --line-length=79 $CHANGED_FILES
-        - pylint $CHANGED_FILES
+        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+        - export FILES_TO_USE= "$CHANGED_FILES understatapi/api.py"
+        - black --check --line-length=79 $FILES_TO_USE
+        - pylint $FILES_TO_USE
         - mypy -p understatapi
     - name: "Running unit tests"
       stage: test
     - name: "Updating documentation"
       stage: deploy
       deploy: 
-<<<<<<< HEAD
-        - provider: pages
-          edge: true
-          skip_cleanup: true
-          github_token: "$GITHUB_TOKEN"
-          keep_history: true
-          local_dir: docs/build/
-=======
         - provider: pages:git
           script: ./make_docs.sh
           edge: true
@@ -46,7 +39,6 @@ jobs:
           github_token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html
->>>>>>> dev
           on:
             branch: master
 
