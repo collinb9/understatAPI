@@ -1,2 +1,3 @@
+pip install -r docs/requirements.txt
 sphinx-apidoc --separate -f -o docs/source . ./setup.py ./test
-cd docs && make html 
+make -C docs/ html

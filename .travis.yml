@@ -1,6 +1,12 @@
+os: linux
+
+dist: xenial
+
 language: python
 
 cache: pip
+
+python: 3.8
 
 stages:
   - lint
@@ -11,33 +17,36 @@ jobs:
   include:
     - name: "Linting"
       stage: lint
-      python: 3.9
+      before_script:
+        - git remote set-branches --add origin master
+        - git fetch
       script:
-        - black --check --line-length=79 understatapi/ test/ setup.py
-        - pylint understatapi/ test/
+        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '` understatapi/api.py
+        - black --check --line-length=79 $CHANGED_FILES
+        - pylint $CHANGED_FILES
         - mypy -p understatapi
-    - name: "Python 3.7 testing"
+    - name: "Running unit tests"
       stage: test
-      python: 3.7
-    - name: "Python 3.8 testing"
-      python: 3.8
-    - name: "Python 3.9 testing"
-      python: 3.9
-    - name: "Update documentation"
+    - name: "Updating documentation"
       stage: deploy
-      python: 3.9
-      install:
-        - pip install -r docs/requirements.txt
-      script:
-        - sphinx-apidoc --separate -f -o docs/source . ./setup.py ./test
-        - cd docs && make html
       deploy: 
+<<<<<<< HEAD
         - provider: pages
           edge: true
           skip_cleanup: true
           github_token: "$GITHUB_TOKEN"
           keep_history: true
           local_dir: docs/build/
+=======
+        - provider: pages:git
+          script: ./make_docs.sh
+          edge: true
+          verbose: true
+          skip_cleanup: true
+          github_token: $GITHUB_TOKEN
+          keep_history: true
+          local_dir: ./docs/build/html
+>>>>>>> dev
           on:
             branch: master
 
