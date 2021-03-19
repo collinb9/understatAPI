@@ -1,7 +1,0 @@
-understatapi.endpoints.player module
-====================================
-
-.. automodule:: understatapi.endpoints.player
-   :members:
-   :undoc-members:
-   :show-inheritance:
