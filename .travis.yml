@@ -31,7 +31,6 @@ jobs:
           token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html/
-          target_branch: master
           on:
             branch: master
 
