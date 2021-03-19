@@ -1,0 +1,7 @@
+understatapi.endpoints.team module
+==================================
+
+.. automodule:: understatapi.endpoints.team
+   :members:
+   :undoc-members:
+   :show-inheritance:

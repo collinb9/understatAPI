@@ -1,0 +1,22 @@
+understatapi.endpoints package
+==============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   understatapi.endpoints.base
+   understatapi.endpoints.league
+   understatapi.endpoints.match
+   understatapi.endpoints.player
+   understatapi.endpoints.team
+
+Module contents
+---------------
+
+.. automodule:: understatapi.endpoints
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+understatapi.endpoints.league module
+====================================
+
+.. automodule:: understatapi.endpoints.league
+   :members:
+   :undoc-members:
+   :show-inheritance:
