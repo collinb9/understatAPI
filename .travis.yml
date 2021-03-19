@@ -15,20 +15,12 @@ stages:
 
 jobs:
   include:
-    - name: "Linting"
+    - name: "Testing"
       stage: lint
       before_script:
         - git remote set-branches --add origin master
         - git fetch
-      script:
-        - export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
-        - export FILES_TO_USE= "$CHANGED_FILES understatapi/api.py"
-        - black --check --line-length=79 $FILES_TO_USE
-        - pylint $FILES_TO_USE
-        - mypy -p understatapi
-    - name: "Running unit tests"
-      stage: test
-    - name: "Updating documentation"
+    - name: "Deploying"
       stage: deploy
       deploy: 
         - provider: pages:git
@@ -36,11 +28,28 @@ jobs:
           edge: true
           verbose: true
           skip_cleanup: true
-          github_token: $GITHUB_TOKEN
+          token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html
           on:
             branch: master
+
+        - provider: pypi
+          edge: true
+          username: __token__
+          password: $PYPI_TOKEN
+          distributions: "sdist"
+          skip_existing: true
+          on:
+            branch: master
+            tags: true
+
+        - provider: releases
+          edge: true
+          token: $GITHUB_TOKEN
+          on:
+            branch: master
+            tags: true
 
 
 install:
@@ -48,5 +57,4 @@ install:
   - pip install -r test_requirements.txt
 
 script:
-  - coverage run -m unittest discover
-  - coverage report --fail-under=100
+  - ./run_tests.sh
