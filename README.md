@@ -1,10 +1,17 @@
 # understatAPI
-This is an API for scraping data from [understat.com](https://understat.com/). Unnderstat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
+This is a python API for scraping data from [understat.com](https://understat.com/). Unnderstat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
 
 ## Installation
 To install the package run
 ```bash
 pip install understatapi
+```
+
+If you would like to use the package with the latest development changes you can clone this repo and install the package
+```bash
+git clone git@github.com:collinb9/understatAPI understatAPI
+cd understatAPI
+python setup.py install
 ```
 
 ## Quick Start

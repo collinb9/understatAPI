@@ -1,3 +1,7 @@
+os: linux
+
+dist: xenial
+
 language: python
 
 cache: pip
@@ -8,10 +12,6 @@ stages:
   - lint
   - test
   - deploy
-
-env:
-  global:
-    - CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
 
 jobs:
   include:
@@ -39,10 +39,11 @@ jobs:
       deploy: 
         - provider: pages:git
           edge: true
+          verbose: true
           skip_cleanup: true
-          github_token: "$GITHUB_TOKEN"
+          github_token: $GITHUB_TOKEN
           keep_history: true
-          local_dir: docs/build/
+          local_dir: ./docs/build/html
           on:
             branch: master
 
