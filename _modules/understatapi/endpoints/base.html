@@ -181,6 +181,9 @@
     <span class="n">leagues</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="s2">&quot;La_Liga&quot;</span><span class="p">,</span> <span class="s2">&quot;Bundesliga&quot;</span><span class="p">,</span> <span class="s2">&quot;Serie_A&quot;</span><span class="p">,</span> <span class="s2">&quot;Ligue_1&quot;</span><span class="p">,</span> <span class="s2">&quot;RFPL&quot;</span><span class="p">]</span>
     <span class="n">queries</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
 
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
+
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&quot;&lt;</span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
 
@@ -195,8 +198,7 @@
         <span class="k">if</span> <span class="n">query</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">query</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">queries</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidQuery</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseEndpoint.request_url"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.request_url">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">request_url</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseEndpoint.request_url"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.request_url">[docs]</a>    <span class="k">def</span> <span class="nf">request_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use the requests module to send a HTTP request to a url, and check</span>
 <span class="sd">        that this request worked.</span>
@@ -204,7 +206,7 @@
 <span class="sd">        :param args: Arguments to pass to `requests.get()`</span>
 <span class="sd">        :param kwargs: Keyword arguments to pass to `requests.get()`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 
         <span class="k">return</span> <span class="n">res</span></div>

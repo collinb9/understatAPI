@@ -153,6 +153,8 @@
             
   <h1>Source code for understatapi.api</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; understatAPI client &quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">TracebackType</span>
+<span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">.endpoints</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LeagueEndpoint</span><span class="p">,</span>
     <span class="n">PlayerEndpoint</span><span class="p">,</span>
@@ -161,15 +163,27 @@
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="APIClient"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.APIClient">[docs]</a><span class="k">class</span> <span class="nc">APIClient</span><span class="p">:</span>
+<div class="viewcode-block" id="UnderstatClient"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient">[docs]</a><span class="k">class</span> <span class="nc">UnderstatClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; API client for understat &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Initialise APIClient &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">league</span> <span class="o">=</span> <span class="n">LeagueEndpoint</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">PlayerEndpoint</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">TeamEndpoint</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">MatchEndpoint</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">league</span> <span class="o">=</span> <span class="n">LeagueEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">TeamEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">MatchEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnderstatClient&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exception_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span>
+        <span class="n">exception_value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
+        <span class="n">traceback</span><span class="p">:</span> <span class="n">TracebackType</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 </pre></div>
 
            </div>

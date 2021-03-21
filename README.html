@@ -162,7 +162,7 @@
             
   <div class="section" id="understatapi">
 <h1>understatAPI<a class="headerlink" href="#understatapi" title="Permalink to this headline">¶</a></h1>
-<p>This is a python API for scraping data from <a class="reference external" href="https://understat.com/">understat.com</a>. Unnderstat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.</p>
+<p>This is a python API for scraping data from <a class="reference external" href="https://understat.com/">understat.com</a>. Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.</p>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>To install the package run</p>
@@ -185,14 +185,14 @@ python setup.py install
 <p>The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond</p>
 <p>| Endpoint         | Webpage                                         |
 |——————|————————————————-|
-| APIClient.league | https://understat.com/league/&lt;league_name&gt;      |
-| APIClient.team   | https://understat.com/team/&lt;team_name&gt;/<season> |
-| APIClient.player | https://understat.com/player/&lt;player_id&gt;        |
-| APIClient.match  | https://understat.com/player/&lt;match_id&gt;         |</p>
+| UnderstatClient.league | https://understat.com/league/&lt;league_name&gt;      |
+| UnderstatClient.team   | https://understat.com/team/&lt;team_name&gt;/<season> |
+| UnderstatClient.player | https://understat.com/player/&lt;player_id&gt;        |
+| UnderstatClient.match  | https://understat.com/player/&lt;match_id&gt;         |</p>
 <p>Every function in the public API corresponds to one of tables visible on the understat webpage corresponding to the endpoint to which it belongs. Each function returns a pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with the relevant data. Below are some examples of using the API. Note how some the functions in the <code class="docutils literal notranslate"><span class="pre">league</span></code> and <code class="docutils literal notranslate"><span class="pre">team</span></code> endpoints can accept understandable strings as identifiers, but <code class="docutils literal notranslate"><span class="pre">player</span></code> and <code class="docutils literal notranslate"><span class="pre">match</span></code> must receive an id number.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">APIClient</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
-<span class="n">understat</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
 <span class="c1"># get data for every player playing in the Premier League in 2019/20</span>
 <span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># Get the name and id of the player with the highest xG this season</span>
@@ -204,15 +204,22 @@ python setup.py install
 <span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">APIClient</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
-<span class="n">understat</span> <span class="o">=</span> <span class="n">APIClient</span><span class="p">()</span>
+<span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
 <span class="c1"># get data for every league match involving Manchester United</span>
 <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># get the id for the first match of the season</span>
 <span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
 <span class="c1"># get the rosters for the both teams in that match</span>
 <span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">UnderstatClient</span></code> class as a context manager which persists some information about the session between request and closes the session after it has been used. This is the recommended way to interact with the API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
+
+<span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+    <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">get_match_data</span>
 </pre></div>
 </div>
 <p>There are some more examples here TODO: Add more examples and link to them
