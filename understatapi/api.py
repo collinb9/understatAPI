@@ -10,7 +10,7 @@ from .endpoints import (
 class APIClient:
     """ API client for understat """
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self) -> None:
         """ Initialise APIClient """
         self.league = LeagueEndpoint()
         self.player = PlayerEndpoint()

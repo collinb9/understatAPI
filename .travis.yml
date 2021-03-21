@@ -21,8 +21,6 @@ jobs:
         - git fetch
       script:
         - ./run_tests.sh
-      after_success:
-        - ./make_docs.sh
     - name: "Deploying"
       stage: deploy
       deploy: 
@@ -32,7 +30,7 @@ jobs:
           cleanup: false
           token: $GITHUB_TOKEN
           keep_history: true
-          local_dir: ./docs/build/html
+          local_dir: ./docs/build/html/
           on:
             branch: master
 
@@ -60,4 +58,9 @@ install:
   - pip install -r docs/requirements.txt
 
 script:
+<<<<<<< HEAD
   - python setup.py install
+=======
+  - python setup.py install
+  - ./make_docs.sh
+>>>>>>> master
