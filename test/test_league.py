@@ -1,6 +1,7 @@
 """ Test LeagueEndpoint """
 import unittest
 from unittest.mock import patch
+import requests
 from understatapi.endpoints import LeagueEndpoint, BaseEndpoint
 
 
@@ -10,7 +11,7 @@ class TestLeagueEndpoint(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.league = LeagueEndpoint()
+        self.league = LeagueEndpoint(session=requests.Session())
 
     def test_get_data(self, mock_get_response):
         """ test `get_data()` """
@@ -49,7 +50,7 @@ class TestLeagueEndpointDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.league = LeagueEndpoint()
+        self.league = LeagueEndpoint(session=requests.Session)
 
     def test_repr(self):
         """ Test `__repr__()` """

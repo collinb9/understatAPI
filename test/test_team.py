@@ -1,22 +1,24 @@
 # pylint: disable=unused-argument
+# pylint: disable=duplicate-code
 """ Test TeamEndpoint """
 import unittest
 from unittest.mock import patch
 from test import mocked_requests_get, assert_data_equal
+import requests
 import pandas as pd
 from understatapi.endpoints import TeamEndpoint, BaseEndpoint
 from understatapi.exceptions import InvalidTeam
 
 
 @patch.object(BaseEndpoint, "request_url")
-@patch("requests.get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestTeamEndpoint(unittest.TestCase):
     """ Tests for `TeamEndpoint` """
 
     def setUp(self):
         """ setUp """
-        self.team = TeamEndpoint()
-        self.base = BaseEndpoint()
+        self.team = TeamEndpoint(session=requests.Session())
+        self.base = BaseEndpoint(session=requests.Session())
 
     def test_get_player_data_return_value(self, mock_get, mock_request_url):
         """ test `get_match_data()` """
@@ -93,13 +95,13 @@ class TestTeamEndpoint(unittest.TestCase):
         )
 
 
-@patch("requests.get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestTeamEndpointErrors(unittest.TestCase):
     """ Test error handling in `TeamEndpoint` """
 
     def setUp(self):
         """ setUp """
-        self.player = TeamEndpoint()
+        self.player = TeamEndpoint(session=requests.Session())
 
     def test_get_data_bad_player(self, mock_get):
         """ test that `get_data()` raises an InvalidTeam error """
@@ -114,7 +116,7 @@ class TestTeamEndpointDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.team = TeamEndpoint()
+        self.team = TeamEndpoint(session=requests.Session())
 
     def test_repr(self):
         """ Test `__repr__()` """

@@ -4,6 +4,7 @@ import unittest
 from ast import literal_eval
 from unittest.mock import patch, mock_open
 from test import mocked_requests_get
+import requests
 from requests.exceptions import HTTPError
 import numpy as np
 import pandas as pd
@@ -16,7 +17,7 @@ class TestCheckArgs(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint()
+        self.base = BaseEndpoint(session=requests.Session())
 
     def test_invalid_season(self):
         """ test that `_check_args()` raises InvalidSeason """
@@ -34,13 +35,13 @@ class TestCheckArgs(unittest.TestCase):
             self.base._check_args(query="datesData")
 
 
-@patch("requests.get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestBaseRequests(unittest.TestCase):
     """ Tests for `BaseEndpoint` methods that use requests module"""
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint()
+        self.base = BaseEndpoint(session=requests.Session())
 
     @patch("test.open", new_callable=mock_open)
     def test_get_response_fails(self, mock_get, mock_open_method):
@@ -121,7 +122,7 @@ class TestExtractData(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint()
+        self.base = BaseEndpoint(session=requests.Session())
         with open("test/resources/league_epl.html") as file:
             self.html = file.read()
 
@@ -198,7 +199,7 @@ class TestBaseEndpointDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint()
+        self.base = BaseEndpoint(session=requests.Session())
 
     def test_repr(self):
         """ Test `__repr__()` """

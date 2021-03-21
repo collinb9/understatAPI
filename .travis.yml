@@ -1,11 +1,7 @@
 os: linux
-
 dist: xenial
-
 language: python
-
 cache: pip
-
 python: 3.8
 
 stages:
@@ -58,9 +54,5 @@ install:
   - pip install -r docs/requirements.txt
 
 script:
-<<<<<<< HEAD
-  - python setup.py install
-=======
   - python setup.py install
   - ./make_docs.sh
->>>>>>> master

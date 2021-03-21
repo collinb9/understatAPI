@@ -1,22 +1,24 @@
 # pylint: disable=unused-argument
+# pylint: disable=duplicate-code
 """ Test MatchEndpoint """
 import unittest
 from unittest.mock import patch
 from test import mocked_requests_get, assert_data_equal
+import requests
 import pandas as pd
 from understatapi.endpoints import MatchEndpoint, BaseEndpoint
 from understatapi.exceptions import InvalidMatch
 
 
 @patch.object(BaseEndpoint, "request_url")
-@patch("requests.get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestMatchEndpoint(unittest.TestCase):
     """ Tests for `MatchEndpoint` """
 
     def setUp(self):
         """ setUp """
-        self.match = MatchEndpoint()
-        self.base = BaseEndpoint()
+        self.match = MatchEndpoint(session=requests.Session)
+        self.base = BaseEndpoint(session=requests.Session)
 
     def test_get_shot_data_return_value(self, mock_get, mock_request_url):
         """ test `get_shot"_data()` """
@@ -88,13 +90,13 @@ class TestMatchEndpoint(unittest.TestCase):
         )
 
 
-@patch("requests.get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestMatchEndpointErrors(unittest.TestCase):
     """ Test error handling in `MatchEndpoint` """
 
     def setUp(self):
         """ setUp """
-        self.match = MatchEndpoint()
+        self.match = MatchEndpoint(session=requests.Session())
 
     def test_get_data_bad_player(self, mock_get):
         """ test that `get_data()` raises an InvalidMatch error """
@@ -107,7 +109,7 @@ class TestMatchEndpointDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.team = MatchEndpoint()
+        self.team = MatchEndpoint(session=requests.Session())
 
     def test_repr(self):
         """ Test `__repr__()` """

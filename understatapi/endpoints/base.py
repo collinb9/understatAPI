@@ -27,6 +27,9 @@ class BaseEndpoint:
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
     queries: List[str] = []
 
+    def __init__(self, session: requests.Session):
+        self.session = session
+
     def __repr__(self) -> str:
         return "<%s>" % self.__class__.__name__
 
@@ -41,8 +44,7 @@ class BaseEndpoint:
         if query is not None and query not in self.queries:
             raise InvalidQuery(query)
 
-    @staticmethod
-    def request_url(*args: str, **kwargs: str) -> Response:
+    def request_url(self, *args: str, **kwargs: str) -> Response:
         """
         Use the requests module to send a HTTP request to a url, and check
         that this request worked.
@@ -50,7 +52,7 @@ class BaseEndpoint:
         :param args: Arguments to pass to `requests.get()`
         :param kwargs: Keyword arguments to pass to `requests.get()`
         """
-        res = requests.get(*args, **kwargs)
+        res = self.session.get(*args, **kwargs)
         res.raise_for_status()
 
         return res

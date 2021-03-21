@@ -1,4 +1,6 @@
 """ understatAPI client """
+from types import TracebackType
+import requests
 from .endpoints import (
     LeagueEndpoint,
     PlayerEndpoint,
@@ -7,22 +9,24 @@ from .endpoints import (
 )
 
 
-class APIClient:
+class UnderstatClient:
     """ API client for understat """
 
     def __init__(self) -> None:
         """ Initialise APIClient """
-        self.league = LeagueEndpoint()
-        self.player = PlayerEndpoint()
-        self.team = TeamEndpoint()
-        self.match = MatchEndpoint()
+        self.session = requests.Session()
+        self.league = LeagueEndpoint(self.session)
+        self.player = PlayerEndpoint(self.session)
+        self.team = TeamEndpoint(self.session)
+        self.match = MatchEndpoint(self.session)
 
-        self.session = None
-        self.args = args
-        self.kwargs = kwargs
+    def __enter__(self) -> "UnderstatClient":
+        return self
 
-    def __enter__(self):
-        pass
-
-    def __exit__(self, exception_type, exception_value, traceback):
-        pass
+    def __exit__(
+        self,
+        exception_type: type,
+        exception_value: BaseException,
+        traceback: TracebackType,
+    ) -> None:
+        self.session.close()

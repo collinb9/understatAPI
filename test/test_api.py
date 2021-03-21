@@ -1,6 +1,8 @@
 """ Test APIClient """
 import unittest
-from understatapi import APIClient
+from unittest.mock import patch
+import requests
+from understatapi import UnderstatClient
 
 
 class TestAPIClientDunder(unittest.TestCase):
@@ -8,7 +10,7 @@ class TestAPIClientDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp() """
-        self.understat = APIClient()
+        self.understat = UnderstatClient()
 
     def test_init(self):
         """ test `__init__()` """
@@ -20,3 +22,14 @@ class TestAPIClientDunder(unittest.TestCase):
             self.assertEqual(repr(self.understat.team), "<TeamEndpoint>")
         with self.subTest(test="match_endpoint"):
             self.assertEqual(repr(self.understat.match), "<MatchEndpoint>")
+
+    @patch.object(requests.Session, "close")
+    def test_context_manager(self, mock_close):
+        """
+        Test that `UnderstatClient` can be used as a context manager
+        """
+        with UnderstatClient() as understat:
+            with self.subTest(test="session_exists"):
+                self.assertIsInstance(understat.session, requests.Session)
+        with self.subTest(test="close"):
+            mock_close.assert_called_once()
