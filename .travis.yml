@@ -24,6 +24,7 @@ jobs:
           edge: true
           verbose: true
           cleanup: false
+          script: ./make_docs.sh
           token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html/
@@ -34,6 +35,7 @@ jobs:
           edge: true
           username: __token__
           password: $PYPI_TOKEN
+          script: python setup.py sdist
           distributions: "sdist"
           skip_existing: true
           on:
@@ -55,4 +57,3 @@ install:
 
 script:
   - python setup.py install
-  - ./make_docs.sh
