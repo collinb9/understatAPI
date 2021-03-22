@@ -19,12 +19,15 @@ jobs:
         - ./run_tests.sh
     - name: "Deploying"
       stage: deploy
+      if: branch = master
+      script:
+        - ./make_docs.sh
+        - python setup.py sdist
       deploy: 
         - provider: pages:git
           edge: true
           verbose: true
           cleanup: false
-          script: ./make_docs.sh
           token: $GITHUB_TOKEN
           keep_history: true
           local_dir: ./docs/build/html/
@@ -35,7 +38,6 @@ jobs:
           edge: true
           username: __token__
           password: $PYPI_TOKEN
-          script: python setup.py sdist
           distributions: "sdist"
           skip_existing: true
           on:
