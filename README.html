@@ -194,32 +194,32 @@ python setup.py install
 
 <span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
 <span class="c1"># get data for every player playing in the Premier League in 2019/20</span>
-<span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># Get the name and id of the player with the highest xG this season</span>
 <span class="c1"># First we need to change the type of the &#39;xG&#39; column, by default it is a string</span>
 <span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 <span class="n">league_player_data</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;xG&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">player_id</span><span class="p">,</span> <span class="n">player_name</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;player_name&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
 <span class="c1"># Get data for every shot this player has taken in a league match (for all seasons)</span>
-<span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span>
+<span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">()</span>
 </pre></div>
 </div>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
 <span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
 <span class="c1"># get data for every league match involving Manchester United</span>
-<span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># get the id for the first match of the season</span>
 <span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
 <span class="c1"># get the rosters for the both teams in that match</span>
-<span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span>
+<span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>You can also use the <code class="docutils literal notranslate"><span class="pre">UnderstatClient</span></code> class as a context manager which persists some information about the session between request and closes the session after it has been used. This is the recommended way to interact with the API.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
 <span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
-    <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="o">.</span><span class="n">get_match_data</span>
+    <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>There are some more examples here TODO: Add more examples and link to them

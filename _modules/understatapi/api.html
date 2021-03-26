@@ -169,10 +169,6 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Initialise APIClient &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">league</span> <span class="o">=</span> <span class="n">LeagueEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">player</span> <span class="o">=</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">team</span> <span class="o">=</span> <span class="n">TeamEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">match</span> <span class="o">=</span> <span class="n">MatchEndpoint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnderstatClient&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -183,7 +179,23 @@
         <span class="n">exception_value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
         <span class="n">traceback</span><span class="p">:</span> <span class="n">TracebackType</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<div class="viewcode-block" id="UnderstatClient.league"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.league">[docs]</a>    <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LeagueEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; League endpoint &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">LeagueEndpoint</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="n">league</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UnderstatClient.player"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.player">[docs]</a>    <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlayerEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Player endpoint &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UnderstatClient.team"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.team">[docs]</a>    <span class="k">def</span> <span class="nf">team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TeamEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Team endpoint &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">TeamEndpoint</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="n">team</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UnderstatClient.match"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Match endpoint &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MatchEndpoint</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>

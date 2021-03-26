@@ -158,18 +158,17 @@
 <p>Player endpoint</p>
 <dl class="py class">
 <dt id="understatapi.endpoints.player.PlayerEndpoint">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.player.</span></code><code class="sig-name descname"><span class="pre">PlayerEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">requests.sessions.Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.player.</span></code><code class="sig-name descname"><span class="pre">PlayerEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">requests.sessions.Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint" title="understatapi.endpoints.base.BaseEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint</span></code></a></p>
 <p>Use this class to get data from a url of the form
 <a class="reference external" href="https://understat.com/player">https://understat.com/player</a>/&lt;player_id&gt;/</p>
 <dl class="py method">
 <dt id="understatapi.endpoints.player.PlayerEndpoint.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data on a per-player basis</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>league</strong> – str: Understat id of the player to get data for</p></li>
 <li><p><strong>query</strong> – str: Identifies the type of data to get</p></li>
 <li><p><strong>kwargs</strong> – Keyword argument to pass to
 <cite>BaseEndpoint.get_response()</cite></p></li>
@@ -180,22 +179,19 @@
 
 <dl class="py method">
 <dt id="understatapi.endpoints.player.PlayerEndpoint.get_match_data">
-<code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_match_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_match_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get match level data for a player</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>league</strong> – str: Understat id of the player to get data for</p></li>
-<li><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p></li>
-</ul>
+<dd class="field-odd"><p><strong>kwargs</strong> – Keyword argument to pass to
+<cite>BaseEndpoint.get_response()</cite></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="understatapi.endpoints.player.PlayerEndpoint.get_season_data">
-<code class="sig-name descname"><span class="pre">get_season_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_season_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_season_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_season_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_season_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_season_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get season level data for a player</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -210,17 +206,20 @@
 
 <dl class="py method">
 <dt id="understatapi.endpoints.player.PlayerEndpoint.get_shot_data">
-<code class="sig-name descname"><span class="pre">get_shot_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_shot_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_shot_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_shot_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_shot_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_shot_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get shot level data for a player</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>league</strong> – str: Understat id of the player to get data for</p></li>
-<li><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p></li>
-</ul>
+<dd class="field-odd"><p><strong>kwargs</strong> – Keyword argument to pass to
+<cite>BaseEndpoint.get_response()</cite></p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.player">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">player</span></code><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.player" title="Permalink to this definition">¶</a></dt>
+<dd><p>player attribute</p>
 </dd></dl>
 
 <dl class="py attribute">
