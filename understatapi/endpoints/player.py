@@ -1,8 +1,9 @@
 """ Player endpoint """
+import requests
 import pandas as pd
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
-from ..exceptions import InvalidPlayer
+from ..exceptions import InvalidPlayer, PrimaryAttribute
 
 
 class PlayerEndpoint(BaseEndpoint):
@@ -13,48 +14,61 @@ class PlayerEndpoint(BaseEndpoint):
 
     queries = ["matchesData", "shotsData", "groupsData"]
 
-    def get_data(self, player: str, query: str, **kwargs: str) -> pd.DataFrame:
+    def __init__(
+        self, player: PrimaryAttribute, session: requests.Session
+    ) -> None:
+        """
+        :param player: str: Understat id of the player to get data for
+        """
+        self._primary_attr = player
+        super().__init__(primary_attr=self._primary_attr, session=session)
+
+    @property
+    def player(self) -> PrimaryAttribute:
+        """ player attribute """
+        return self._primary_attr
+
+    def get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-player basis
 
-        :param league: str: Understat id of the player to get data for
         :param query: str: Identifies the type of data to get
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
+        if not isinstance(self.player, str):
+            raise TypeError("`player` must be a string")
         self._check_args(query=query)
-        url = self.base_url + "player/" + player
+        url = self.base_url + "player/" + self.player
 
         try:
             data = self.get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidPlayer(player) from err
+            raise InvalidPlayer(self.player) from err
 
         return data
 
-    def get_match_data(self, player: str, **kwargs: str) -> pd.DataFrame:
+    def get_match_data(self, **kwargs: str) -> pd.DataFrame:
         """
         Get match level data for a player
 
-        :param league: str: Understat id of the player to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(player=player, query="matchesData", **kwargs)
+        data = self.get_data(query="matchesData", **kwargs)
         return data
 
-    def get_shot_data(self, player: str, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
         """
         Get shot level data for a player
 
-        :param league: str: Understat id of the player to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(player=player, query="shotsData", **kwargs)
+        data = self.get_data(query="shotsData", **kwargs)
         return data
 
-    def get_season_data(self, player: str, **kwargs: str) -> pd.DataFrame:
+    def get_season_data(self, **kwargs: str) -> pd.DataFrame:
         """
         Get season level data for a player
 
@@ -62,5 +76,5 @@ class PlayerEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(player=player, query="groupsData", **kwargs).T
+        data = self.get_data(query="groupsData", **kwargs).T
         return data

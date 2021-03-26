@@ -1,6 +1,8 @@
 """ League endpoint """
+import requests
 import pandas as pd
 from .base import BaseEndpoint
+from ..exceptions import PrimaryAttribute
 
 
 class LeagueEndpoint(BaseEndpoint):
@@ -11,74 +13,67 @@ class LeagueEndpoint(BaseEndpoint):
 
     queries = ["teamsData", "datesData", "playersData"]
 
-    def get_data(
-        self, league: str, season: str, query: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def __init__(self, league: PrimaryAttribute, session: requests.Session):
+        """
+        :param league: str: Name of the league to get data for,
+            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
+        """
+        self._primary_attr = league
+        super().__init__(primary_attr=self._primary_attr, session=session)
+
+    @property
+    def league(self) -> PrimaryAttribute:
+        """ player attribute """
+        return self._primary_attr
+
+    def get_data(self, season: str, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a league-wide basis
 
-        :param league: str: Name of the league to get data for,
-            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param season: str: Season to get data for
         :param query: str: Identifies the type of data to get,
             one of {teamsData, playersData, datesData}
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        self._check_args(league=league, season=season, query=query)
-        url = self.base_url + "league/" + league + "/" + season
+        if not isinstance(self.league, str):
+            raise TypeError("`league` must be a string")
+        self._check_args(league=self.league, season=season, query=query)
+        url = self.base_url + "league/" + self.league + "/" + season
 
         data = self.get_response(url=url, query=query, **kwargs)
 
         return data
 
-    def get_team_data(
-        self, league: str, season: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def get_team_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data for all teams in a given league and season
 
-        :param league: str: Name of the league to get data for,
-            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(
-            league=league, season=season, query="teamsData", **kwargs
-        )
+        data = self.get_data(season=season, query="teamsData", **kwargs)
         return data
 
-    def get_match_data(
-        self, league: str, season: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def get_match_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data for all fixtures in a given league and season.
 
-        :param league: str: Name of the league to get data for,
-            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(
-            league=league, season=season, query="datesData", **kwargs
-        )
+        data = self.get_data(season=season, query="datesData", **kwargs)
         return data
 
-    def get_player_data(
-        self, league: str, season: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def get_player_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data for all players in a given league and season
 
-        :param league: str: Name of the league to get data for,
-            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(
-            league=league, season=season, query="playersData", **kwargs
-        )
+        data = self.get_data(season=season, query="playersData", **kwargs)
         return data

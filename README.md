@@ -36,14 +36,14 @@ from understatapi import UnderstatClient
 
 understat = UnderstatClient()
 # get data for every player playing in the Premier League in 2019/20
-league_player_data = understat.league.get_player_data(league="EPL", season="2019")
+league_player_data = understat.league(league="EPL").get_player_data(season="2019")
 # Get the name and id of the player with the highest xG this season
 # First we need to change the type of the 'xG' column, by default it is a string
 league_player_data["xG"] = league_player_data["xG"].astype(float)
 league_player_data = league_player_data.sort_values(by="xG", ascending=False)
 player_id, player_name = league_player_data.iloc[0][["id", "player_name"]].values
 # Get data for every shot this player has taken in a league match (for all seasons)
-player_shot_data = understat.player.get_shot_data(player=player_id)
+player_shot_data = understat.player(player=player_id).get_shot_data()
 ```
 
 ```python
@@ -51,18 +51,18 @@ from understatapi import UnderstatClient
 
 understat = UnderstatClient()
 # get data for every league match involving Manchester United
-team_match_data = understat.team.get_match_data(team="Manchester_United", season="2019")
+team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 # get the id for the first match of the season
 match_id = match_data.iloc[0]["id"]
 # get the rosters for the both teams in that match
-roster_data = understat.match.get_roster_data(match=match_id)
+roster_data = understat.match(match=match_id).get_roster_data()
 ```
 You can also use the `UnderstatClient` class as a context manager which persists some information about the session between request and closes the session after it has been used. This is the recommended way to interact with the API.
 ```python
 from understatapi import UnderstatClient
 
 with UnderstatClient() as understat:
-    team_match_data = understat.team.get_match_data
+    team_match_data = understat.team(team="Manchester_United").get_match_data()
 ```
 
 There are some more examples here TODO: Add more examples and link to them

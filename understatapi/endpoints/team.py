@@ -1,8 +1,9 @@
 """ Team endpoint """
+import requests
 from requests.exceptions import HTTPError
 import pandas as pd
 from .base import BaseEndpoint
-from ..exceptions import InvalidTeam
+from ..exceptions import InvalidTeam, PrimaryAttribute
 
 
 class TeamEndpoint(BaseEndpoint):
@@ -13,70 +14,71 @@ class TeamEndpoint(BaseEndpoint):
 
     queries = ["datesData", "statisticsData", "playersData"]
 
-    def get_data(
-        self, team: str, season: str, query: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def __init__(
+        self, team: PrimaryAttribute, session: requests.Session
+    ) -> None:
+        """
+        :param team: str: Name of the team to get data for
+        """
+        self._primary_attr = team
+        super().__init__(primary_attr=self._primary_attr, session=session)
+
+    @property
+    def team(self) -> PrimaryAttribute:
+        """ player attribute """
+        return self._primary_attr
+
+    def get_data(self, season: str, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-player basis
 
-        :param team: str: Name of the team to get data for
         :param season: str: Season to get data for
         :param query: str: Identifies the type of data to get
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
+        if not isinstance(self.team, str):
+            raise TypeError("`team` must be a string")
         self._check_args(query=query)
-        url = self.base_url + "team/" + team + "/" + season
+        url = self.base_url + "team/" + self.team + "/" + season
 
         try:
             data = self.get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidTeam(team) from err
+            raise InvalidTeam(self.team) from err
 
         return data
 
-    def get_player_data(
-        self, team: str, season: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def get_player_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data for all players on a given team for a season
 
-        :param team: str: Name of the team to get data for
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(
-            team=team, season=season, query="playersData", **kwargs
-        )
+        data = self.get_data(season=season, query="playersData", **kwargs)
         return data
 
-    def get_match_data(
-        self, team: str, season: str, **kwargs: str
-    ) -> pd.DataFrame:
+    def get_match_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per player level for a given team
 
-        :param team: str: Name of the team to get data for
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(
-            team=team, season=season, query="datesData", **kwargs
-        )
+        data = self.get_data(season=season, query="datesData", **kwargs)
         return data
 
     def get_context_data(
         self,
-        team: str,
         season: str,
         **kwargs: str,
     ) -> pd.DataFrame:
         """
         Get data based on different contexts in the game
 
-        :param team: str: Name of the team to get data for
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             ``BaseEndpoint.get_response()``
@@ -87,7 +89,5 @@ class TeamEndpoint(BaseEndpoint):
             season="2019"``, unpack=True, context="situation") would return
             a dataframe with the rows shown in the first table.
         """
-        data = self.get_data(
-            team=team, season=season, query="statisticsData", **kwargs
-        ).T
+        data = self.get_data(season=season, query="statisticsData", **kwargs).T
         return data

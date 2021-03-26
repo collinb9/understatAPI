@@ -1,5 +1,5 @@
 """ Base endpoint """
-from typing import List, Union, Dict
+from typing import List, Union, Dict, Sequence
 import json
 import requests
 from requests import Response
@@ -10,6 +10,7 @@ from ..exceptions import (
     InvalidQuery,
     InvalidLeague,
     InvalidSeason,
+    PrimaryAttribute,
 )
 
 
@@ -27,14 +28,41 @@ class BaseEndpoint:
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
     queries: List[str] = []
 
-    def __init__(self, session: requests.Session):
+    def __init__(
+        self,
+        primary_attr: PrimaryAttribute,
+        session: requests.Session,
+    ) -> None:
+        """
+        Base endpoint for understat API
+
+        :session: requests.Session: The current `request` session
+        """
         self.session = session
+        self._primary_attr = primary_attr
 
     def __repr__(self) -> str:
         return "<%s>" % self.__class__.__name__
 
+    def __len__(self) -> int:
+        if isinstance(self._primary_attr, str):
+            return 1
+        if isinstance(self._primary_attr, Sequence):
+            return len(self._primary_attr)
+        raise TypeError("Primary attribute is not a sequence or string")
+
+    def __getitem__(self, index: int) -> "BaseEndpoint":
+        if index >= len(self):
+            raise IndexError
+        if isinstance(self._primary_attr, str):
+            return self.__class__(self._primary_attr, session=self.session)
+        return self.__class__(self._primary_attr[index], session=self.session)
+
     def _check_args(
-        self, league: str = None, season: str = None, query: str = None
+        self,
+        league: str = None,
+        season: str = None,
+        query: str = None,
     ) -> None:
         """ Handle invalid arguments """
         if league is not None and league not in self.leagues:

@@ -1,8 +1,9 @@
 """ Match endpoint """
+import requests
 from requests.exceptions import HTTPError
 import pandas as pd
 from .base import BaseEndpoint
-from ..exceptions import InvalidMatch
+from ..exceptions import InvalidMatch, PrimaryAttribute
 
 
 class MatchEndpoint(BaseEndpoint):
@@ -13,37 +14,49 @@ class MatchEndpoint(BaseEndpoint):
 
     queries = ["shotsData", "rostersData", "match_info", "PROMOTION"]
 
-    def get_data(self, match: str, query: str, **kwargs: str) -> pd.DataFrame:
+    def __init__(self, match: PrimaryAttribute, session: requests.Session):
+        """
+        :param match: str: Id of match to get data for
+        """
+        self._primary_attr = match
+        super().__init__(primary_attr=self._primary_attr, session=session)
+
+    @property
+    def match(self) -> PrimaryAttribute:
+        """ player attribute """
+        return self._primary_attr
+
+    def get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-match basis
 
-        :param match: str: Id of match to get data for
         :param query: str: Identifies the type of data to get
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
+        if not isinstance(self.match, str):
+            raise TypeError("`match` must be a string")
         self._check_args(query=query)
-        url = self.base_url + "match/" + match
+        url = self.base_url + "match/" + self.match
 
         try:
             data = self.get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidMatch(match) from err
+            raise InvalidMatch(self.match) from err
 
         return data
 
-    def get_shot_data(self, match: str, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
         """
         Get shot level data for a match
 
-        :param match: str: Id of match to get data for
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(match=match, query="shotsData", **kwargs).T
+        data = self.get_data(query="shotsData", **kwargs).T
         return data
 
-    def get_roster_data(self, match: str, **kwargs: str) -> pd.DataFrame:
+    def get_roster_data(self, **kwargs: str) -> pd.DataFrame:
         """
         Get data about the roster for each team
 
@@ -51,10 +64,10 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(match=match, query="rostersData", **kwargs).T
+        data = self.get_data(query="rostersData", **kwargs).T
         return data
 
-    def get_match_info(self, match: str, **kwargs: str) -> pd.DataFrame:
+    def get_match_info(self, **kwargs: str) -> pd.DataFrame:
         """
         Get information about the match
 
@@ -62,5 +75,5 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
-        data = self.get_data(match=match, query="match_info", **kwargs).T
+        data = self.get_data(query="match_info", **kwargs).T
         return data

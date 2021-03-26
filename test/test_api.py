@@ -15,13 +15,21 @@ class TestAPIClientDunder(unittest.TestCase):
     def test_init(self):
         """ test `__init__()` """
         with self.subTest(test="league_endpoint"):
-            self.assertEqual(repr(self.understat.league), "<LeagueEndpoint>")
+            self.assertEqual(
+                repr(self.understat.league(league="")), "<LeagueEndpoint>"
+            )
         with self.subTest(test="player_endpoint"):
-            self.assertEqual(repr(self.understat.player), "<PlayerEndpoint>")
+            self.assertEqual(
+                repr(self.understat.player(player="")), "<PlayerEndpoint>"
+            )
         with self.subTest(test="team_endpoint"):
-            self.assertEqual(repr(self.understat.team), "<TeamEndpoint>")
+            self.assertEqual(
+                repr(self.understat.team(team="")), "<TeamEndpoint>"
+            )
         with self.subTest(test="match_endpoint"):
-            self.assertEqual(repr(self.understat.match), "<MatchEndpoint>")
+            self.assertEqual(
+                repr(self.understat.match(match="")), "<MatchEndpoint>"
+            )
 
     @patch.object(requests.Session, "close")
     def test_context_manager(self, mock_close):

@@ -1,11 +1,13 @@
 """ Define custom exceptions """
-from typing import Optional
+from typing import Optional, Union, List
+
+PrimaryAttribute = Union[List[str], str]
 
 
 class InvalidQuery(Exception):
     """ Query gets no response """
 
-    def __init__(self, *args: Optional[str]) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = (
                 f"There is no html entry matching the query {args[0]}"
@@ -20,7 +22,7 @@ class InvalidQuery(Exception):
 class InvalidSeason(Exception):
     """ Invalid season """
 
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = f"{args[0]} is not a valid season"
         else:
@@ -33,7 +35,7 @@ class InvalidSeason(Exception):
 class InvalidPlayer(Exception):
     """ Invalid player """
 
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = f"{args[0]} is not a valid player or player id"
         else:
@@ -46,7 +48,7 @@ class InvalidPlayer(Exception):
 class InvalidLeague(Exception):
     """ Invalid league """
 
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = f"{args[0]} is not a valid league"
         else:
@@ -59,7 +61,7 @@ class InvalidLeague(Exception):
 class InvalidTeam(Exception):
     """ Invalid team """
 
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = f"{args[0]} is not a valid team"
         else:
@@ -72,7 +74,7 @@ class InvalidTeam(Exception):
 class InvalidMatch(Exception):
     """ Invalid match """
 
-    def __init__(self, *args: str) -> None:
+    def __init__(self, *args: Optional[PrimaryAttribute]) -> None:
         if args:
             self.message = f"{args[0]} is not a valid match"
         else:

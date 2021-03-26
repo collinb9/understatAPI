@@ -1,4 +1,5 @@
 # pylint: disable=unused-argument
+# pylint: disable=duplicate-code
 """ Test BaseEndpoint """
 import unittest
 from ast import literal_eval
@@ -17,7 +18,7 @@ class TestCheckArgs(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint(session=requests.Session())
+        self.base = BaseEndpoint("", session=requests.Session())
 
     def test_invalid_season(self):
         """ test that `_check_args()` raises InvalidSeason """
@@ -41,7 +42,7 @@ class TestBaseRequests(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint(session=requests.Session())
+        self.base = BaseEndpoint("", session=requests.Session())
 
     @patch("test.open", new_callable=mock_open)
     def test_get_response_fails(self, mock_get, mock_open_method):
@@ -122,7 +123,7 @@ class TestExtractData(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint(session=requests.Session())
+        self.base = BaseEndpoint("", session=requests.Session())
         with open("test/resources/league_epl.html") as file:
             self.html = file.read()
 
@@ -199,11 +200,47 @@ class TestBaseEndpointDunder(unittest.TestCase):
 
     def setUp(self):
         """ setUp """
-        self.base = BaseEndpoint(session=requests.Session())
+        self.base = BaseEndpoint(None, session=requests.Session())
 
     def test_repr(self):
         """ Test `__repr__()` """
         self.assertEqual(repr(self.base), "<BaseEndpoint>")
+
+    def test_init(self):
+        """ Test `__init__()` """
+        with self.subTest(test="session"):
+            self.assertIsInstance(self.base.session, requests.Session)
+        with self.subTest(test="_primary_attr"):
+            self.assertIsNone(self.base._primary_attr)
+
+    def test_len(self):
+        """ Test `__len__()` """
+        with self.subTest(test="None"):
+            with self.assertRaises(TypeError):
+                len(self.base)
+        self.base._primary_attr = "123"
+        with self.subTest(test="str"):
+            self.assertEqual(len(self.base), 1)
+        self.base._primary_attr = ["1", "2"]
+        with self.subTest(test="list"):
+            self.assertEqual(len(self.base), 2)
+
+    def test_getitem(self):
+        """ Test `__getitem__()` """
+        with self.subTest(test="None"):
+            with self.assertRaises(TypeError):
+                _ = self.base[0]
+        self.base._primary_attr = "123"
+        with self.subTest(test="str"):
+            self.assertEqual("123", self.base[0]._primary_attr)
+        list_attr = ["1", "2"]
+        self.base._primary_attr = list_attr
+        for i, item in enumerate(list_attr):
+            with self.subTest(test=f"list_{item}"):
+                self.assertEqual(self.base[i]._primary_attr, list_attr[i])
+        with self.subTest(test="index_error"):
+            with self.assertRaises(IndexError):
+                _ = self.base[2]
 
 
 if __name__ == "__main__":
