@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/collinb9/understatAPI.svg?branch=master)](https://travis-ci.com/collinb9/understatAPI)
 # understatAPI
 This is a python API for scraping data from [understat.com](https://understat.com/). Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
 
