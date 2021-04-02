@@ -12,8 +12,10 @@ class TestLeagueEndpoint(unittest.TestCase):
     """ Tests for `LeagueEndpoint` """
 
     def setUp(self):
-        """ setUp """
         self.league = LeagueEndpoint(league="EPL", session=requests.Session())
+
+    def tearDown(self):
+        self.league.session.close()
 
     def test_get_data(self, mock_get_response):
         """ test `get_data()` """
@@ -60,8 +62,10 @@ class TestLeagueEndpointDunder(unittest.TestCase):
     """ Tests for all `__*__()` methods of `LeagueEndpoint()` """
 
     def setUp(self):
-        """ setUp """
         self.league = LeagueEndpoint("EPL", session=requests.Session())
+
+    def tearDown(self):
+        self.league.session.close()
 
     def test_init(self):
         """ Test `__init__()` """

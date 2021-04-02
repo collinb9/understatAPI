@@ -2,9 +2,9 @@
 # pylint: disable=duplicate-code
 """ Test BaseEndpoint """
 import unittest
-from ast import literal_eval
+import tracemalloc
 from unittest.mock import patch, mock_open
-from test import mocked_requests_get
+from test import mocked_requests_get, assert_data_equal
 import requests
 from requests.exceptions import HTTPError
 import numpy as np
@@ -17,8 +17,10 @@ class TestCheckArgs(unittest.TestCase):
     """ Tests for `_check_args()` """
 
     def setUp(self):
-        """ setUp """
         self.base = BaseEndpoint("", session=requests.Session())
+
+    def tearDown(self):
+        self.base.session.close()
 
     def test_invalid_season(self):
         """ test that `_check_args()` raises InvalidSeason """
@@ -41,8 +43,10 @@ class TestBaseRequests(unittest.TestCase):
     """ Tests for `BaseEndpoint` methods that use requests module"""
 
     def setUp(self):
-        """ setUp """
         self.base = BaseEndpoint("", session=requests.Session())
+
+    def tearDown(self):
+        self.base.session.close()
 
     @patch("test.open", new_callable=mock_open)
     def test_get_response_fails(self, mock_get, mock_open_method):
@@ -65,13 +69,11 @@ class TestBaseRequests(unittest.TestCase):
             "test/resources/league_epl.html",
             query="teamsData",
         )
+        data = self.base.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/league_epl_teamsdata.csv", index_col=0
         )
-        expected_data.index = expected_data.index.astype(str)
-        expected_data.id = expected_data.id.astype(str)
-        expected_data.history = expected_data.history.apply(literal_eval)
-        pd.testing.assert_frame_equal(data, expected_data, check_dtype=False)
+        assert_data_equal(data, expected_data)
 
     def test_get_response_datesdata(self, mock_get):
         """ Test `get_response()` works with `query='datesData'` """
@@ -79,20 +81,11 @@ class TestBaseRequests(unittest.TestCase):
             "test/resources/league_epl.html",
             query="datesData",
         )
+        data = self.base.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/league_epl_datesdata.csv", index_col=0
         )
-        expected_data.id = expected_data.id.astype(str)
-        expected_data.h = expected_data.h.apply(literal_eval)
-        expected_data.a = expected_data.a.apply(literal_eval)
-        expected_data.goals = expected_data.goals.apply(literal_eval)
-        expected_data.xG = expected_data.xG.apply(literal_eval)
-        expected_data.forecast.loc[
-            ~expected_data.forecast.isna()
-        ] = expected_data.forecast.loc[~expected_data.forecast.isna()].apply(
-            literal_eval
-        )
-        pd.testing.assert_frame_equal(data, expected_data, check_dtype=False)
+        assert_data_equal(data, expected_data)
 
     def test_get_response_playersdata(self, mock_get):
         """ Test `get_response()` works with `query='playersData'` """
@@ -103,19 +96,7 @@ class TestBaseRequests(unittest.TestCase):
         expected_data = pd.read_csv(
             "test/resources/league_epl_playersdata.csv", index_col=0
         )
-        data.xG = data.xG.astype(float)
-        data.xA = data.xA.astype(float)
-        expected_data.loc[
-            :, ~expected_data.columns.str.contains("xG|xA")
-        ] = expected_data.loc[
-            :, ~expected_data.columns.str.contains("xG|xA")
-        ].astype(
-            str
-        )
-        data.loc[:, data.columns.str.contains("xG|xA")] = data.loc[
-            :, data.columns.str.contains("xG|xA")
-        ].astype(float)
-        pd.testing.assert_frame_equal(data, expected_data, check_dtype=False)
+        assert_data_equal(data, expected_data)
 
 
 class TestExtractData(unittest.TestCase):
@@ -126,6 +107,9 @@ class TestExtractData(unittest.TestCase):
         self.base = BaseEndpoint("", session=requests.Session())
         with open("test/resources/league_epl.html") as file:
             self.html = file.read()
+
+    def tearDown(self):
+        self.base.session.close()
 
     def test_extract_data_from_html_fails(self):
         """ test that ectract_data_from_html fails correctly """
@@ -202,6 +186,9 @@ class TestBaseEndpointDunder(unittest.TestCase):
         """ setUp """
         self.base = BaseEndpoint(None, session=requests.Session())
 
+    def tearDown(self):
+        self.base.session.close()
+
     def test_repr(self):
         """ Test `__repr__()` """
         self.assertEqual(repr(self.base), "<BaseEndpoint>")
@@ -244,4 +231,5 @@ class TestBaseEndpointDunder(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    tracemalloc.start()
     unittest.main()

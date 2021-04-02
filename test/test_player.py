@@ -2,6 +2,7 @@
 # pylint: disable=duplicate-code
 """ Test PlayerEndpoint """
 import unittest
+import tracemalloc
 from unittest.mock import patch
 from test import mocked_requests_get, assert_data_equal
 import requests
@@ -16,9 +17,12 @@ class TestPlayerEndpoint(unittest.TestCase):
     """ Tests for `PlayerEndpoint` """
 
     def setUp(self):
-        """ setUp """
         self.player = PlayerEndpoint(player="647", session=requests.Session())
         self.base = BaseEndpoint("", session=requests.Session())
+
+    def tearDown(self):
+        self.player.session.close()
+        self.base.session.close()
 
     def test_get_match_data_return_value(self, mock_get, mock_request_url):
         """ test `get_match_data()` """
@@ -93,8 +97,10 @@ class TestPlayerEndpointErrors(unittest.TestCase):
     """ Test error handling in `PlayerEndpoint` """
 
     def setUp(self):
-        """ setUp """
         self.player = PlayerEndpoint(player="", session=requests.Session())
+
+    def tearDown(self):
+        self.player.session.close()
 
     def test_get_data_bad_player(self, mock_get):
         """ test that `get_data()` raises an InvalidPlayer error """
@@ -118,6 +124,9 @@ class TestPlayerEndpointDunder(unittest.TestCase):
         """ setUp """
         self.player = PlayerEndpoint("123", session=requests.Session())
 
+    def tearDown(self):
+        self.player.session.close()
+
     def test_init(self):
         """ Test `__init__()` """
         with self.subTest(test="primary_attr"):
@@ -130,3 +139,8 @@ class TestPlayerEndpointDunder(unittest.TestCase):
     def test_repr(self):
         """ Test `__repr__()` """
         self.assertEqual(repr(self.player), "<PlayerEndpoint>")
+
+
+if __name__ == "__main__":
+    tracemalloc.start()
+    unittest.main()

@@ -1,35 +1,53 @@
 """ Test APIClient """
 import unittest
+import tracemalloc
 from unittest.mock import patch
 import requests
 from understatapi import UnderstatClient
+from understatapi.services import Search
 
 
-class TestAPIClientDunder(unittest.TestCase):
-    """ Tests for all `__*__()` methods of `BaseEndpoint()` """
+class TestUnderstatClient(unittest.TestCase):
+    """ Tests  `UnderstatClient"""
 
     def setUp(self):
-        """ setUp() """
         self.understat = UnderstatClient()
 
-    def test_init(self):
-        """ test `__init__()` """
-        with self.subTest(test="league_endpoint"):
-            self.assertEqual(
-                repr(self.understat.league(league="")), "<LeagueEndpoint>"
-            )
-        with self.subTest(test="player_endpoint"):
-            self.assertEqual(
-                repr(self.understat.player(player="")), "<PlayerEndpoint>"
-            )
-        with self.subTest(test="team_endpoint"):
-            self.assertEqual(
-                repr(self.understat.team(team="")), "<TeamEndpoint>"
-            )
-        with self.subTest(test="match_endpoint"):
-            self.assertEqual(
-                repr(self.understat.match(match="")), "<MatchEndpoint>"
-            )
+    def tearDown(self):
+        self.understat.session.close()
+
+    def test_league(self):
+        """ test `league()` """
+        self.assertEqual(
+            repr(self.understat.league(league="")), "<LeagueEndpoint>"
+        )
+
+    def test_player(self):
+        """ test `player()` """
+        self.assertEqual(
+            repr(self.understat.player(player="")), "<PlayerEndpoint>"
+        )
+
+    def test_team(self):
+        """ test `team()` """
+        self.assertEqual(repr(self.understat.team(team="")), "<TeamEndpoint>")
+
+    def test_match(self):
+        """ test `match()` """
+        self.assertEqual(
+            repr(self.understat.match(match="")), "<MatchEndpoint>"
+        )
+
+    @patch.object(Search, "get_player_ids")
+    def test_search(self, mock_get_player_ids):
+        """ test `search()` """
+        player_ids = ["1", "2", "3"]
+        mock_get_player_ids.side_effect = player_ids
+        for player_id, return_value in zip(
+            player_ids, self.understat.search("Ronaldo")
+        ):
+            with self.subTest(id=player_id):
+                self.assertEqual(player_id, return_value.player)
 
     @patch.object(requests.Session, "close")
     def test_context_manager(self, mock_close):
@@ -41,3 +59,8 @@ class TestAPIClientDunder(unittest.TestCase):
                 self.assertIsInstance(understat.session, requests.Session)
         with self.subTest(test="close"):
             mock_close.assert_called_once()
+
+
+if __name__ == "__main__":
+    tracemalloc.start()
+    unittest.main()

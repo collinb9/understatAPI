@@ -2,6 +2,7 @@
 # pylint: disable=duplicate-code
 """ Test MatchEndpoint """
 import unittest
+import tracemalloc
 from unittest.mock import patch
 from test import mocked_requests_get, assert_data_equal
 import requests
@@ -16,9 +17,12 @@ class TestMatchEndpoint(unittest.TestCase):
     """ Tests for `MatchEndpoint` """
 
     def setUp(self):
-        """ setUp """
-        self.match = MatchEndpoint(match="14717", session=requests.Session)
-        self.base = BaseEndpoint("", session=requests.Session)
+        self.match = MatchEndpoint(match="14717", session=requests.Session())
+        self.base = BaseEndpoint("", session=requests.Session())
+
+    def tearDown(self):
+        self.match.session.close()
+        self.base.session.close()
 
     def test_get_shot_data_return_value(self, mock_get, mock_request_url):
         """ test `get_shot"_data()` """
@@ -95,8 +99,10 @@ class TestMatchEndpointErrors(unittest.TestCase):
     """ Test error handling in `MatchEndpoint` """
 
     def setUp(self):
-        """ setUp """
         self.match = MatchEndpoint(match="", session=requests.Session())
+
+    def tearDown(self):
+        self.match.session.close()
 
     def test_get_data_bad_player(self, mock_get):
         """ test that `get_data()` raises an InvalidMatch error """
@@ -120,6 +126,9 @@ class TestMatchEndpointDunder(unittest.TestCase):
         """ setUp """
         self.match = MatchEndpoint("14717", session=requests.Session())
 
+    def tearDown(self):
+        self.match.session.close()
+
     def test_init(self):
         """ Test `__init__()` """
         with self.subTest(test="primary_attr"):
@@ -135,4 +144,5 @@ class TestMatchEndpointDunder(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    tracemalloc.start()
     unittest.main()

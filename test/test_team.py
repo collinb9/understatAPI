@@ -2,6 +2,7 @@
 # pylint: disable=duplicate-code
 """ Test TeamEndpoint """
 import unittest
+import tracemalloc
 from unittest.mock import patch
 from test import mocked_requests_get, assert_data_equal
 import requests
@@ -21,6 +22,10 @@ class TestTeamEndpoint(unittest.TestCase):
             team="Manchester_United", session=requests.Session()
         )
         self.base = BaseEndpoint("", session=requests.Session())
+
+    def tearDown(self):
+        self.team.session.close()
+        self.base.session.close()
 
     def test_get_player_data_return_value(self, mock_get, mock_request_url):
         """ test `get_match_data()` """
@@ -99,6 +104,9 @@ class TestTeamEndpointErrors(unittest.TestCase):
         """ setUp """
         self.team = TeamEndpoint(team="", session=requests.Session())
 
+    def tearDown(self):
+        self.team.session.close()
+
     def test_get_data_bad_team(self, mock_get):
         """ test that `get_data()` raises an InvalidTeam error """
         with self.assertRaises(InvalidTeam):
@@ -123,6 +131,9 @@ class TestTeamEndpointDunder(unittest.TestCase):
             "Manchester_United", session=requests.Session()
         )
 
+    def tearDown(self):
+        self.team.session.close()
+
     def test_init(self):
         """ Test `__init__()` """
         with self.subTest(test="primary_attr"):
@@ -138,4 +149,5 @@ class TestTeamEndpointDunder(unittest.TestCase):
 
 
 if __name__ == "__main__":
+    tracemalloc.start()
     unittest.main()
