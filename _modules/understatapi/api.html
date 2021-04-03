@@ -82,7 +82,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html">understatAPI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../README.html#todo">TODO</a></li>
@@ -154,20 +154,23 @@
   <h1>Source code for understatapi.api</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; understatAPI client &quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">TracebackType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 <span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">WebDriverException</span>
 <span class="kn">from</span> <span class="nn">.endpoints</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LeagueEndpoint</span><span class="p">,</span>
     <span class="n">PlayerEndpoint</span><span class="p">,</span>
     <span class="n">TeamEndpoint</span><span class="p">,</span>
     <span class="n">MatchEndpoint</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.services</span> <span class="kn">import</span> <span class="n">Search</span>
+<span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">PrimaryAttribute</span>
 
 
 <div class="viewcode-block" id="UnderstatClient"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient">[docs]</a><span class="k">class</span> <span class="nc">UnderstatClient</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; API client for understat &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Initialise APIClient &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;UnderstatClient&quot;</span><span class="p">:</span>
@@ -181,21 +184,81 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-<div class="viewcode-block" id="UnderstatClient.league"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.league">[docs]</a>    <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LeagueEndpoint</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; League endpoint &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="UnderstatClient.league"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.league">[docs]</a>    <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LeagueEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        League endpoint</span>
+
+<span class="sd">        :param league: str: Name of the league(s) to get data for,</span>
+<span class="sd">            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}</span>
+
+<span class="sd">        :return: LeagueEndpoint: The endpoint for getting data from a</span>
+<span class="sd">            url of the form https://understat.com/league/&lt;league&gt;/&lt;season&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">LeagueEndpoint</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="n">league</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="UnderstatClient.player"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.player">[docs]</a>    <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlayerEndpoint</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Player endpoint &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="UnderstatClient.player"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.player">[docs]</a>    <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PlayerEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Player endpoint</span>
+
+<span class="sd">        :param player: PrimaryAttribute: Understat id of the player(s) to</span>
+<span class="sd">            get data for</span>
+
+<span class="sd">        :return: PlayerEndpoint: The endpoint for getting data from a url</span>
+<span class="sd">            of the form https://understat.com/player/&lt;player_id&gt;/</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="UnderstatClient.team"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.team">[docs]</a>    <span class="k">def</span> <span class="nf">team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TeamEndpoint</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Team endpoint &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="UnderstatClient.team"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.team">[docs]</a>    <span class="k">def</span> <span class="nf">team</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TeamEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Team endpoint</span>
+
+<span class="sd">        :param team: PrimaryAttribute: Name of the team(s) to get data for</span>
+
+<span class="sd">        :return: TeamEndpoint: The endpoint for getting data from a url of</span>
+<span class="sd">            the form https://understat.com/team/&lt;team&gt;/&lt;season&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">TeamEndpoint</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="n">team</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="UnderstatClient.match"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchEndpoint</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Match endpoint &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">MatchEndpoint</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div></div>
+<div class="viewcode-block" id="UnderstatClient.match"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.match">[docs]</a>    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MatchEndpoint</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Match endpoint</span>
+
+<span class="sd">        :param match: PrimaryAttribute: Id of match(s) to get data for</span>
+
+<span class="sd">        :return: MatchEndpoint: The endpoint for getting data from a url of</span>
+<span class="sd">            the form https://understat.com/match/&lt;match_id&gt;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">MatchEndpoint</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UnderstatClient.search"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">player_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_ids</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">page_load_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">PlayerEndpoint</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Search for a player by name</span>
+
+<span class="sd">        :param player_name: PrimaryAttribute: Player name to enter into the</span>
+<span class="sd">            seach bar</span>
+<span class="sd">        :max_ids: int: The maximum number of player ids to return</span>
+<span class="sd">        :page_load_timeout: int: Number of seconds to wait for the page</span>
+<span class="sd">            to load before raising a `TimeoutError`</span>
+
+<span class="sd">        :yield: PlayerEndpoint: The endpoint for getting data from a url</span>
+<span class="sd">            of the form https://understat.com/player/&lt;player_id&gt;/</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">Search</span><span class="p">(</span>
+                <span class="n">player_name</span><span class="o">=</span><span class="n">player_name</span><span class="p">,</span>
+                <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span>
+                <span class="n">max_ids</span><span class="o">=</span><span class="n">max_ids</span><span class="p">,</span>
+                <span class="n">page_load_timeout</span><span class="o">=</span><span class="n">page_load_timeout</span><span class="p">,</span>
+            <span class="p">)</span> <span class="k">as</span> <span class="n">search</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">search</span><span class="o">.</span><span class="n">get_player_ids</span><span class="p">():</span>
+                    <span class="k">yield</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">WebDriverException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">WebDriverException</span><span class="p">(</span>
+                <span class="s2">&quot;You must have &#39;geckodriver&#39; installed to &quot;</span>
+                <span class="s2">&quot;use UnderstatClient.search()&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div></div>
 </pre></div>
 
            </div>

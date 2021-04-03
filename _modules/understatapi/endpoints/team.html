@@ -82,7 +82,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
@@ -172,22 +172,24 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param team: str: Name of the team to get data for</span>
+<span class="sd">        :param team: PrimaryAttribute: Name of the team(s) to get data for</span>
+<span class="sd">        :session: requests.Session: The current session</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span> <span class="o">=</span> <span class="n">team</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">team</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrimaryAttribute</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; player attribute &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; team name &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
 <div class="viewcode-block" id="TeamEndpoint.get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get data on a per-player basis</span>
+<span class="sd">        Get data on a per-team basis</span>
 
 <span class="sd">        :param season: str: Season to get data for</span>
-<span class="sd">        :param query: str: Identifies the type of data to get</span>
+<span class="sd">        :param query: str: Identifies the type of data to get,</span>
+<span class="sd">            one of {playersData, statisticsData, datesData}</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            `BaseEndpoint.get_response()`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -205,7 +207,7 @@
 
 <div class="viewcode-block" id="TeamEndpoint.get_player_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_player_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get data for all players on a given team for a season</span>
+<span class="sd">        Get data for all players on a given team in a given season</span>
 
 <span class="sd">        :param season: str: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
@@ -216,7 +218,7 @@
 
 <div class="viewcode-block" id="TeamEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get data on a per player level for a given team</span>
+<span class="sd">        Get data on a per match level for a given team in a given season</span>
 
 <span class="sd">        :param season: str: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
@@ -236,12 +238,6 @@
 <span class="sd">        :param season: str: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            ``BaseEndpoint.get_response()``</span>
-<span class="sd">        :return: pd.DataFrame: A dataframe with 6 column, each of which</span>
-<span class="sd">            relates to a different context int the game. The below tables</span>
-<span class="sd">            show the dataframe that you get if you set ``unpack=True`` for</span>
-<span class="sd">            each column, i.e. ``get_context_data(team=&quot;Manchester_United&quot;,</span>
-<span class="sd">            season=&quot;2019&quot;``, unpack=True, context=&quot;situation&quot;) would return</span>
-<span class="sd">            a dataframe with the rows shown in the first table.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;statisticsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">data</span></div></div>

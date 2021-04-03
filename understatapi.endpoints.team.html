@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>understatapi.endpoints.team module &mdash; understatAPI 0.1.0 documentation</title>
@@ -82,7 +83,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
@@ -153,7 +154,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-understatapi.endpoints.team">
+  <section id="module-understatapi.endpoints.team">
 <span id="understatapi-endpoints-team-module"></span><h1>understatapi.endpoints.team module<a class="headerlink" href="#module-understatapi.endpoints.team" title="Permalink to this headline">¶</a></h1>
 <p>Team endpoint</p>
 <dl class="py class">
@@ -174,26 +175,19 @@
 <code class="docutils literal notranslate"><span class="pre">BaseEndpoint.get_response()</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pd.DataFrame: A dataframe with 6 column, each of which
-relates to a different context int the game. The below tables
-show the dataframe that you get if you set <code class="docutils literal notranslate"><span class="pre">unpack=True</span></code> for
-each column, i.e. <code class="docutils literal notranslate"><span class="pre">get_context_data(team=&quot;Manchester_United&quot;,</span>
-<span class="pre">season=&quot;2019&quot;</span></code>, unpack=True, context=”situation”) would return
-a dataframe with the rows shown in the first table.</p>
-</dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="understatapi.endpoints.team.TeamEndpoint.get_data">
 <code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/team.html#TeamEndpoint.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.get_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get data on a per-player basis</p>
+<dd><p>Get data on a per-team basis</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>season</strong> – str: Season to get data for</p></li>
-<li><p><strong>query</strong> – str: Identifies the type of data to get</p></li>
+<li><p><strong>query</strong> – str: Identifies the type of data to get,
+one of {playersData, statisticsData, datesData}</p></li>
 <li><p><strong>kwargs</strong> – Keyword argument to pass to
 <cite>BaseEndpoint.get_response()</cite></p></li>
 </ul>
@@ -204,7 +198,7 @@ a dataframe with the rows shown in the first table.</p>
 <dl class="py method">
 <dt id="understatapi.endpoints.team.TeamEndpoint.get_match_data">
 <code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/team.html#TeamEndpoint.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.get_match_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get data on a per player level for a given team</p>
+<dd><p>Get data on a per match level for a given team in a given season</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -219,7 +213,7 @@ a dataframe with the rows shown in the first table.</p>
 <dl class="py method">
 <dt id="understatapi.endpoints.team.TeamEndpoint.get_player_data">
 <code class="sig-name descname"><span class="pre">get_player_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/team.html#TeamEndpoint.get_player_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.get_player_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get data for all players on a given team for a season</p>
+<dd><p>Get data for all players on a given team in a given season</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -239,12 +233,12 @@ a dataframe with the rows shown in the first table.</p>
 <dl class="py method">
 <dt id="understatapi.endpoints.team.TeamEndpoint.team">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">team</span></code><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.team" title="Permalink to this definition">¶</a></dt>
-<dd><p>player attribute</p>
+<dd><p>team name</p>
 </dd></dl>
 
 </dd></dl>
 
-</div>
+</section>
 
 
            </div>

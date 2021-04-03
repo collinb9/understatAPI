@@ -1,0 +1,18 @@
+understatapi.services package
+=============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   understatapi.services.search
+
+Module contents
+---------------
+
+.. automodule:: understatapi.services
+   :members:
+   :undoc-members:
+   :show-inheritance:

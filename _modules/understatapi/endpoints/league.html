@@ -82,7 +82,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
@@ -169,15 +169,16 @@
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param league: str: Name of the league to get data for,</span>
+<span class="sd">        :param league: PrimaryAttribute: Name of the league(s) to get data for,</span>
 <span class="sd">            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}</span>
+<span class="sd">        :session: requests.Session: The current session</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span> <span class="o">=</span> <span class="n">league</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrimaryAttribute</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; player attribute &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; league name &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
 <div class="viewcode-block" id="LeagueEndpoint.get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>

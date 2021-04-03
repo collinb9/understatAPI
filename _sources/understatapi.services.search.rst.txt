@@ -1,0 +1,7 @@
+understatapi.services.search module
+===================================
+
+.. automodule:: understatapi.services.search
+   :members:
+   :undoc-members:
+   :show-inheritance:

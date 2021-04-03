@@ -82,7 +82,7 @@
               
             
             
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+              <p><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
@@ -172,21 +172,24 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param player: str: Understat id of the player to get data for</span>
+<span class="sd">        :param player: PrimaryAttribute: Understat id of the player(s)</span>
+<span class="sd">            to get data for</span>
+<span class="sd">        :session: requests.Session: The current session</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span> <span class="o">=</span> <span class="n">player</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrimaryAttribute</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; player attribute &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot; player id &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
 <div class="viewcode-block" id="PlayerEndpoint.get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a per-player basis</span>
 
-<span class="sd">        :param query: str: Identifies the type of data to get</span>
+<span class="sd">        :param query: str: Identifies the type of data to get,</span>
+<span class="sd">            one of {matchesData, shotsData, groupsData}</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            `BaseEndpoint.get_response()`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
