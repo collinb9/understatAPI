@@ -57,7 +57,7 @@ class TestSearch(unittest.TestCase):
             ("Ronaldo", "Empoli"),
             ("Ronaldo Vieira", "Verona"),
         ]
-        self.assertListEqual(players, expected_players)
+        self.assertListEqual(list(players), expected_players)
 
     @patch("understatapi.services.search.Search._wait_for_page_load")
     @patch.object(time, "sleep")

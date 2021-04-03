@@ -7,10 +7,7 @@ from understatapi.services import Search
 from understatapi import UnderstatClient
 
 try:
-    if os.environ["UNDERSTAT_INTEGRATION"] == "True":
-        RUN_TESTS = True
-    else:
-        RUN_TESTS = False
+    RUN_TESTS = bool(os.environ["UNDERSTAT_INTEGRATION"])
 except KeyError:
     RUN_TESTS = False
 

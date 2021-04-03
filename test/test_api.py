@@ -52,11 +52,15 @@ class TestUnderstatClient(unittest.TestCase):
 
     @patch.object(Search, "__init__")
     def test_search_web_driver_error(self, mock_get_player_ids):
-        """ test that `search()` raises a custom exception if `geckodriver` is not installed """
+        """
+        test that `search()` raises a custom exception if `geckodriver`
+        is not installed
+        """
         mock_get_player_ids.side_effect = WebDriverException()
         with self.assertRaisesRegex(
             WebDriverException,
-            "You must have 'geckodriver' installed to use UnderstatClient.search()",
+            "You must have 'geckodriver' installed to use "
+            "UnderstatClient.search()",
         ):
             _ = list(self.understat.search(""))
 

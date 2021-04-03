@@ -135,7 +135,7 @@ class Search:
             )
         )
 
-    def _get_search_results(self) -> Tuple[str, str]:
+    def _get_search_results(self) -> Sequence[Tuple[str, str]]:
         """
         Get results from the search
         """
@@ -143,10 +143,6 @@ class Search:
             "//*[@id='header']/div/nav[2]/ul/li[1]/span[1]/div"
         )
         player_club_list = players.text.split("\n")
-        players = [
-            (player, club)
-            for player, club in zip(
-                player_club_list[::2], player_club_list[1::2]
-            )
-        ]
+        players = zip(player_club_list[::2], player_club_list[1::2])
+
         return players

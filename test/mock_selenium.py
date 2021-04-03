@@ -3,10 +3,6 @@ import os
 import textwrap
 import time
 from lxml import html
-from selenium.webdriver.support.expected_conditions import (
-    element_located_selection_state_to_be,
-    visibility_of_all_elements_located,
-)
 
 
 class MockWebDriverWait:
@@ -17,7 +13,7 @@ class MockWebDriverWait:
         self._timeout = timeout
         self._wait_time = wait_time
 
-    def until(self, method, message=""):
+    def until(self, message=""):
         """ until """
         if self._wait_time < self._timeout:
             time.sleep(self._wait_time)
@@ -39,6 +35,7 @@ class MockWebElement:
         raise ValueError
 
     def send_keys(self, keys):
+        # pylint: disable=unused-argument
         """ send keys """
         if isinstance(self.element, html.InputElement):
             return True
@@ -72,7 +69,6 @@ class MockWebDriver:
 
     def quit(self):
         """ quit """
-        pass
 
     @property
     def current_url(self):
@@ -95,9 +91,9 @@ class MockWebDriver:
 
     def back(self):
         """ back """
-        pass
 
     def get_cookies(self):
+        # pylint: disable=no-self-use
         """ get cookies """
         return [
             {"name": "PHPSESSID", "value": "00000"},
