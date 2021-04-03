@@ -63,7 +63,7 @@ class Search:
 
     def get_player_ids(self) -> Iterator[str]:
         """
-        Get the ids that are returned when you look for the given
+        Get the ids that are returned when you search for the given
         player name
         """
         self.browser.get(self.url)
@@ -82,7 +82,9 @@ class Search:
         id_number = url.split("/")[-1]
         return id_number
 
-    def _cycle_results(self, results: Sequence) -> Iterator[str]:
+    def _cycle_results(
+        self, results: Sequence[Tuple[str, str]]
+    ) -> Iterator[str]:
         """
         Cycles through each of the search results, getting the url each time
         """

@@ -18,21 +18,24 @@ class PlayerEndpoint(BaseEndpoint):
         self, player: PrimaryAttribute, session: requests.Session
     ) -> None:
         """
-        :param player: str: Understat id of the player to get data for
+        :param player: PrimaryAttribute: Understat id of the player(s)
+            to get data for
+        :session: requests.Session: The current session
         """
         self._primary_attr = player
         super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def player(self) -> PrimaryAttribute:
-        """ player attribute """
+        """ player id """
         return self._primary_attr
 
     def get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-player basis
 
-        :param query: str: Identifies the type of data to get
+        :param query: str: Identifies the type of data to get,
+            one of {matchesData, shotsData, groupsData}
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """

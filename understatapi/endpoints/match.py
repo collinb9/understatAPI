@@ -12,25 +12,26 @@ class MatchEndpoint(BaseEndpoint):
     https://understat.com/match/<match_id>
     """
 
-    queries = ["shotsData", "rostersData", "match_info", "PROMOTION"]
+    queries = ["shotsData", "rostersData", "match_info"]
 
     def __init__(self, match: PrimaryAttribute, session: requests.Session):
         """
-        :param match: str: Id of match to get data for
+        :param match: PrimaryAttribute: Id of match(es) to get data for
         """
         self._primary_attr = match
         super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def match(self) -> PrimaryAttribute:
-        """ player attribute """
+        """  match id """
         return self._primary_attr
 
     def get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
         """
         Get data on a per-match basis
 
-        :param query: str: Identifies the type of data to get
+        :param query: str: Identifies the type of data to get,
+            one of {shotsData, rostersData, match_info}
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """

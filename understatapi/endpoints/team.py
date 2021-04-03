@@ -18,22 +18,24 @@ class TeamEndpoint(BaseEndpoint):
         self, team: PrimaryAttribute, session: requests.Session
     ) -> None:
         """
-        :param team: str: Name of the team to get data for
+        :param team: PrimaryAttribute: Name of the team(s) to get data for
+        :session: requests.Session: The current session
         """
         self._primary_attr = team
         super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def team(self) -> PrimaryAttribute:
-        """ player attribute """
+        """ team name """
         return self._primary_attr
 
     def get_data(self, season: str, query: str, **kwargs: str) -> pd.DataFrame:
         """
-        Get data on a per-player basis
+        Get data on a per-team basis
 
         :param season: str: Season to get data for
-        :param query: str: Identifies the type of data to get
+        :param query: str: Identifies the type of data to get,
+            one of {playersData, statisticsData, datesData}
         :param kwargs: Keyword argument to pass to
             `BaseEndpoint.get_response()`
         """
@@ -51,7 +53,7 @@ class TeamEndpoint(BaseEndpoint):
 
     def get_player_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
-        Get data for all players on a given team for a season
+        Get data for all players on a given team in a given season
 
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
@@ -62,7 +64,7 @@ class TeamEndpoint(BaseEndpoint):
 
     def get_match_data(self, season: str, **kwargs: str) -> pd.DataFrame:
         """
-        Get data on a per player level for a given team
+        Get data on a per match level for a given team in a given season
 
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
@@ -82,12 +84,6 @@ class TeamEndpoint(BaseEndpoint):
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
             ``BaseEndpoint.get_response()``
-        :return: pd.DataFrame: A dataframe with 6 column, each of which
-            relates to a different context int the game. The below tables
-            show the dataframe that you get if you set ``unpack=True`` for
-            each column, i.e. ``get_context_data(team="Manchester_United",
-            season="2019"``, unpack=True, context="situation") would return
-            a dataframe with the rows shown in the first table.
         """
         data = self.get_data(season=season, query="statisticsData", **kwargs).T
         return data

@@ -15,15 +15,16 @@ class LeagueEndpoint(BaseEndpoint):
 
     def __init__(self, league: PrimaryAttribute, session: requests.Session):
         """
-        :param league: str: Name of the league to get data for,
+        :param league: PrimaryAttribute: Name of the league(s) to get data for,
             one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
+        :session: requests.Session: The current session
         """
         self._primary_attr = league
         super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def league(self) -> PrimaryAttribute:
-        """ player attribute """
+        """ league name """
         return self._primary_attr
 
     def get_data(self, season: str, query: str, **kwargs: str) -> pd.DataFrame:

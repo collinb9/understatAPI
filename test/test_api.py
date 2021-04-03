@@ -1,10 +1,12 @@
 """ Test APIClient """
 import unittest
 import tracemalloc
+import subprocess
 from unittest.mock import patch
 import requests
 from understatapi import UnderstatClient
 from understatapi.services import Search
+from selenium.common.exceptions import WebDriverException
 
 
 class TestUnderstatClient(unittest.TestCase):
@@ -48,6 +50,14 @@ class TestUnderstatClient(unittest.TestCase):
         ):
             with self.subTest(id=player_id):
                 self.assertEqual(player_id, return_value.player)
+
+    @patch.object(Search, "__init__")
+    def test_search_web_driver_error(self, mock_get_player_ids):
+        """ test that `search()` raises a custom exception if `geckodriver` is not installed """
+        mock_get_player_ids.side_effect = WebDriverException()
+        with self.assertRaisesRegex(WebDriverException, "You need to install 'geckodriver' to use UnderstatClient.search()"):
+            _ = list(self.understat.search(""))
+
 
     @patch.object(requests.Session, "close")
     def test_context_manager(self, mock_close):
