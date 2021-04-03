@@ -92,8 +92,8 @@ These checks are in place to ensure a consistent style and quality across the co
 ```bash
 pip install -r requirements.txt
 pip install -r test_requirments.txt
-chmod +x ./run_tests.sh
-./run_tests.sh
+chmod +x bin/run_tests.sh
+bin/run_tests.sh
 ```
 
 Don't let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.

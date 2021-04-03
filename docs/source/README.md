@@ -1,5 +1,10 @@
+[![Build Status](https://travis-ci.com/collinb9/understatAPI.svg?branch=master)](https://travis-ci.com/collinb9/understatAPI)
+![PyPI](https://img.shields.io/pypi/v/understatapi)
+![PyPI - License](https://img.shields.io/pypi/l/understatapi)
+
+
 # understatAPI
-This is a python API for scraping data from [understat.com](https://understat.com/). Unnderstat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
+This is a python API for scraping data from [understat.com](https://understat.com/). Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
 
 ## Installation
 To install the package run
@@ -13,6 +18,7 @@ git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
 python setup.py install
 ```
+This package primarily uses the [requests]() library for interacting with understat.com, but the function `UnderstatClient.seach()`, which allows you to use the search bar, is implemented using [selenium](). If you wish to use this function then you will have to install [geckodriver]().
 
 ## Quick Start
 ---
@@ -25,38 +31,46 @@ The API contains endpoints which reflect the structure of the understat website.
 
 | Endpoint         | Webpage                                         |
 |------------------|-------------------------------------------------|
-| APIClient.league | https://understat.com/league/<league_name>      |
-| APIClient.team   | https://understat.com/team/<team_name>/<season> |
-| APIClient.player | https://understat.com/player/<player_id>        |
-| APIClient.match  | https://understat.com/player/<match_id>         |
+| UnderstatClient.league | https://understat.com/league/<league_name>      |
+| UnderstatClient.team   | https://understat.com/team/<team_name>/<season> |
+| UnderstatClient.player | https://understat.com/player/<player_id>        |
+| UnderstatClient.match  | https://understat.com/player/<match_id>         |
 
 Every function in the public API corresponds to one of tables visible on the understat webpage corresponding to the endpoint to which it belongs. Each function returns a pandas `DataFrame` with the relevant data. Below are some examples of using the API. Note how some the functions in the `league` and `team` endpoints can accept understandable strings as identifiers, but `player` and `match` must receive an id number.
 ```python
-from understatapi import APIClient
+from understatapi import UnderstatClient
 
-understat = APIClient()
+understat = UnderstatClient()
 # get data for every player playing in the Premier League in 2019/20
-league_player_data = understat.league.get_player_data(league="EPL", season="2019")
+league_player_data = understat.league(league="EPL").get_player_data(season="2019")
 # Get the name and id of the player with the highest xG this season
 # First we need to change the type of the 'xG' column, by default it is a string
 league_player_data["xG"] = league_player_data["xG"].astype(float)
 league_player_data = league_player_data.sort_values(by="xG", ascending=False)
 player_id, player_name = league_player_data.iloc[0][["id", "player_name"]].values
 # Get data for every shot this player has taken in a league match (for all seasons)
-player_shot_data = understat.player.get_shot_data(player=player_id)
+player_shot_data = understat.player(player=player_id).get_shot_data()
 ```
 
 ```python
-from understatapi import APIClient
+from understatapi import UnderstatClient
 
-understat = APIClient()
+understat = UnderstatClient()
 # get data for every league match involving Manchester United
-team_match_data = understat.team.get_match_data(team="Manchester_United", season="2019")
+team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 # get the id for the first match of the season
 match_id = match_data.iloc[0]["id"]
 # get the rosters for the both teams in that match
-roster_data = understat.match.get_roster_data(match=match_id)
+roster_data = understat.match(match=match_id).get_roster_data()
 ```
+You can also use the `UnderstatClient` class as a context manager which persists some information about the session between request and closes the session after it has been used. This is the recommended way to interact with the API.
+```python
+from understatapi import UnderstatClient
+
+with UnderstatClient() as understat:
+    team_match_data = understat.team(team="Manchester_United").get_match_data()
+```
+
 There are some more examples here TODO: Add more examples and link to them
 For a full API reference, see the documentation TODO: Add link to docs
 
@@ -78,8 +92,8 @@ These checks are in place to ensure a consistent style and quality across the co
 ```bash
 pip install -r requirements.txt
 pip install -r test_requirments.txt
-chmod +x ./run_tests.sh
-./run_tests.sh
+chmod +x bin/run_tests.sh
+bin/run_tests.sh
 ```
 
 Don't let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.
