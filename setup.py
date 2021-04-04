@@ -1,12 +1,17 @@
 """ setup for understatAPI """
+import os
 from setuptools import setup, find_packages
+from read_version import read_version
+
 
 with open("README.md", "r") as f:
     long_description = f.read()
 
+VERSION = read_version("understatapi", "__init__.py")
+
 setup(
     name="understatapi",
-    version="0.4.0",
+    version=VERSION,
     description="An API for scraping data from understat.com",
     packages=find_packages(exclude=("tests",)),
     long_description=long_description,
