@@ -9,7 +9,7 @@ from understatapi.services import Search
 
 
 class TestUnderstatClient(unittest.TestCase):
-    """ Tests  `UnderstatClient"""
+    """ Tests  ``UnderstatClient"""
 
     def setUp(self):
         self.understat = UnderstatClient()
@@ -18,30 +18,30 @@ class TestUnderstatClient(unittest.TestCase):
         self.understat.session.close()
 
     def test_league(self):
-        """ test `league()` """
+        """ test ``league()`` """
         self.assertEqual(
             repr(self.understat.league(league="")), "<LeagueEndpoint>"
         )
 
     def test_player(self):
-        """ test `player()` """
+        """ test ``player()`` """
         self.assertEqual(
             repr(self.understat.player(player="")), "<PlayerEndpoint>"
         )
 
     def test_team(self):
-        """ test `team()` """
+        """ test ``team()`` """
         self.assertEqual(repr(self.understat.team(team="")), "<TeamEndpoint>")
 
     def test_match(self):
-        """ test `match()` """
+        """ test ``match()`` """
         self.assertEqual(
             repr(self.understat.match(match="")), "<MatchEndpoint>"
         )
 
     @patch.object(Search, "get_player_ids")
     def test_search(self, mock_get_player_ids):
-        """ test `search()` """
+        """ test ``search()`` """
         player_ids = ["1", "2", "3"]
         mock_get_player_ids.side_effect = player_ids
         for player_id, return_value in zip(
@@ -53,7 +53,7 @@ class TestUnderstatClient(unittest.TestCase):
     @patch.object(Search, "__init__")
     def test_search_web_driver_error(self, mock_get_player_ids):
         """
-        test that `search()` raises a custom exception if `geckodriver`
+        test that ``search()`` raises a custom exception if ``geckodriver``
         is not installed
         """
         mock_get_player_ids.side_effect = WebDriverException()
@@ -67,7 +67,7 @@ class TestUnderstatClient(unittest.TestCase):
     @patch.object(requests.Session, "close")
     def test_context_manager(self, mock_close):
         """
-        Test that `UnderstatClient` can be used as a context manager
+        Test that ``UnderstatClient`` can be used as a context manager
         """
         with UnderstatClient() as understat:
             with self.subTest(test="session_exists"):

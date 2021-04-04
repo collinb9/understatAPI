@@ -37,10 +37,10 @@ class TeamEndpoint(BaseEndpoint):
         :param query: str: Identifies the type of data to get,
             one of {playersData, statisticsData, datesData}
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         if not isinstance(self.team, str):
-            raise TypeError("`team` must be a string")
+            raise TypeError("``team`` must be a string")
         self._check_args(query=query)
         url = self.base_url + "team/" + self.team + "/" + season
 
@@ -57,7 +57,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(season=season, query="playersData", **kwargs)
         return data
@@ -68,7 +68,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: str: Season to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(season=season, query="datesData", **kwargs)
         return data

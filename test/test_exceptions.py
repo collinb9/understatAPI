@@ -35,7 +35,7 @@ class TestInvalidSeason(unittest.TestCase):
     def test_default(self):
         """ test InvalidSeason with no message """
         with self.assertRaisesRegex(
-            InvalidSeason, "The value passed to `season` is not valid"
+            InvalidSeason, "The value passed to ``season`` is not valid"
         ):
             raise InvalidSeason
 
@@ -54,7 +54,7 @@ class TestInvalidPlayer(unittest.TestCase):
     def test_default(self):
         """ test InvalidPlayer with no message """
         with self.assertRaisesRegex(
-            InvalidPlayer, "The value passed to `player` is not valid"
+            InvalidPlayer, "The value passed to ``player`` is not valid"
         ):
             raise InvalidPlayer
 
@@ -73,7 +73,7 @@ class TestInvalidLeague(unittest.TestCase):
     def test_default(self):
         """ test InvalidLeague with no message """
         with self.assertRaisesRegex(
-            InvalidLeague, "The value passed to `league` is not valid"
+            InvalidLeague, "The value passed to ``league`` is not valid"
         ):
             raise InvalidLeague
 
@@ -92,7 +92,7 @@ class TestInvalidTeam(unittest.TestCase):
     def test_default(self):
         """ test InvalidTeam with no message """
         with self.assertRaisesRegex(
-            InvalidTeam, "The value passed to `team` is not valid"
+            InvalidTeam, "The value passed to ``team`` is not valid"
         ):
             raise InvalidTeam
 
@@ -111,7 +111,7 @@ class TestInvalidMatch(unittest.TestCase):
     def test_default(self):
         """ test InvalidTeam with no message """
         with self.assertRaisesRegex(
-            InvalidMatch, "The value passed to `match` is not valid"
+            InvalidMatch, "The value passed to ``match`` is not valid"
         ):
             raise InvalidMatch
 

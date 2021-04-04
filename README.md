@@ -101,7 +101,5 @@ Don't let these tests deter you from making a pull request. Make the changes to 
 ## Versioning
 The versioning for this project follows the [semantic versioning](https://semver.org/) conventions.
 
-# TODO
-* Add functionality for using the search bar on understat
-* Make `APIClient` a context manager that allows you to persist a session
-* Creat an async API along with the current synchronous one
+## TODO
+* Add asynchronous support

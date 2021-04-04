@@ -92,8 +92,8 @@ These checks are in place to ensure a consistent style and quality across the co
 ```bash
 pip install -r requirements.txt
 pip install -r test_requirments.txt
-chmod +x bin/run_tests.sh
-bin/run_tests.sh
+chmod +x ci/run_tests.sh
+ci/run_tests.sh
 ```
 
 Don't let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.
@@ -101,7 +101,5 @@ Don't let these tests deter you from making a pull request. Make the changes to 
 ## Versioning
 The versioning for this project follows the [semantic versioning](https://semver.org/) conventions.
 
-# TODO
-* Add functionality for using the search bar on understat
-* Make `APIClient` a context manager that allows you to persist a session
-* Creat an async API along with the current synchronous one
+## TODO
+* Add asynchronous support

@@ -9,12 +9,13 @@ import requests
 import pandas as pd
 from understatapi.endpoints import PlayerEndpoint, BaseEndpoint
 from understatapi.exceptions import InvalidPlayer
+import understatapi.utils as utils
 
 
 @patch.object(BaseEndpoint, "request_url")
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestPlayerEndpoint(unittest.TestCase):
-    """ Tests for `PlayerEndpoint` """
+    """ Tests for ``PlayerEndpoint`` """
 
     def setUp(self):
         self.player = PlayerEndpoint(player="647", session=requests.Session())
@@ -25,7 +26,7 @@ class TestPlayerEndpoint(unittest.TestCase):
         self.base.session.close()
 
     def test_get_match_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
@@ -39,7 +40,7 @@ class TestPlayerEndpoint(unittest.TestCase):
     def test_get_match_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         self.player.get_match_data()
         mock_get_response.assert_called_with(
             url="https://understat.com/player/647",
@@ -47,7 +48,7 @@ class TestPlayerEndpoint(unittest.TestCase):
         )
 
     def test_get_shot_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_shot_data()` """
+        """ test ``get_shot_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
@@ -61,7 +62,7 @@ class TestPlayerEndpoint(unittest.TestCase):
     def test_get_shot_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_shot_data()` """
+        """ test ``get_shot_data()`` """
         self.player.get_shot_data()
         mock_get_response.assert_called_with(
             url="https://understat.com/player/647",
@@ -69,12 +70,12 @@ class TestPlayerEndpoint(unittest.TestCase):
         )
 
     def test_get_season_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_season_data()` """
+        """ test ``get_season_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
         data = self.player.get_season_data()
-        data = self.base.unpack_dataframe(data)
+        data = utils.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/data/player_groupsdata.csv", index_col=0
         )
@@ -84,7 +85,7 @@ class TestPlayerEndpoint(unittest.TestCase):
     def test_get_season_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_season_data()` """
+        """ test ``get_season_data()`` """
         self.player.get_season_data()
         mock_get_response.assert_called_with(
             url="https://understat.com/player/647",
@@ -94,7 +95,7 @@ class TestPlayerEndpoint(unittest.TestCase):
 
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestPlayerEndpointErrors(unittest.TestCase):
-    """ Test error handling in `PlayerEndpoint` """
+    """ Test error handling in ``PlayerEndpoint`` """
 
     def setUp(self):
         self.player = PlayerEndpoint(player="", session=requests.Session())
@@ -103,14 +104,14 @@ class TestPlayerEndpointErrors(unittest.TestCase):
         self.player.session.close()
 
     def test_get_data_bad_player(self, mock_get):
-        """ test that `get_data()` raises an InvalidPlayer error """
+        """ test that ``get_data()`` raises an InvalidPlayer error """
         with self.assertRaises(InvalidPlayer):
             self.player.get_data(query="matchesData", status_code=404)
 
     def test_get_data_type_error(self, mock_get):
         """
-        test that `get_data()` raises a TypeError
-        when `player` is not a string
+        test that ``get_data()`` raises a TypeError
+        when ``player`` is not a string
         """
         self.player._primary_attr = None
         with self.assertRaises(TypeError):
@@ -118,7 +119,7 @@ class TestPlayerEndpointErrors(unittest.TestCase):
 
 
 class TestPlayerEndpointDunder(unittest.TestCase):
-    """ Tests for all `__*__()` methods of `PlayerEndpoint()` """
+    """ Tests for all ``__*__()`` methods of ``PlayerEndpoint()`` """
 
     def setUp(self):
         """ setUp """
@@ -128,7 +129,7 @@ class TestPlayerEndpointDunder(unittest.TestCase):
         self.player.session.close()
 
     def test_init(self):
-        """ Test `__init__()` """
+        """ Test ``__init__()`` """
         with self.subTest(test="primary_attr"):
             self.assertEqual(self.player._primary_attr, "123")
         with self.subTest(test="player"):
@@ -137,7 +138,7 @@ class TestPlayerEndpointDunder(unittest.TestCase):
             self.assertIsInstance(self.player.session, requests.Session)
 
     def test_repr(self):
-        """ Test `__repr__()` """
+        """ Test ``__repr__()`` """
         self.assertEqual(repr(self.player), "<PlayerEndpoint>")
 
 

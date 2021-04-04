@@ -29,10 +29,10 @@ class Search:
     ) -> None:
         """
         :player_name: str: Name of player to search for
-        :session: requests.Session: A requests `Session` object
+        :session: requests.Session: A requests ``Session`` object
         :max_ids: int: The maximum number of player ids to return
         :page_load_timeout: int: Number of seconds to wait for the page
-            to load before raising a `TimeoutError`
+            to load before raising a ``TimeoutError``
         """
         self.player_name = player_name
         self.session = session

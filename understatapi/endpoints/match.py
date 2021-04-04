@@ -33,10 +33,10 @@ class MatchEndpoint(BaseEndpoint):
         :param query: str: Identifies the type of data to get,
             one of {shotsData, rostersData, match_info}
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         if not isinstance(self.match, str):
-            raise TypeError("`match` must be a string")
+            raise TypeError("``match`` must be a string")
         self._check_args(query=query)
         url = self.base_url + "match/" + self.match
 
@@ -52,7 +52,7 @@ class MatchEndpoint(BaseEndpoint):
         Get shot level data for a match
 
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="shotsData", **kwargs).T
         return data
@@ -63,7 +63,7 @@ class MatchEndpoint(BaseEndpoint):
 
         :param match: str: Id of match to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="rostersData", **kwargs).T
         return data
@@ -74,7 +74,7 @@ class MatchEndpoint(BaseEndpoint):
 
         :param match: str: Id of match to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="match_info", **kwargs).T
         return data

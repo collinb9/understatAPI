@@ -1,5 +1,4 @@
 """ setup for understatAPI """
-import os
 from setuptools import setup, find_packages
 from read_version import read_version
 

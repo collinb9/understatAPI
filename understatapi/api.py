@@ -14,7 +14,13 @@ from .exceptions import PrimaryAttribute
 
 
 class UnderstatClient:
-    """ API client for understat """
+    """
+    API client for understat
+
+    The main interface for interacting with understatAPI. Exposes
+    each of the entrypoints and services, maintains a consistent
+    session and handles errors
+    """
 
     def __init__(self) -> None:
         self.session = requests.Session()
@@ -34,10 +40,10 @@ class UnderstatClient:
         """
         League endpoint
 
-        :param league: str: Name of the league(s) to get data for,
+        :param league: Name of the league(s) to get data for,
             one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
 
-        :return: LeagueEndpoint: The endpoint for getting data from a
+        :returns: LeagueEndpoint: The endpoint for getting data from a
             url of the form https://understat.com/league/<league>/<season>
         """
         return LeagueEndpoint(league=league, session=self.session)
@@ -84,9 +90,9 @@ class UnderstatClient:
 
         :param player_name: PrimaryAttribute: Player name to enter into the
             seach bar
-        :max_ids: int: The maximum number of player ids to return
-        :page_load_timeout: int: Number of seconds to wait for the page
-            to load before raising a `TimeoutError`
+        :param max_ids: int: The maximum number of player ids to return
+        :param page_load_timeout: int: Number of seconds to wait for the page
+            to load before raising a ``TimeoutError``
 
         :yield: PlayerEndpoint: The endpoint for getting data from a url
             of the form https://understat.com/player/<player_id>/

@@ -37,10 +37,10 @@ class PlayerEndpoint(BaseEndpoint):
         :param query: str: Identifies the type of data to get,
             one of {matchesData, shotsData, groupsData}
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         if not isinstance(self.player, str):
-            raise TypeError("`player` must be a string")
+            raise TypeError("``player`` must be a string")
         self._check_args(query=query)
         url = self.base_url + "player/" + self.player
 
@@ -56,7 +56,7 @@ class PlayerEndpoint(BaseEndpoint):
         Get match level data for a player
 
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="matchesData", **kwargs)
         return data
@@ -66,7 +66,7 @@ class PlayerEndpoint(BaseEndpoint):
         Get shot level data for a player
 
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="shotsData", **kwargs)
         return data
@@ -77,7 +77,7 @@ class PlayerEndpoint(BaseEndpoint):
 
         :param league: str: Understat id of the player to get data for
         :param kwargs: Keyword argument to pass to
-            `BaseEndpoint.get_response()`
+            ``BaseEndpoint.get_response()``
         """
         data = self.get_data(query="groupsData", **kwargs).T
         return data

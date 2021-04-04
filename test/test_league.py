@@ -9,7 +9,7 @@ from understatapi.endpoints import LeagueEndpoint, BaseEndpoint
 
 @patch.object(BaseEndpoint, "get_response")
 class TestLeagueEndpoint(unittest.TestCase):
-    """ Tests for `LeagueEndpoint` """
+    """ Tests for ``LeagueEndpoint`` """
 
     def setUp(self):
         self.league = LeagueEndpoint(league="EPL", session=requests.Session())
@@ -18,14 +18,14 @@ class TestLeagueEndpoint(unittest.TestCase):
         self.league.session.close()
 
     def test_get_data(self, mock_get_response):
-        """ test `get_data()` """
+        """ test ``get_data()`` """
         self.league.get_data(season="2019", query="teamsData")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019", query="teamsData"
         )
 
     def test_get_team_data(self, mock_get_response):
-        """ test `get_team_data()` """
+        """ test ``get_team_data()`` """
         self.league.get_team_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
@@ -33,7 +33,7 @@ class TestLeagueEndpoint(unittest.TestCase):
         )
 
     def test_get_match_data(self, mock_get_response):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         self.league.get_match_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
@@ -41,7 +41,7 @@ class TestLeagueEndpoint(unittest.TestCase):
         )
 
     def test_getplayer_data(self, mock_get_response):
-        """ test `get_player_data()` """
+        """ test ``get_player_data()`` """
         self.league.get_player_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019",
@@ -50,8 +50,8 @@ class TestLeagueEndpoint(unittest.TestCase):
 
     def test_get_data_type_error(self, mock_get_response):
         """
-        test that `get_data()` raises a TypeError
-        when `league` is not a string
+        test that ``get_data()`` raises a TypeError
+        when ``league`` is not a string
         """
         self.league._primary_attr = None
         with self.assertRaises(TypeError):
@@ -59,7 +59,7 @@ class TestLeagueEndpoint(unittest.TestCase):
 
 
 class TestLeagueEndpointDunder(unittest.TestCase):
-    """ Tests for all `__*__()` methods of `LeagueEndpoint()` """
+    """ Tests for all ``__*__()`` methods of ``LeagueEndpoint()`` """
 
     def setUp(self):
         self.league = LeagueEndpoint("EPL", session=requests.Session())
@@ -68,7 +68,7 @@ class TestLeagueEndpointDunder(unittest.TestCase):
         self.league.session.close()
 
     def test_init(self):
-        """ Test `__init__()` """
+        """ Test ``__init__()`` """
         with self.subTest(test="primary_attr"):
             self.assertEqual(self.league._primary_attr, "EPL")
         with self.subTest(test="player"):
@@ -77,7 +77,7 @@ class TestLeagueEndpointDunder(unittest.TestCase):
             self.assertIsInstance(self.league.session, requests.Session)
 
     def test_repr(self):
-        """ Test `__repr__()` """
+        """ Test ``__repr__()`` """
         self.assertEqual(repr(self.league), "<LeagueEndpoint>")
 
 

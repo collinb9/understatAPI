@@ -9,12 +9,13 @@ import requests
 import pandas as pd
 from understatapi.endpoints import TeamEndpoint, BaseEndpoint
 from understatapi.exceptions import InvalidTeam
+import understatapi.utils as utils
 
 
 @patch.object(BaseEndpoint, "request_url")
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestTeamEndpoint(unittest.TestCase):
-    """ Tests for `TeamEndpoint` """
+    """ Tests for ``TeamEndpoint`` """
 
     def setUp(self):
         """ setUp """
@@ -28,7 +29,7 @@ class TestTeamEndpoint(unittest.TestCase):
         self.base.session.close()
 
     def test_get_player_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
@@ -42,7 +43,7 @@ class TestTeamEndpoint(unittest.TestCase):
     def test_get_player_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_player_data()` """
+        """ test ``get_player_data()`` """
         self.team.get_player_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
@@ -50,12 +51,12 @@ class TestTeamEndpoint(unittest.TestCase):
         )
 
     def test_get_match_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
         data = self.team.get_match_data(season="2019")
-        data = self.base.unpack_dataframe(data)
+        data = utils.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/data/team_datesdata.csv", index_col=0
         )
@@ -65,7 +66,7 @@ class TestTeamEndpoint(unittest.TestCase):
     def test_get_match_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         self.team.get_match_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
@@ -73,12 +74,12 @@ class TestTeamEndpoint(unittest.TestCase):
         )
 
     def test_get_context_data_return_value(self, mock_get, mock_request_url):
-        """ test `get_context_data()` """
+        """ test ``get_context_data()`` """
         mock_request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
         data = self.team.get_context_data(season="2019")
-        data = self.base.unpack_dataframe(data)
+        data = utils.unpack_dataframe(data)
         expected_data = pd.read_csv(
             "test/resources/data/team_statisticsdata.csv", index_col=0
         )
@@ -88,7 +89,7 @@ class TestTeamEndpoint(unittest.TestCase):
     def test_get_context_data_args(
         self, mock_get_response, mock_get, mock_request_url
     ):
-        """ test `get_match_data()` """
+        """ test ``get_match_data()`` """
         self.team.get_context_data(season="2019")
         mock_get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
@@ -98,7 +99,7 @@ class TestTeamEndpoint(unittest.TestCase):
 
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestTeamEndpointErrors(unittest.TestCase):
-    """ Test error handling in `TeamEndpoint` """
+    """ Test error handling in ``TeamEndpoint`` """
 
     def setUp(self):
         """ setUp """
@@ -108,14 +109,14 @@ class TestTeamEndpointErrors(unittest.TestCase):
         self.team.session.close()
 
     def test_get_data_bad_team(self, mock_get):
-        """ test that `get_data()` raises an InvalidTeam error """
+        """ test that ``get_data()`` raises an InvalidTeam error """
         with self.assertRaises(InvalidTeam):
             self.team.get_data(season="", query="playersData", status_code=404)
 
     def test_get_data_type_error(self, mock_get):
         """
-        test that `get_data()` raises a TypeError
-        when `team` is not a string
+        test that ``get_data()`` raises a TypeError
+        when ``team`` is not a string
         """
         self.team._primary_attr = None
         with self.assertRaises(TypeError):
@@ -123,7 +124,7 @@ class TestTeamEndpointErrors(unittest.TestCase):
 
 
 class TestTeamEndpointDunder(unittest.TestCase):
-    """ Tests for all `__*__()` methods of `TeamEndpoint()` """
+    """ Tests for all ``__*__()`` methods of ``TeamEndpoint()`` """
 
     def setUp(self):
         """ setUp """
@@ -135,7 +136,7 @@ class TestTeamEndpointDunder(unittest.TestCase):
         self.team.session.close()
 
     def test_init(self):
-        """ Test `__init__()` """
+        """ Test ``__init__()`` """
         with self.subTest(test="primary_attr"):
             self.assertEqual(self.team._primary_attr, "Manchester_United")
         with self.subTest(test="team"):
@@ -144,7 +145,7 @@ class TestTeamEndpointDunder(unittest.TestCase):
             self.assertIsInstance(self.team.session, requests.Session)
 
     def test_repr(self):
-        """ Test `__repr__()` """
+        """ Test ``__repr__()`` """
         self.assertEqual(repr(self.team), "<TeamEndpoint>")
 
 
