@@ -29,6 +29,8 @@ m2r2==0.2.7
     # via -r requirements.in
 markupsafe==1.1.1
     # via jinja2
+minimock==1.2.8
+    # via -r requirements.in
 mistune==0.8.4
     # via m2r2
 packaging==20.9

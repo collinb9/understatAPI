@@ -104,18 +104,18 @@ class TestPlayerEndpointErrors(unittest.TestCase):
         self.player.session.close()
 
     def test_get_data_bad_player(self, mock_get):
-        """ test that ``get_data()`` raises an InvalidPlayer error """
+        """ test that ``_get_data()`` raises an InvalidPlayer error """
         with self.assertRaises(InvalidPlayer):
-            self.player.get_data(query="matchesData", status_code=404)
+            self.player._get_data(query="matchesData", status_code=404)
 
     def test_get_data_type_error(self, mock_get):
         """
-        test that ``get_data()`` raises a TypeError
+        test that ``_get_data()`` raises a TypeError
         when ``player`` is not a string
         """
         self.player._primary_attr = None
         with self.assertRaises(TypeError):
-            _ = self.player.get_data(query="")
+            _ = self.player._get_data(query="")
 
 
 class TestPlayerEndpointDunder(unittest.TestCase):

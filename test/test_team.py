@@ -109,18 +109,20 @@ class TestTeamEndpointErrors(unittest.TestCase):
         self.team.session.close()
 
     def test_get_data_bad_team(self, mock_get):
-        """ test that ``get_data()`` raises an InvalidTeam error """
+        """ test that ``_get_data()`` raises an InvalidTeam error """
         with self.assertRaises(InvalidTeam):
-            self.team.get_data(season="", query="playersData", status_code=404)
+            self.team._get_data(
+                season="", query="playersData", status_code=404
+            )
 
     def test_get_data_type_error(self, mock_get):
         """
-        test that ``get_data()`` raises a TypeError
+        test that ``_get_data()`` raises a TypeError
         when ``team`` is not a string
         """
         self.team._primary_attr = None
         with self.assertRaises(TypeError):
-            _ = self.team.get_data(season="", query="")
+            _ = self.team._get_data(season="", query="")
 
 
 class TestTeamEndpointDunder(unittest.TestCase):

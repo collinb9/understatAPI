@@ -18,8 +18,8 @@ class TestLeagueEndpoint(unittest.TestCase):
         self.league.session.close()
 
     def test_get_data(self, mock_get_response):
-        """ test ``get_data()`` """
-        self.league.get_data(season="2019", query="teamsData")
+        """ test ``_get_data()`` """
+        self.league._get_data(season="2019", query="teamsData")
         mock_get_response.assert_called_with(
             url="https://understat.com/league/EPL/2019", query="teamsData"
         )
@@ -50,12 +50,12 @@ class TestLeagueEndpoint(unittest.TestCase):
 
     def test_get_data_type_error(self, mock_get_response):
         """
-        test that ``get_data()`` raises a TypeError
+        test that ``_get_data()`` raises a TypeError
         when ``league`` is not a string
         """
         self.league._primary_attr = None
         with self.assertRaises(TypeError):
-            _ = self.league.get_data(season="", query="")
+            _ = self.league._get_data(season="", query="")
 
 
 class TestLeagueEndpointDunder(unittest.TestCase):

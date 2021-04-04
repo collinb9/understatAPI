@@ -1,10 +1,9 @@
 """ Base endpoint """
-from typing import List, Union, Dict, Sequence
+from typing import List, Sequence
 import json
 import requests
 from requests import Response
 import pandas as pd
-from numpy.typing import ArrayLike
 from ..utils import json_to_dataframe
 from ..exceptions import (
     InvalidQuery,
@@ -18,10 +17,12 @@ class BaseEndpoint:
     """
     Base endpoint for understat API
 
-    :base_url: str: The base url to use for requests, ``https://understat.com/``
-    :leagues: List[str]: The available leagues, ``EPL``, ``La_Liga``, ``Bundesliga``,
-        ``Serie_A``, ``Ligue_1``, ``RFPL``
-    :queries: List[str]: Strings that can be searched for in the html pages.
+    :attr base_url: str: The base url to use for requests,
+        ``https://understat.com/``
+    :attr leagues: List[str]: The available leagues, ``EPL``, ``La_Liga``,
+        ``Bundesliga``, optional``Serie_A``, ``Ligue_1``, ``RFPL``
+    :attr queries: List[str]: Strings that can be searched for in the html
+        pages.
     """
 
     base_url = "https://understat.com/"
@@ -83,8 +84,8 @@ class BaseEndpoint:
 
         return res
 
+    @staticmethod
     def extract_data_from_html(
-        self,
         html: str,
         query: str = "teamsData",
     ) -> pd.DataFrame:

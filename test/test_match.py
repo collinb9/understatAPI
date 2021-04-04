@@ -106,18 +106,18 @@ class TestMatchEndpointErrors(unittest.TestCase):
         self.match.session.close()
 
     def test_get_data_bad_player(self, mock_get):
-        """ test that ``get_data()`` raises an InvalidMatch error """
+        """ test that ``_get_data()`` raises an InvalidMatch error """
         with self.assertRaises(InvalidMatch):
-            self.match.get_data(query="shotsData", status_code=404)
+            self.match._get_data(query="shotsData", status_code=404)
 
     def test_get_data_type_error(self, mock_get):
         """
-        test that ``get_data()`` raises a TypeError
+        test that ``_get_data()`` raises a TypeError
         when ``match`` is not a string
         """
         self.match._primary_attr = None
         with self.assertRaises(TypeError):
-            _ = self.match.get_data(query="")
+            _ = self.match._get_data(query="")
 
 
 class TestMatchEndpointDunder(unittest.TestCase):

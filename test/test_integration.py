@@ -50,8 +50,8 @@ class TestIntegrationUnderstatClient(unittest.TestCase):
 
     def test_cookie_transfer(self):
         """
-        Test that cookies get transferred from the selenium ``WebDriver`` object
-        to the ``requests.Session`` object
+        Test that cookies get transferred from the selenium ``WebDriver``
+        object to the ``requests.Session`` object
         """
         with self.subTest(test="before"):
             self.assertEqual(len(self.understat.session.cookies), 0)

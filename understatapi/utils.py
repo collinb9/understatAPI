@@ -52,18 +52,24 @@ def unpack_dataframe(data: pd.DataFrame) -> pd.DataFrame:
 
     :Example:
 
-    >>> import pandas as pd
-    >>> data= pd.DataFrame(
-    ...     data=[[{"ham": 1, "eggs": 2}]],
-    ...     columns=["spam"]
-    ... )
-    >>> print(data)
-                        spam
-    0  {'ham': 1, 'eggs': 2}
-    >>> unpacked_data = unpack_dataframe(data)
-    >>> print(unpacked_data)
-        spam_ham  spam_eggs
-    0         1          2
+    .. testsetup::
+
+        from understatapi.utils import unpack_dataframe
+
+    .. doctest::
+
+        >>> import pandas as pd
+        >>> data= pd.DataFrame(
+        ...     data=[[{"ham": 1, "eggs": 2}]],
+        ...     columns=["spam"]
+        ... )
+        >>> print(data)
+                            spam
+        0  {'ham': 1, 'eggs': 2}
+        >>> unpacked_data = unpack_dataframe(data)
+        >>> print(unpacked_data)
+           spam_ham  spam_eggs
+        0         1          2
 
     """
     data = pd.concat(

@@ -1,8 +1,9 @@
+# pylint: disable=no-self-use
 """ Tests for ``understatapi.utils`` """
 import unittest
-import understatapi.utils as utils
 import pandas as pd
 import numpy as np
+import understatapi.utils as utils
 
 
 class TestUtils(unittest.TestCase):
@@ -44,7 +45,10 @@ class TestUtils(unittest.TestCase):
         pd.testing.assert_frame_equal(data, expected_data)
 
     def test_try_json_normalize_use(self):
-        """ test ``try_json_normalize()`` with a ``pd.Series`` of dictionaries"""
+        """
+        test ``try_json_normalize()`` with a ``pd.Series``
+        of dictionaries
+        """
         data = pd.Series(
             [{"h": 1, "a": 0}, {"h": 5, "a": 5}, np.nan], name="goals"
         )
