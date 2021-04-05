@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.player module &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.endpoints.player module &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -61,6 +61,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -83,10 +87,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
             
@@ -159,61 +164,36 @@
 <p>Player endpoint</p>
 <dl class="py class">
 <dt id="understatapi.endpoints.player.PlayerEndpoint">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.player.</span></code><code class="sig-name descname"><span class="pre">PlayerEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">requests.sessions.Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.player.</span></code><code class="sig-name descname"><span class="pre">PlayerEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint" title="understatapi.endpoints.base.BaseEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint</span></code></a></p>
 <p>Use this class to get data from a url of the form
-<a class="reference external" href="https://understat.com/player">https://understat.com/player</a>/&lt;player_id&gt;/</p>
-<dl class="py method">
-<dt id="understatapi.endpoints.player.PlayerEndpoint.get_data">
-<code class="sig-name descname"><span class="pre">get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get data on a per-player basis</p>
+<code class="docutils literal notranslate"><span class="pre">https://understat.com/player/&lt;player_id&gt;/</span></code></p>
 <dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;000&quot;</span><span class="p">,</span> <span class="s2">&quot;111&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="n">player_ids</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+<span class="go">000</span>
+<span class="go">111</span>
+</pre></div>
+</div>
+<dl class="py attribute">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.queries">
+<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">['matchesData',</span> <span class="pre">'shotsData',</span> <span class="pre">'groupsData']</span></em><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.queries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>query</strong> – str: Identifies the type of data to get,
-one of {matchesData, shotsData, groupsData}</p></li>
-<li><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p></li>
+<li><p><strong>player</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Id of the player(s) to get data for</p></li>
+<li><p><strong>session</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>) – The current session</p></li>
 </ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.player.PlayerEndpoint.get_match_data">
-<code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_match_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get match level data for a player</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.player.PlayerEndpoint.get_season_data">
-<code class="sig-name descname"><span class="pre">get_season_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_season_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_season_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get season level data for a player</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>league</strong> – str: Understat id of the player to get data for</p></li>
-<li><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.player.PlayerEndpoint.get_shot_data">
-<code class="sig-name descname"><span class="pre">get_shot_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_shot_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_shot_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get shot level data for a player</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>kwargs</strong> – Keyword argument to pass to
-<cite>BaseEndpoint.get_response()</cite></p>
 </dd>
 </dl>
 </dd></dl>
@@ -222,12 +202,76 @@ one of {matchesData, shotsData, groupsData}</p></li>
 <dt id="understatapi.endpoints.player.PlayerEndpoint.player">
 <em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">player</span></code><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.player" title="Permalink to this definition">¶</a></dt>
 <dd><p>player id</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py attribute">
-<dt id="understatapi.endpoints.player.PlayerEndpoint.queries">
-<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">['matchesData',</span> <span class="pre">'shotsData',</span> <span class="pre">'groupsData']</span></em><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.queries" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint._get_data">
+<code class="sig-name descname"><span class="pre">_get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint._get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint._get_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data on a per-player basis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Identifies the type of data to get,
+one of {matchesData, shotsData, groupsData}</p></li>
+<li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
+<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.get_response" title="understatapi.endpoints.base.BaseEndpoint.get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint.get_response()</span></code></a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.get_match_data">
+<code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_match_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get match level data for a player</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
+<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.get_response" title="understatapi.endpoints.base.BaseEndpoint.get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint.get_response()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.get_shot_data">
+<code class="sig-name descname"><span class="pre">get_shot_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_shot_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_shot_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get shot level data for a player</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
+<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.get_response" title="understatapi.endpoints.base.BaseEndpoint.get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint.get_response()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.player.PlayerEndpoint.get_season_data">
+<code class="sig-name descname"><span class="pre">get_season_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/player.html#PlayerEndpoint.get_season_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.player.PlayerEndpoint.get_season_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get season level data for a player</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
+<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.get_response" title="understatapi.endpoints.base.BaseEndpoint.get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint.get_response()</span></code></a></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

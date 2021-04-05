@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.base module &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.endpoints.base module &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -61,6 +61,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -83,10 +87,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
             
@@ -159,64 +164,27 @@
 <p>Base endpoint</p>
 <dl class="py class">
 <dt id="understatapi.endpoints.base.BaseEndpoint">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.base.</span></code><code class="sig-name descname"><span class="pre">BaseEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">requests.sessions.Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.base.</span></code><code class="sig-name descname"><span class="pre">BaseEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base endpoint for understat API</p>
 <dl class="field-list simple">
-<dt class="field-odd">Base_url</dt>
-<dd class="field-odd"><p>str: The base url to use for requests, <cite>https://understat.com/</cite></p>
+<dt class="field-odd">Attr base_url</dt>
+<dd class="field-odd"><p>str: The base url to use for requests,
+<code class="docutils literal notranslate"><span class="pre">https://understat.com/</span></code></p>
 </dd>
-<dt class="field-even">Leagues</dt>
-<dd class="field-even"><p>List[str]: The available leagues, <cite>EPL</cite>, <cite>La_Liga</cite>, <cite>Bundesliga</cite>,
-<cite>Serie_A</cite>, <cite>Ligue_1</cite>, <cite>RFPL</cite></p>
+<dt class="field-even">Attr leagues</dt>
+<dd class="field-even"><p>List[str]: The available leagues, <code class="docutils literal notranslate"><span class="pre">EPL</span></code>, <code class="docutils literal notranslate"><span class="pre">La_Liga</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Bundesliga</span></code>, optional``Serie_A``, <code class="docutils literal notranslate"><span class="pre">Ligue_1</span></code>, <code class="docutils literal notranslate"><span class="pre">RFPL</span></code></p>
 </dd>
-<dt class="field-odd">Queries</dt>
-<dd class="field-odd"><p>List[str]: Strings that can be searched for in the html pages.</p>
+<dt class="field-odd">Attr queries</dt>
+<dd class="field-odd"><p>List[str]: Strings that can be searched for in the html
+pages.</p>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt id="understatapi.endpoints.base.BaseEndpoint.base_url">
 <code class="sig-name descname"><span class="pre">base_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://understat.com/'</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.base_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.extract_data_from_html">
-<code class="sig-name descname"><span class="pre">extract_data_from_html</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.extract_data_from_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.extract_data_from_html" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds a JSON in the HTML according to a query, and returns the
-dictionary corresponding to this JSON.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>html</strong> – bytes: A html document</p></li>
-<li><p><strong>query</strong> – str: A sub-string to look for in the html document</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.get_response">
-<code class="sig-name descname"><span class="pre">get_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'teamsData'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.get_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.get_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve data from html page</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> – str: url to parse</p></li>
-<li><p><strong>query</strong> – str: A sub-string to look for in the html document</p></li>
-<li><p><strong>kwargs</strong> – Keyword arguments to pass to <cite>requests.get()</cite></p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>pd.DataFrame: Data retrieved from html page</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.json_to_dataframe">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">json_to_dataframe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">complex</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.generic</span><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">complex</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.generic</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.typing._array_like._SupportsArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">complex</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.generic</span><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">complex</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">bytes</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.generic</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.typing._array_like._SupportsArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.json_to_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.json_to_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Convert output of <cite>json.loads()</cite> to a dataframe</p>
-</dd></dl>
 
 <dl class="py attribute">
 <dt id="understatapi.endpoints.base.BaseEndpoint.leagues">
@@ -229,31 +197,81 @@ dictionary corresponding to this JSON.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.request_url">
-<code class="sig-name descname"><span class="pre">request_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">requests.models.Response</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.request_url" title="Permalink to this definition">¶</a></dt>
-<dd><p>Use the requests module to send a HTTP request to a url, and check
-that this request worked.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> – Arguments to pass to <cite>requests.get()</cite></p></li>
-<li><p><strong>kwargs</strong> – Keyword arguments to pass to <cite>requests.get()</cite></p></li>
-</ul>
+<dt id="understatapi.endpoints.base.BaseEndpoint.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Session</dt>
+<dd class="field-odd"><p>requests.Session: The current <code class="docutils literal notranslate"><span class="pre">request</span></code> session</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.try_json_normalize">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">try_json_normalize</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">col</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.series.Series</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.try_json_normalize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.try_json_normalize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Try to apply <cite>pd.json_normalize()</cite> to a pd.Series. Otherwise pass</p>
+<dt id="understatapi.endpoints.base.BaseEndpoint._check_args">
+<code class="sig-name descname"><span class="pre">_check_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._check_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._check_args" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handle invalid arguments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.unpack_dataframe">
-<code class="sig-name descname"><span class="pre">unpack_dataframe</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">pandas.core.frame.DataFrame</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">pandas.core.frame.DataFrame</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.unpack_dataframe"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.unpack_dataframe" title="Permalink to this definition">¶</a></dt>
-<dd><p>Unpack each column in a dataframe whose entries are dictionaries
-into separate columns</p>
+<dt id="understatapi.endpoints.base.BaseEndpoint.request_url">
+<code class="sig-name descname"><span class="pre">request_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.request_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Use the requests module to send a HTTP request to a url, and check
+that this request worked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+<li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.base.BaseEndpoint.extract_data_from_html">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">extract_data_from_html</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.extract_data_from_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.extract_data_from_html" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a JSON in the HTML according to a query, and returns the
+dictionary corresponding to this JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>html</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A html document</p></li>
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A sub-string to look for in the html document</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.endpoints.base.BaseEndpoint.get_response">
+<code class="sig-name descname"><span class="pre">get_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.get_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.get_response" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve data from html page</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – str: url to parse</p></li>
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – str: A sub-string to look for in the html document</p></li>
+<li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>pd.DataFrame: Data retrieved from html page</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

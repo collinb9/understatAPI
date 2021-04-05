@@ -18,6 +18,7 @@ Submodules
 
    understatapi.api
    understatapi.exceptions
+   understatapi.utils
 
 Module contents
 ---------------

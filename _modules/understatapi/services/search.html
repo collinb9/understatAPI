@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.services.search &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.services.search &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -60,6 +60,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -82,10 +86,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 </ul>
 
             
@@ -164,17 +169,54 @@
 
 
 <div class="viewcode-block" id="Search"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search">[docs]</a><span class="k">class</span> <span class="nc">Search</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Use the search bar on understat.com</span>
+    <span class="sd">&quot;&quot;&quot;#pylint: disable=line-too-long</span>
+<span class="sd">    Use the search bar on ``understat.com``</span>
 
 <span class="sd">    All results matching the given player name will be returned</span>
+
+<span class="sd">    :Example:</span>
+
+<span class="sd">    .. testsetup::</span>
+
+<span class="sd">        import requests</span>
+<span class="sd">        from minimock import Mock</span>
+<span class="sd">        from understatapi.endpoints import PlayerEndpoint</span>
+<span class="sd">        from understatapi.services import Search</span>
+<span class="sd">        players = [[</span>
+<span class="sd">            &quot;2371&quot;,</span>
+<span class="sd">            &quot;2028&quot;,</span>
+<span class="sd">            &quot;7097&quot;,</span>
+<span class="sd">            ],</span>
+<span class="sd">            [&quot;2371&quot;]</span>
+<span class="sd">        ]</span>
+<span class="sd">        Search.get_player_ids = Mock(&quot;Search.get_player_ids&quot;, returns_iter=players, tracker=None)</span>
+
+<span class="sd">    .. testcleanup::</span>
+
+<span class="sd">        session.close()</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; session = requests.Session()</span>
+<span class="sd">        &gt;&gt;&gt; player_name = &quot;Ronaldo&quot;</span>
+<span class="sd">        &gt;&gt;&gt; with Search(player_name, session=session) as search:</span>
+<span class="sd">        ...     for player_id in search.get_player_ids():</span>
+<span class="sd">        ...         print(player_id)</span>
+<span class="sd">        2371</span>
+<span class="sd">        2028</span>
+<span class="sd">        7097</span>
+<span class="sd">        &gt;&gt;&gt; with Search(player_name, session=session, max_ids=1) as search:</span>
+<span class="sd">        ...     for player_id in search.get_player_ids():</span>
+<span class="sd">        ...         print(player_id)</span>
+<span class="sd">        2371</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">opts</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">set_headless</span><span class="p">()</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://understat.com/&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="Search.__init__"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">player_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">,</span>
@@ -182,17 +224,17 @@
         <span class="n">page_load_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :player_name: str: Name of player to search for</span>
-<span class="sd">        :session: requests.Session: A requests `Session` object</span>
-<span class="sd">        :max_ids: int: The maximum number of player ids to return</span>
-<span class="sd">        :page_load_timeout: int: Number of seconds to wait for the page</span>
-<span class="sd">            to load before raising a `TimeoutError`</span>
+<span class="sd">        :param player_name: Name of player to search for</span>
+<span class="sd">        :param session: The current session</span>
+<span class="sd">        :param max_ids: The maximum number of player ids to return</span>
+<span class="sd">        :param page_load_timeout: Number of seconds to wait for the page</span>
+<span class="sd">            to load before raising a ``TimeoutError``</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">player_name</span> <span class="o">=</span> <span class="n">player_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span> <span class="o">=</span> <span class="n">session</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">max_ids</span> <span class="o">=</span> <span class="n">max_ids</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">page_load_timeout</span> <span class="o">=</span> <span class="n">page_load_timeout</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initialise_browser</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initialise_browser</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
@@ -211,9 +253,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">cookie</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">],</span> <span class="n">cookie</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">browser</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">_initialise_browser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Inilise the WebDriver object &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">browser</span> <span class="o">=</span> <span class="n">Firefox</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">)</span>
+<div class="viewcode-block" id="Search._initialise_browser"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._initialise_browser">[docs]</a>    <span class="k">def</span> <span class="nf">_initialise_browser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot; Initialise the Firefox WebDriver object &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">browser</span> <span class="o">=</span> <span class="n">Firefox</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Search.get_player_ids"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search.get_player_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -228,15 +270,15 @@
             <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_ids</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">break</span></div>
 
-    <span class="nd">@staticmethod</span>
+<div class="viewcode-block" id="Search._get_player_id_from_url"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._get_player_id_from_url">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_player_id_from_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the player id from a url</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">id_number</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">id_number</span>
+        <span class="k">return</span> <span class="n">id_number</span></div>
 
-    <span class="k">def</span> <span class="nf">_cycle_results</span><span class="p">(</span>
+<div class="viewcode-block" id="Search._cycle_results"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._cycle_results">[docs]</a>    <span class="k">def</span> <span class="nf">_cycle_results</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -250,9 +292,9 @@
             <span class="n">player_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_player_id_from_url</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">browser</span><span class="o">.</span><span class="n">current_url</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">browser</span><span class="o">.</span><span class="n">back</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_make_search</span><span class="p">()</span>
-            <span class="k">yield</span> <span class="n">player_id</span>
+            <span class="k">yield</span> <span class="n">player_id</span></div>
 
-    <span class="k">def</span> <span class="nf">_wait_for_page_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Search._wait_for_page_load"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._wait_for_page_load">[docs]</a>    <span class="k">def</span> <span class="nf">_wait_for_page_load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Wait for the page loading screen to disappear &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">WebDriverWait</span><span class="p">(</span>
@@ -263,9 +305,9 @@
                 <span class="p">)</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
 
-    <span class="k">def</span> <span class="nf">_make_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Search._make_search"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._make_search">[docs]</a>    <span class="k">def</span> <span class="nf">_make_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Make the search</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -287,9 +329,9 @@
             <span class="n">EC</span><span class="o">.</span><span class="n">visibility_of_element_located</span><span class="p">(</span>
                 <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;//*[@id=&#39;header&#39;]/div/nav[2]/ul/li[1]/span[1]/div&quot;</span><span class="p">)</span>
             <span class="p">)</span>
-        <span class="p">)</span>
+        <span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_get_search_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Search._get_search_results"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._get_search_results">[docs]</a>    <span class="k">def</span> <span class="nf">_get_search_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get results from the search</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -299,7 +341,7 @@
         <span class="n">player_club_list</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">players</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">player_club_list</span><span class="p">[::</span><span class="mi">2</span><span class="p">],</span> <span class="n">player_club_list</span><span class="p">[</span><span class="mi">1</span><span class="p">::</span><span class="mi">2</span><span class="p">])</span>
 
-        <span class="k">return</span> <span class="n">players</span></div>
+        <span class="k">return</span> <span class="n">players</span></div></div>
 </pre></div>
 
            </div>

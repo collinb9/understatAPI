@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.api module &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.api module &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -61,6 +61,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -83,10 +87,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
             
@@ -162,89 +167,157 @@
 <em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.api.</span></code><code class="sig-name descname"><span class="pre">UnderstatClient</span></code><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>API client for understat</p>
+<p>The main interface for interacting with understatAPI. Exposes
+each of the entrypoints and services, maintains a consistent
+session and handles errors</p>
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
+
+<span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+    <span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+    <span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="s2">&quot;2371&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">()</span>
+    <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+    <span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="s2">&quot;14711&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">()</span>
+    <span class="n">player_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;Cristiano Ronaldo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="understatapi.api.UnderstatClient.league">
-<code class="sig-name descname"><span class="pre">league</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint" title="understatapi.endpoints.league.LeagueEndpoint"><span class="pre">understatapi.endpoints.league.LeagueEndpoint</span></a><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.league"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.league" title="Permalink to this definition">¶</a></dt>
-<dd><p>League endpoint</p>
+<code class="sig-name descname"><span class="pre">league</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.league"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.league" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint for league data. Use this function to get data from a
+url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/league/&lt;league&gt;/&lt;season&gt;</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>league</strong> – str: Name of the league(s) to get data for,
+<dd class="field-odd"><p><strong>league</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Name of the league(s) to get data for,
 one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>LeagueEndpoint: The endpoint for getting data from a
-url of the form <a class="reference external" href="https://understat.com/league">https://understat.com/league</a>/&lt;league&gt;/&lt;season&gt;</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint" title="understatapi.endpoints.league.LeagueEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">LeagueEndpoint</span></code></a></p>
 </dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.api.UnderstatClient.match">
-<code class="sig-name descname"><span class="pre">match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">match</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint" title="understatapi.endpoints.match.MatchEndpoint"><span class="pre">understatapi.endpoints.match.MatchEndpoint</span></a><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.match" title="Permalink to this definition">¶</a></dt>
-<dd><p>Match endpoint</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>match</strong> – PrimaryAttribute: Id of match(s) to get data for</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>MatchEndpoint: The endpoint for getting data from a url of
-the form <a class="reference external" href="https://understat.com/match">https://understat.com/match</a>/&lt;match_id&gt;</p>
-</dd>
-</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">leagues</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="s2">&quot;Bundesliga&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">league</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="p">(</span><span class="n">leagues</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">league</span><span class="o">.</span><span class="n">league</span><span class="p">)</span>
+<span class="go">EPL</span>
+<span class="go">Bundesliga</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="understatapi.api.UnderstatClient.player">
-<code class="sig-name descname"><span class="pre">player</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint" title="understatapi.endpoints.player.PlayerEndpoint"><span class="pre">understatapi.endpoints.player.PlayerEndpoint</span></a><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.player" title="Permalink to this definition">¶</a></dt>
-<dd><p>Player endpoint</p>
+<code class="sig-name descname"><span class="pre">player</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.player" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint for player data. Use this function to get data from a
+url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/player/&lt;player_id&gt;/</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>player</strong> – PrimaryAttribute: Understat id of the player(s) to
-get data for</p>
+<dd class="field-odd"><p><strong>player</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Id of the player(s) to get data for</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>PlayerEndpoint: The endpoint for getting data from a url
-of the form <a class="reference external" href="https://understat.com/player">https://understat.com/player</a>/&lt;player_id&gt;/</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint" title="understatapi.endpoints.player.PlayerEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlayerEndpoint</span></code></a></p>
 </dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.api.UnderstatClient.search">
-<code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_load_timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint" title="understatapi.endpoints.player.PlayerEndpoint"><span class="pre">understatapi.endpoints.player.PlayerEndpoint</span></a><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.search" title="Permalink to this definition">¶</a></dt>
-<dd><p>Search for a player by name</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>player_name</strong> – PrimaryAttribute: Player name to enter into the
-seach bar</p>
-</dd>
-<dt class="field-even">Max_ids</dt>
-<dd class="field-even"><p>int: The maximum number of player ids to return</p>
-</dd>
-<dt class="field-odd">Page_load_timeout</dt>
-<dd class="field-odd"><p>int: Number of seconds to wait for the page
-to load before raising a <cite>TimeoutError</cite></p>
-</dd>
-<dt class="field-even">Yield</dt>
-<dd class="field-even"><p>PlayerEndpoint: The endpoint for getting data from a url
-of the form <a class="reference external" href="https://understat.com/player">https://understat.com/player</a>/&lt;player_id&gt;/</p>
-</dd>
-</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;000&quot;</span><span class="p">,</span> <span class="s2">&quot;111&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="p">(</span><span class="n">player_ids</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+<span class="go">000</span>
+<span class="go">111</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py method">
 <dt id="understatapi.api.UnderstatClient.team">
-<code class="sig-name descname"><span class="pre">team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint" title="understatapi.endpoints.team.TeamEndpoint"><span class="pre">understatapi.endpoints.team.TeamEndpoint</span></a><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.team" title="Permalink to this definition">¶</a></dt>
-<dd><p>Team endpoint</p>
+<code class="sig-name descname"><span class="pre">team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.team" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint for team data. Use this function to get data from a
+url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/team/&lt;team&gt;/&lt;season&gt;</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>team</strong> – PrimaryAttribute: Name of the team(s) to get data for</p>
+<dd class="field-odd"><p><strong>team</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Name of the team(s) to get data for</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>TeamEndpoint: The endpoint for getting data from a url of
-the form <a class="reference external" href="https://understat.com/team">https://understat.com/team</a>/&lt;team&gt;/&lt;season&gt;</p>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint" title="understatapi.endpoints.team.TeamEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">TeamEndpoint</span></code></a></p>
 </dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
 </dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">team_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">,</span> <span class="s2">&quot;Liverpool&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">team</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team_names</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">team</span><span class="o">.</span><span class="n">team</span><span class="p">)</span>
+<span class="go">Manchester_United</span>
+<span class="go">Liverpool</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.api.UnderstatClient.match">
+<code class="sig-name descname"><span class="pre">match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">match</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Endpoint for match data. Use this function to get data from a
+url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/match/&lt;match_id&gt;</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>match</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Id of match(es) to get data for</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint" title="understatapi.endpoints.match.MatchEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">MatchEndpoint</span></code></a></p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">match_ids</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;123&quot;</span><span class="p">,</span> <span class="s2">&quot;456&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">match</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match_ids</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">match</span><span class="o">.</span><span class="n">match</span><span class="p">)</span>
+<span class="go">123</span>
+<span class="go">456</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.api.UnderstatClient.search">
+<code class="sig-name descname"><span class="pre">search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_load_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Search for a player by name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Player name to enter into the
+seach bar</p></li>
+<li><p><strong>max_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of player ids to return</p></li>
+<li><p><strong>page_load_timeout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of seconds to wait for the page
+to load before raising a <code class="docutils literal notranslate"><span class="pre">TimeoutError</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code> [<a class="reference internal" href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint" title="understatapi.endpoints.player.PlayerEndpoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">PlayerEndpoint</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">player_name</span> <span class="o">=</span> <span class="s2">&quot;Ronaldo&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">player_name</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+<span class="go">2371</span>
+<span class="go">2028</span>
+<span class="go">7097</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">understat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">max_ids</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">player</span><span class="p">)</span>
+<span class="go">2371</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </dd></dl>

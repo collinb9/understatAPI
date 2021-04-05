@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Welcome to understatAPI’s documentation! &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatAPI Home &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -39,7 +39,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="understatAPI" href="README.html" /> 
+    <link rel="next" title="Usage" href="usage.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -61,6 +61,10 @@
 
           
             
+            
+              <div class="version">
+                0.4.0
+              </div>
             
           
 
@@ -84,10 +88,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
             
@@ -136,7 +141,7 @@
     
       <li><a href="#" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Welcome to understatAPI’s documentation!</li>
+      <li>understatAPI Home</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -155,29 +160,148 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="welcome-to-understatapi-s-documentation">
-<h1>Welcome to understatAPI’s documentation!<a class="headerlink" href="#welcome-to-understatapi-s-documentation" title="Permalink to this headline">¶</a></h1>
+  <section id="understatapi-home">
+<h1>understatAPI Home<a class="headerlink" href="#understatapi-home" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
-<p><span class="caption-text">Contents:</span></p>
+</div>
+<div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="README.html#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#quick-start">Quick Start</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#contributing">Contributing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="README.html#versioning">Versioning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#basic-usage">Basic Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#context-manager">Context Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html#player-and-match-ids">Player and Match Ids</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
 </ul>
 </div>
+<a class="reference external image-reference" href="https://travis-ci.com/collinb9/understatAPI"><img alt="Build Status" src="https://travis-ci.com/collinb9/understatAPI.svg?branch=master" /></a>
+<a class="reference external image-reference" href="https://img.shields.io/pypi/v/understatapi"><img alt="PyPI" src="https://img.shields.io/pypi/v/understatapi" /></a>
+<a class="reference external image-reference" href="https://img.shields.io/pypi/l/understatapi"><img alt="PyPI - License" src="https://img.shields.io/pypi/l/understatapi" /></a>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<section id="understatapi">
+<h1>understatAPI<a class="headerlink" href="#understatapi" title="Permalink to this headline">¶</a></h1>
+<p>This is a python API for scraping data from <a class="reference external" href="https://understat.com/">understat.com</a>. Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.</p>
+<hr class="docutils" />
+<p><strong>NOTE</strong></p>
+<p>I am not affiliated with understat.com in any way</p>
+<hr class="docutils" />
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>To install the package run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install understatapi
+</pre></div>
+</div>
+<p>If you would like to use the package with the latest development changes you can clone this repo and install the package</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:collinb9/understatAPI understatAPI
+<span class="nb">cd</span> understatAPI
+python setup.py install
+</pre></div>
+</div>
+<p>This package primarily uses the <a class="reference external" href="https://github.com/psf/requests">requests</a> library for interacting with understat.com, but the function <code class="docutils literal notranslate"><span class="pre">UnderstatClient.search()</span></code>, which allows you to use the search bar, is implemented using <a class="reference external" href="https://github.com/SeleniumHQ/selenium/tree/trunk/py">selenium</a>. If you wish to use this function then you will have to install <a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a>.</p>
+</section>
+<section id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<hr class="docutils" />
+<p><strong>NOTE</strong></p>
+<p>This package is in very early stages of development and the API is likely to change</p>
+<hr class="docutils" />
+<p>The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Endpoint</p></th>
+<th class="head"><p>Webpage</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>UnderstatClient.league</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://understat.com/league/&lt;league_name&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>UnderstatClient.team</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://understat.com/team/&lt;team_name&gt;/&lt;season&gt;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>UnderstatClient.player</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://understat.com/player/&lt;player_id&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>UnderstatClient.match</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">https://understat.com/match/&lt;match_id&gt;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<p>Every function in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint. Each function returns a pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with the relevant data. Below are some examples of how to use the API. Note how the <code class="docutils literal notranslate"><span class="pre">league()</span></code> and <code class="docutils literal notranslate"><span class="pre">team()</span></code> methods can accept the names of leagues and teams respectively, but <code class="docutils literal notranslate"><span class="pre">player()</span></code> and <code class="docutils literal notranslate"><span class="pre">match()</span></code> must receive an id number.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
+
+<span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
+<span class="c1"># get data for every player playing in the Premier League in 2019/20</span>
+<span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="c1"># Get the name and id of the player with the highest xG in that season</span>
+<span class="c1"># First we need to change the type of the &#39;xG&#39; column, by default it is a string</span>
+<span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">league_player_data</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;xG&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">player_id</span><span class="p">,</span> <span class="n">player_name</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;player_name&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># Get data for every shot this player has taken in a league match (for all seasons)</span>
+<span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
+
+<span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
+<span class="c1"># get data for every league match involving Manchester United in 2019/20</span>
+<span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
+<span class="c1"># get the id for the first match of the season</span>
+<span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+<span class="c1"># get the rosters for the both teams in that match</span>
+<span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can also use the <code class="docutils literal notranslate"><span class="pre">UnderstatClient</span></code> class as a context manager which closes the session after it has been used, and also has some improved error handling. This is the recommended way to interact with the API.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
+
+<span class="k">with</span> <span class="n">UnderstatClient</span><span class="p">()</span> <span class="k">as</span> <span class="n">understat</span><span class="p">:</span>
+    <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>For a full API reference, see <a class="reference external" href="https://collinb9.github.io/understatAPI/">the documentation</a></p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>If you find any bugs in the code or have any feature requests, please make an issue and I’ll try to address it as soon as possible. If you would like to implement the changes yourself you can make a pull request</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+<li><p>Clone the repo <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:collinb9/understatAPI</span></code></p></li>
+<li><p>Create a branch to work off <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span> <span class="pre">-b</span> <span class="pre">descriptive_branch_name</span></code></p></li>
+<li><p>Make and commit your changes</p></li>
+<li><p>Push your changes <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">push</span></code></p></li>
+<li><p>Come back to this page, and click on Pull requests -&gt; New pull request</p></li>
 </ul>
+<p>Before a pull request can be merged the code will have to pass a number of checks that are run using TravisCI. These checks are</p>
+<ul class="simple">
+<li><p>Check that the code has been formatted using <a class="reference external" href="https://github.com/psf/black">black</a></p></li>
+<li><p>Lint the code using <a class="reference external" href="https://github.com/PyCQA/pylint">pylint</a></p></li>
+<li><p>Check type annotations using <a class="reference external" href="https://github.com/python/mypy">mypy</a></p></li>
+<li><p>Run the unit tests and check that they have 100% coverage</p></li>
+</ul>
+<p>These checks are in place to ensure a consistent style and quality across the code. To check if the changes you have made will pass these tests run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
+pip install -r test_requirments.txt
+chmod +x ci/run_tests.sh
+ci/run_tests.sh
+</pre></div>
+</div>
+<p>Don’t let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.</p>
+</section>
+<section id="versioning">
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<p>The versioning for this project follows the <a class="reference external" href="https://semver.org/">semantic versioning</a> conventions.</p>
+</section>
+<section id="todo">
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Add asynchronous support</p></li>
+</ul>
+</section>
 </section>
 
 
@@ -186,7 +310,7 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="README.html" class="btn btn-neutral float-right" title="understatAPI" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

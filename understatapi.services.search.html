@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.services.search module &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.services.search module &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -61,6 +61,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -83,10 +87,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
             
@@ -159,26 +164,126 @@
 <p>Use the search bar of understat.com</p>
 <dl class="py class">
 <dt id="understatapi.services.search.Search">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.services.search.</span></code><code class="sig-name descname"><span class="pre">Search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">requests.sessions.Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ids</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_load_timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.services.search.</span></code><code class="sig-name descname"><span class="pre">Search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_load_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Use the search bar on understat.com</p>
+<p>Use the search bar on <code class="docutils literal notranslate"><span class="pre">understat.com</span></code></p>
 <p>All results matching the given player name will be returned</p>
-<dl class="py method">
-<dt id="understatapi.services.search.Search.get_player_ids">
-<code class="sig-name descname"><span class="pre">get_player_ids</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="reference internal" href="_modules/understatapi/services/search.html#Search.get_player_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search.get_player_ids" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the ids that are returned when you search for the given
-player name</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt id="understatapi.services.search.Search.opts">
-<code class="sig-name descname"><span class="pre">opts</span></code><em class="property"> <span class="pre">=</span> <span class="pre">&lt;selenium.webdriver.firefox.options.Options</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#understatapi.services.search.Search.opts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<dl class="field-list simple">
+<dt class="field-odd">Example</dt>
+<dd class="field-odd"><p></p></dd>
+</dl>
+<div class="highlight-pycon3 notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">session</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">player_name</span> <span class="o">=</span> <span class="s2">&quot;Ronaldo&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Search</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span> <span class="k">as</span> <span class="n">search</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">player_id</span> <span class="ow">in</span> <span class="n">search</span><span class="o">.</span><span class="n">get_player_ids</span><span class="p">():</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">player_id</span><span class="p">)</span>
+<span class="go">2371</span>
+<span class="go">2028</span>
+<span class="go">7097</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">Search</span><span class="p">(</span><span class="n">player_name</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">,</span> <span class="n">max_ids</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">search</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">player_id</span> <span class="ow">in</span> <span class="n">search</span><span class="o">.</span><span class="n">get_player_ids</span><span class="p">():</span>
+<span class="gp">... </span>        <span class="nb">print</span><span class="p">(</span><span class="n">player_id</span><span class="p">)</span>
+<span class="go">2371</span>
+</pre></div>
+</div>
 <dl class="py attribute">
 <dt id="understatapi.services.search.Search.url">
 <code class="sig-name descname"><span class="pre">url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://understat.com/'</span></em><a class="headerlink" href="#understatapi.services.search.Search.url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search.__init__">
+<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_load_timeout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>player_name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of player to search for</p></li>
+<li><p><strong>session</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Session</span></code>) – The current session</p></li>
+<li><p><strong>max_ids</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – The maximum number of player ids to return</p></li>
+<li><p><strong>page_load_timeout</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of seconds to wait for the page
+to load before raising a <code class="docutils literal notranslate"><span class="pre">TimeoutError</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._initialise_browser">
+<code class="sig-name descname"><span class="pre">_initialise_browser</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._initialise_browser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._initialise_browser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialise the Firefox WebDriver object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search.get_player_ids">
+<code class="sig-name descname"><span class="pre">get_player_ids</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search.get_player_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search.get_player_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ids that are returned when you search for the given
+player name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._get_player_id_from_url">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_get_player_id_from_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._get_player_id_from_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._get_player_id_from_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the player id from a url</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._cycle_results">
+<code class="sig-name descname"><span class="pre">_cycle_results</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">results</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._cycle_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._cycle_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cycles through each of the search results, getting the url each time</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Iterator</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._wait_for_page_load">
+<code class="sig-name descname"><span class="pre">_wait_for_page_load</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._wait_for_page_load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._wait_for_page_load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wait for the page loading screen to disappear</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._make_search">
+<code class="sig-name descname"><span class="pre">_make_search</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._make_search"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._make_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the search</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.services.search.Search._get_search_results">
+<code class="sig-name descname"><span class="pre">_get_search_results</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/services/search.html#Search._get_search_results"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.services.search.Search._get_search_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get results from the search</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

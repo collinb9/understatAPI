@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.league &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.endpoints.league &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -60,6 +60,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -82,10 +86,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 </ul>
 
             
@@ -160,39 +165,62 @@
 
 
 <div class="viewcode-block" id="LeagueEndpoint"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint">[docs]</a><span class="k">class</span> <span class="nc">LeagueEndpoint</span><span class="p">(</span><span class="n">BaseEndpoint</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;#pylint: disable-line-too-long</span>
 <span class="sd">    Endpoint for league data. Use this class to get data from a url of the form</span>
-<span class="sd">    https://understat.com/league/&lt;league&gt;/&lt;season&gt;</span>
+<span class="sd">    ``https://understat.com/league/&lt;league&gt;/&lt;season&gt;``</span>
+
+<span class="sd">    :Example:</span>
+
+<span class="sd">    .. testsetup::</span>
+
+<span class="sd">        import requests</span>
+<span class="sd">        from understatapi.endpoints import LeagueEndpoint</span>
+
+<span class="sd">    .. testcleanup::</span>
+
+<span class="sd">        session.close()</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; session = requests.Session()</span>
+<span class="sd">        &gt;&gt;&gt; leagues = [&quot;EPL&quot;, &quot;Bundesliga&quot;]</span>
+<span class="sd">        &gt;&gt;&gt; for league in LeagueEndpoint(leagues, session=session):</span>
+<span class="sd">        ...     print(league.league)</span>
+<span class="sd">        EPL</span>
+<span class="sd">        Bundesliga</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;teamsData&quot;</span><span class="p">,</span> <span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="s2">&quot;playersData&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">):</span>
+<div class="viewcode-block" id="LeagueEndpoint.__init__"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param league: PrimaryAttribute: Name of the league(s) to get data for,</span>
+<span class="sd">        :param league: Name of the league(s) to get data for,</span>
 <span class="sd">            one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}</span>
-<span class="sd">        :session: requests.Session: The current session</span>
+<span class="sd">        :param session: The current session</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span> <span class="o">=</span> <span class="n">league</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrimaryAttribute</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; league name &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
-<div class="viewcode-block" id="LeagueEndpoint.get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="LeagueEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a league-wide basis</span>
 
-<span class="sd">        :param season: str: Season to get data for</span>
-<span class="sd">        :param query: str: Identifies the type of data to get,</span>
+<span class="sd">        :param season: Season to get data for</span>
+<span class="sd">        :param query: Identifies the type of data to get,</span>
 <span class="sd">            one of {teamsData, playersData, datesData}</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">league</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`league` must be a string&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``league`` must be a string&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">league</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;league/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">league</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">season</span>
 
@@ -204,33 +232,33 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all teams in a given league and season</span>
 
-<span class="sd">        :param season: str: Season to get data for</span>
+<span class="sd">        :param season: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;teamsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;teamsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="LeagueEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all fixtures in a given league and season.</span>
 
-<span class="sd">        :param season: str: Season to get data for</span>
+<span class="sd">        :param season: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="LeagueEndpoint.get_player_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_player_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all players in a given league and season</span>
 
-<span class="sd">        :param season: str: Season to get data for</span>
+<span class="sd">        :param season: Season to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response()`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;playersData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;playersData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 

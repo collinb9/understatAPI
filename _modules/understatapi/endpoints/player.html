@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.player &mdash; understatAPI 0.1.0 documentation</title>
+  <title>understatapi.endpoints.player &mdash; understatAPI 0.4.0 documentation</title>
   
 
   
@@ -60,6 +60,10 @@
           
             
             
+              <div class="version">
+                0.4.0
+              </div>
+            
           
 
           
@@ -82,10 +86,11 @@
               
             
             
-              <p><span class="caption-text">Contents:</span></p>
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../index.html">understatAPI Home</a></li>
+</ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html">understatAPI</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../README.html#todo">TODO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../usage.html">Usage</a></li>
 </ul>
 
             
@@ -163,38 +168,58 @@
 <div class="viewcode-block" id="PlayerEndpoint"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint">[docs]</a><span class="k">class</span> <span class="nc">PlayerEndpoint</span><span class="p">(</span><span class="n">BaseEndpoint</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Use this class to get data from a url of the form</span>
-<span class="sd">    https://understat.com/player/&lt;player_id&gt;/</span>
+<span class="sd">    ``https://understat.com/player/&lt;player_id&gt;/``</span>
+
+<span class="sd">    :Example:</span>
+
+<span class="sd">    .. testsetup::</span>
+
+<span class="sd">        import requests</span>
+<span class="sd">        from understatapi.endpoints import PlayerEndpoint</span>
+
+<span class="sd">    .. testcleanup::</span>
+
+<span class="sd">        session.close()</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; session = requests.Session()</span>
+<span class="sd">        &gt;&gt;&gt; player_ids = [&quot;000&quot;, &quot;111&quot;]</span>
+<span class="sd">        &gt;&gt;&gt; for player in PlayerEndpoint(player_ids, session=session):</span>
+<span class="sd">        ...     print(player.player)</span>
+<span class="sd">        000</span>
+<span class="sd">        111</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;matchesData&quot;</span><span class="p">,</span> <span class="s2">&quot;shotsData&quot;</span><span class="p">,</span> <span class="s2">&quot;groupsData&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="PlayerEndpoint.__init__"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        :param player: PrimaryAttribute: Understat id of the player(s)</span>
-<span class="sd">            to get data for</span>
-<span class="sd">        :session: requests.Session: The current session</span>
+<span class="sd">        :param player: Id of the player(s) to get data for</span>
+<span class="sd">        :param session: The current session</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span> <span class="o">=</span> <span class="n">player</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">primary_attr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="n">session</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">player</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PrimaryAttribute</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; player id &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
-<div class="viewcode-block" id="PlayerEndpoint.get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PlayerEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a per-player basis</span>
 
-<span class="sd">        :param query: str: Identifies the type of data to get,</span>
+<span class="sd">        :param query: Identifies the type of data to get,</span>
 <span class="sd">            one of {matchesData, shotsData, groupsData}</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;`player` must be a string&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``player`` must be a string&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;player/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span>
 
@@ -210,9 +235,9 @@
 <span class="sd">        Get match level data for a player</span>
 
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;matchesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;matchesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="PlayerEndpoint.get_shot_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_shot_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_shot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -220,20 +245,19 @@
 <span class="sd">        Get shot level data for a player</span>
 
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;shotsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;shotsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="PlayerEndpoint.get_season_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_season_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_season_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get season level data for a player</span>
 
-<span class="sd">        :param league: str: Understat id of the player to get data for</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            `BaseEndpoint.get_response()`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;groupsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;groupsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 
