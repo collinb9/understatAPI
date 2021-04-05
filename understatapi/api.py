@@ -40,13 +40,14 @@ class UnderstatClient:
 
     .. testsetup::
 
-        from understatapi import UnderstatClient
+            from understatapi import UnderstatClient
 
     .. doctest::
 
-        >>> with UnderstatClient() as understat: # doctest: +SKIP
-        >>>     understat.team("").get_bad_data() # doctest: +SKIP
-        Traceback (most recent call last):
+        >>> team=""
+        >>> with UnderstatClient() as understat:
+        ...     understat.team(team).get_bad_data() # doctest: +SKIP
+        Traceback (most recent call last)
         File "<stdin>", line 2, in <module>
         File "understatapi/api.py", line 59, in __exit__
             raise AttributeError(

@@ -108,7 +108,7 @@ def get_public_methods(cls: type) -> List[str]:
 def find_endpoints(line: str) -> Union[List[str], None]:
     """
     Find the name of a subclass of
-    ``~understatapi.endpoints.base.BaseEndpoint` in a string
+    ``~understatapi.endpoints.base.BaseEndpoint`` in a string
 
     :param line: The string in which to search for the name of a
         ``~understatapi.endpoints.base.BaseEndpoint`` object
