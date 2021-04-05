@@ -201,13 +201,14 @@
 
 <span class="sd">    .. testsetup::</span>
 
-<span class="sd">        from understatapi import UnderstatClient</span>
+<span class="sd">            from understatapi import UnderstatClient</span>
 
 <span class="sd">    .. doctest::</span>
 
-<span class="sd">        &gt;&gt;&gt; with UnderstatClient() as understat: # doctest: +SKIP</span>
-<span class="sd">        &gt;&gt;&gt;     understat.team(&quot;&quot;).get_bad_data() # doctest: +SKIP</span>
-<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        &gt;&gt;&gt; team=&quot;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; with UnderstatClient() as understat:</span>
+<span class="sd">        ...     understat.team(team).get_bad_data() # doctest: +SKIP</span>
+<span class="sd">        Traceback (most recent call last)</span>
 <span class="sd">        File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;</span>
 <span class="sd">        File &quot;understatapi/api.py&quot;, line 59, in __exit__</span>
 <span class="sd">            raise AttributeError(</span>
