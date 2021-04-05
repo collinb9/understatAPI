@@ -86,7 +86,7 @@ If you find any bugs in the code or have any feature requests, please make an is
 * Create a branch to work off `git checkout -b descriptive_branch_name`
 * Make and commit your changes
 * Push your changes `git push`
-* Come back to this page, and click on Pull requests -> New pull request
+* Come back to the repo on github, and click on Pull requests -> New pull request
 
 Before a pull request can be merged the code will have to pass a number of checks that are run using TravisCI. These checks are
 * Check that the code has been formatted using [black](https://github.com/psf/black)
