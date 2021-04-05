@@ -164,6 +164,8 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">WebDriverException</span>
+<span class="kn">from</span> <span class="nn">understatapi.endpoints.base</span> <span class="kn">import</span> <span class="n">BaseEndpoint</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_public_methods</span><span class="p">,</span> <span class="n">str_to_class</span><span class="p">,</span> <span class="n">find_endpoints</span>
 <span class="kn">from</span> <span class="nn">.endpoints</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LeagueEndpoint</span><span class="p">,</span>
     <span class="n">PlayerEndpoint</span><span class="p">,</span>
@@ -195,6 +197,17 @@
 <span class="sd">            roster_data = understat.match(match=&quot;14711&quot;).get_roster_data()</span>
 <span class="sd">            player_match_data = understat.search(&quot;Cristiano Ronaldo&quot;).get_match_data()</span>
 
+<span class="sd">    Using the context manager gives some more verbose error handling</span>
+
+<span class="sd">    &gt;&gt;&gt; with UnderstatClient() as understat: # doctest: +SKIP</span>
+<span class="sd">    &gt;&gt;&gt;     understat.team(&quot;&quot;).get_bad_data() # doctest: +SKIP</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">    File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;</span>
+<span class="sd">    File &quot;understatapi/api.py&quot;, line 59, in __exit__</span>
+<span class="sd">        raise AttributeError(</span>
+<span class="sd">    AttributeError: &#39;TeamEndpoint&#39; object has no attribute &#39;get_bad_data&#39;</span>
+<span class="sd">    Its public methods are [&#39;get_context_data&#39;, &#39;get_match_data&#39;, &#39;get_player_data&#39;]</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -209,6 +222,16 @@
         <span class="n">exception_value</span><span class="p">:</span> <span class="ne">BaseException</span><span class="p">,</span>
         <span class="n">traceback</span><span class="p">:</span> <span class="n">TracebackType</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exception_type</span> <span class="ow">is</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="n">endpoint</span> <span class="o">=</span> <span class="n">find_endpoints</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">exception_value</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">endpoint</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">endpoint_obj</span> <span class="o">=</span> <span class="n">str_to_class</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">endpoint_obj</span><span class="p">,</span> <span class="n">BaseEndpoint</span><span class="p">):</span>
+                    <span class="n">public_methods</span> <span class="o">=</span> <span class="n">get_public_methods</span><span class="p">(</span><span class="n">endpoint_obj</span><span class="p">)</span>
+                    <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">exception_value</span><span class="p">)</span>
+                        <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Its public methods are </span><span class="si">{</span><span class="n">public_methods</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <div class="viewcode-block" id="UnderstatClient.league"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.league">[docs]</a>    <span class="k">def</span> <span class="nf">league</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LeagueEndpoint</span><span class="p">:</span>

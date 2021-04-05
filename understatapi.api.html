@@ -190,6 +190,17 @@ session and handles errors</p>
     <span class="n">player_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="s2">&quot;Cristiano Ronaldo&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">()</span>
 </pre></div>
 </div>
+<p>Using the context manager gives some more verbose error handling</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; with UnderstatClient() as understat: 
+&gt;&gt;&gt;     understat.team(&quot;&quot;).get_bad_data() 
+Traceback (most recent call last):
+File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;
+File &quot;understatapi/api.py&quot;, line 59, in __exit__
+    raise AttributeError(
+AttributeError: &#39;TeamEndpoint&#39; object has no attribute &#39;get_bad_data&#39;
+Its public methods are [&#39;get_context_data&#39;, &#39;get_match_data&#39;, &#39;get_player_data&#39;]
+</pre></div>
+</div>
 <dl class="py method">
 <dt id="understatapi.api.UnderstatClient.league">
 <code class="sig-name descname"><span class="pre">league</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.league"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.league" title="Permalink to this definition">¶</a></dt>

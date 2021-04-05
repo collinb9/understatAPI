@@ -160,7 +160,10 @@
             
   <h1>Source code for understatapi.utils</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Helper functions for formatting data &quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Dict</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">ArrayLike</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -238,6 +241,50 @@
         <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="get_all_methods"><a class="viewcode-back" href="../../understatapi.utils.html#understatapi.utils.get_all_methods">[docs]</a><span class="k">def</span> <span class="nf">get_all_methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the names of all methods in a class, excluding</span>
+<span class="sd">    methods decorated with ``@property``, ``@classmethod``, etc</span>
+
+<span class="sd">    :param cls: The class to get the methods for</span>
+<span class="sd">    :return: A list of the names of the methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">meth</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmembers</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">inspect</span><span class="o">.</span><span class="n">isfunction</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="get_public_methods"><a class="viewcode-back" href="../../understatapi.utils.html#understatapi.utils.get_public_methods">[docs]</a><span class="k">def</span> <span class="nf">get_public_methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the names of all public methods in a class</span>
+
+<span class="sd">    :param cls: The class to get all public methods for</span>
+<span class="sd">    :return: A list of the names of the public methods</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">methods</span> <span class="o">=</span> <span class="n">get_all_methods</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+    <span class="n">methods</span> <span class="o">=</span> <span class="p">[</span><span class="n">meth</span> <span class="k">for</span> <span class="n">meth</span> <span class="ow">in</span> <span class="n">methods</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">meth</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">methods</span></div>
+
+
+<div class="viewcode-block" id="find_endpoints"><a class="viewcode-back" href="../../understatapi.utils.html#understatapi.utils.find_endpoints">[docs]</a><span class="k">def</span> <span class="nf">find_endpoints</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Find the name of a subclass of</span>
+<span class="sd">    ``~understatapi.endpoints.base.BaseEndpoint` in a string</span>
+
+<span class="sd">    :param line: The string in which to search for the name of a</span>
+<span class="sd">        ``~understatapi.endpoints.base.BaseEndpoint`` object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\w+Endpoint&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">match</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">match</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="str_to_class"><a class="viewcode-back" href="../../understatapi.utils.html#understatapi.utils.str_to_class">[docs]</a><span class="k">def</span> <span class="nf">str_to_class</span><span class="p">(</span><span class="n">modulename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">classname</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">type</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get a class by using its name</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">modulename</span><span class="p">],</span> <span class="n">classname</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

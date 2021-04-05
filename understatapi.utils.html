@@ -236,6 +236,68 @@ original collumn name with the corresponding key in the dictionary</p>
 </div>
 </dd></dl>
 
+<dl class="py function">
+<dt id="understatapi.utils.get_all_methods">
+<code class="sig-prename descclassname"><span class="pre">understatapi.utils.</span></code><code class="sig-name descname"><span class="pre">get_all_methods</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/utils.html#get_all_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.utils.get_all_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of all methods in a class, excluding
+methods decorated with <code class="docutils literal notranslate"><span class="pre">&#64;property</span></code>, <code class="docutils literal notranslate"><span class="pre">&#64;classmethod</span></code>, etc</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cls</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>) – The class to get the methods for</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of the names of the methods</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="understatapi.utils.get_public_methods">
+<code class="sig-prename descclassname"><span class="pre">understatapi.utils.</span></code><code class="sig-name descname"><span class="pre">get_public_methods</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cls</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/utils.html#get_public_methods"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.utils.get_public_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the names of all public methods in a class</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cls</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code>) – The class to get all public methods for</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of the names of the public methods</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="understatapi.utils.find_endpoints">
+<code class="sig-prename descclassname"><span class="pre">understatapi.utils.</span></code><code class="sig-name descname"><span class="pre">find_endpoints</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">line</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/utils.html#find_endpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.utils.find_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the name of a subclass of
+<a href="#id1"><span class="problematic" id="id2">``</span></a>~understatapi.endpoints.base.BaseEndpoint` in a string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>line</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The string in which to search for the name of a
+<code class="docutils literal notranslate"><span class="pre">~understatapi.endpoints.base.BaseEndpoint</span></code> object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="understatapi.utils.str_to_class">
+<code class="sig-prename descclassname"><span class="pre">understatapi.utils.</span></code><code class="sig-name descname"><span class="pre">str_to_class</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modulename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classname</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/utils.html#str_to_class"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.utils.str_to_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a class by using its name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 

@@ -226,8 +226,8 @@ pages.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.request_url">
-<code class="sig-name descname"><span class="pre">request_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.request_url" title="Permalink to this definition">¶</a></dt>
+<dt id="understatapi.endpoints.base.BaseEndpoint._request_url">
+<code class="sig-name descname"><span class="pre">_request_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._request_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use the requests module to send a HTTP request to a url, and check
 that this request worked.</p>
 <dl class="field-list simple">
@@ -244,8 +244,8 @@ that this request worked.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.extract_data_from_html">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">extract_data_from_html</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.extract_data_from_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.extract_data_from_html" title="Permalink to this definition">¶</a></dt>
+<dt id="understatapi.endpoints.base.BaseEndpoint._extract_data_from_html">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_extract_data_from_html</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._extract_data_from_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._extract_data_from_html" title="Permalink to this definition">¶</a></dt>
 <dd><p>Finds a JSON in the HTML according to a query, and returns the
 dictionary corresponding to this JSON.</p>
 <dl class="field-list simple">
@@ -262,8 +262,8 @@ dictionary corresponding to this JSON.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.get_response">
-<code class="sig-name descname"><span class="pre">get_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.get_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.get_response" title="Permalink to this definition">¶</a></dt>
+<dt id="understatapi.endpoints.base.BaseEndpoint._get_response">
+<code class="sig-name descname"><span class="pre">_get_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._get_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._get_response" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retrieve data from html page</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
