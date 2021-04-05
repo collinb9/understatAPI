@@ -1,11 +1,10 @@
 # pylint: skip-file
 import os
 import sys
+
+sys.path.insert(0, os.path.abspath(os.path.join("..", "..", ".")))
 import understatapi
 from datetime import datetime as dt
-from sphinx_autodoc_typehints import get_all_type_hints
-
-sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "understatapi")))
 
 project = "understatAPI"
 copyright = f"{dt.today().year}, Brendan Collins"
@@ -84,4 +83,3 @@ def process_docstring(app, what, name, obj, options, lines):
 def setup(app):
     app.connect("autodoc-skip-member", skip)
     app.connect("autodoc-process-docstring", process_docstring)
-    # app.add_stylesheet("main.css")

@@ -37,12 +37,12 @@ The API contains endpoints which reflect the structure of the understat website.
 
 | Endpoint         | Webpage                                         |
 |------------------|-------------------------------------------------|
-| UnderstatClient.league | https://understat.com/league/<league_name>      |
-| UnderstatClient.team   | https://understat.com/team/<team_name>/<season> |
-| UnderstatClient.player | https://understat.com/player/<player_id>        |
-| UnderstatClient.match  | https://understat.com/player/<match_id>         |
+| UnderstatClient.league | `https://understat.com/league/<league_name>`      |
+| UnderstatClient.team   | `https://understat.com/team/<team_name>/<season>` |
+| UnderstatClient.player | `https://understat.com/player/<player_id>`        |
+| UnderstatClient.match  | `https://understat.com/match/<match_id>`         |
 
-Every function in the public API corresponds to one of tables visible on the understat webpage corresponding to the endpoint to which it belongs. Each function returns a pandas `DataFrame` with the relevant data. Below are some examples of using the API. Note how some the functions in the `league` and `team` endpoints can accept understandable strings as identifiers, but `player` and `match` must receive an id number.
+Every function in the public API corresponds to one of tables visible on the understat webpage corresponding to the endpoint to which it belongs. Each function returns a pandas `DataFrame` with the relevant data. Below are some examples of using the API. Note how the `league` and `team` methods can accept the names of leagues and teams respectively, but `player` and `match` must receive an id number.
 ```python
 from understatapi import UnderstatClient
 
@@ -69,7 +69,7 @@ match_id = match_data.iloc[0]["id"]
 # get the rosters for the both teams in that match
 roster_data = understat.match(match=match_id).get_roster_data()
 ```
-You can also use the `UnderstatClient` class as a context manager which persists some information about the session between request and closes the session after it has been used. This is the recommended way to interact with the API.
+You can also use the `UnderstatClient` class as a context manager which closes the session after it has been used, and also has some improved error handling. This is the recommended way to interact with the API.
 ```python
 from understatapi import UnderstatClient
 

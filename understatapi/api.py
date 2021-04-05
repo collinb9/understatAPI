@@ -158,7 +158,7 @@ class UnderstatClient:
     def search(
         self, player_name: str, max_ids: int = 5, page_load_timeout: int = 5
     ) -> Iterator[PlayerEndpoint]:
-        """
+        """#pylint: disable=line-too-long
         Search for a player by name
 
         :param player_name: Player name to enter into the
@@ -184,7 +184,11 @@ class UnderstatClient:
                 ],
                 ["2371"]
             ]
-            Search.get_player_ids = Mock("Search.get_player_ids", returns_iter=players, tracker=None)
+            Search.get_player_ids = Mock(
+                "Search.get_player_ids",
+                returns_iter=players,
+                tracker=None
+            )
 
         .. doctest::
 
