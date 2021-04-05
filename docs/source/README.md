@@ -1,14 +1,15 @@
-# understatAPI
 [![Build Status](https://travis-ci.com/collinb9/understatAPI.svg?branch=master)](https://travis-ci.com/collinb9/understatAPI)
 ![PyPI](https://img.shields.io/pypi/v/understatapi)
 ![PyPI - License](https://img.shields.io/pypi/l/understatapi)
+
+# understatAPI
 
 This is a python API for scraping data from [understat.com](https://understat.com/). Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League. 
 
 ---
 **NOTE**
 
-I am not affiliated with understat in any way
+I am not affiliated with understat.com in any way
 
 ---
 
@@ -24,9 +25,9 @@ git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
 python setup.py install
 ```
-This package primarily uses the [requests](https://github.com/psf/requests) library for interacting with understat.com, but the function `UnderstatClient.seach()`, which allows you to use the search bar, is implemented using [selenium](https://github.com/SeleniumHQ/selenium/tree/trunk/py). If you wish to use this function then you will have to install [geckodriver](https://github.com/mozilla/geckodriver).
+This package primarily uses the [requests](https://github.com/psf/requests) library for interacting with understat.com, but the function `UnderstatClient.search()`, which allows you to use the search bar, is implemented using [selenium](https://github.com/SeleniumHQ/selenium/tree/trunk/py). If you wish to use this function then you will have to install [geckodriver](https://github.com/mozilla/geckodriver).
 
-## Quick Start
+## Getting started
 ---
 **NOTE**
 
@@ -42,7 +43,7 @@ The API contains endpoints which reflect the structure of the understat website.
 | UnderstatClient.player | `https://understat.com/player/<player_id>`        |
 | UnderstatClient.match  | `https://understat.com/match/<match_id>`         |
 
-Every function in the public API corresponds to one of tables visible on the understat webpage corresponding to the endpoint to which it belongs. Each function returns a pandas `DataFrame` with the relevant data. Below are some examples of using the API. Note how the `league` and `team` methods can accept the names of leagues and teams respectively, but `player` and `match` must receive an id number.
+Every function in the public API corresponds to one of tables visible on the understat page for the relvant endpoint. Each function returns a pandas `DataFrame` with the relevant data. Below are some examples of using the API. Note how the `league()` and `team()` methods can accept the names of leagues and teams respectively, but `player()` and `match()` must receive an id number.
 ```python
 from understatapi import UnderstatClient
 
