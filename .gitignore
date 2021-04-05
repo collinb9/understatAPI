@@ -18,6 +18,9 @@ htmlcov
 *.coverage
 *.rst
 !index.rst
+!glossary.rst
+!api_index.rst
+docs/source/README.md
 build
 dist
 *.egg*
