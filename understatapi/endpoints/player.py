@@ -57,7 +57,7 @@ class PlayerEndpoint(BaseEndpoint):
         :param query: Identifies the type of data to get,
             one of {matchesData, shotsData, groupsData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         if not isinstance(self.player, str):
             raise TypeError("``player`` must be a string")
@@ -65,7 +65,7 @@ class PlayerEndpoint(BaseEndpoint):
         url = self.base_url + "player/" + self.player
 
         try:
-            data = self.get_response(url=url, query=query, **kwargs)
+            data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
             raise InvalidPlayer(self.player) from err
 
@@ -76,7 +76,7 @@ class PlayerEndpoint(BaseEndpoint):
         Get match level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="matchesData", **kwargs)
         return data
@@ -86,7 +86,7 @@ class PlayerEndpoint(BaseEndpoint):
         Get shot level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="shotsData", **kwargs)
         return data
@@ -96,7 +96,7 @@ class PlayerEndpoint(BaseEndpoint):
         Get season level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="groupsData", **kwargs).T
         return data

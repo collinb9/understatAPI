@@ -58,14 +58,14 @@ class LeagueEndpoint(BaseEndpoint):
         :param query: Identifies the type of data to get,
             one of {teamsData, playersData, datesData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         if not isinstance(self.league, str):
             raise TypeError("``league`` must be a string")
         self._check_args(league=self.league, season=season, query=query)
         url = self.base_url + "league/" + self.league + "/" + season
 
-        data = self.get_response(url=url, query=query, **kwargs)
+        data = self._get_response(url=url, query=query, **kwargs)
 
         return data
 
@@ -75,7 +75,7 @@ class LeagueEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(season=season, query="teamsData", **kwargs)
         return data
@@ -86,7 +86,7 @@ class LeagueEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(season=season, query="datesData", **kwargs)
         return data
@@ -97,7 +97,7 @@ class LeagueEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response()`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response()`
         """
         data = self._get_data(season=season, query="playersData", **kwargs)
         return data

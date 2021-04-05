@@ -12,7 +12,7 @@ from understatapi.exceptions import InvalidTeam
 import understatapi.utils as utils
 
 
-@patch.object(BaseEndpoint, "request_url")
+@patch.object(BaseEndpoint, "_request_url")
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
 class TestTeamEndpoint(unittest.TestCase):
     """ Tests for ``TeamEndpoint`` """
@@ -28,9 +28,9 @@ class TestTeamEndpoint(unittest.TestCase):
         self.team.session.close()
         self.base.session.close()
 
-    def test_get_player_data_return_value(self, mock_get, mock_request_url):
+    def test_get_player_data_return_value(self, mock_get, mock__request_url):
         """ test ``get_match_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock__request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
         data = self.team.get_player_data(season="2019")
@@ -39,20 +39,20 @@ class TestTeamEndpoint(unittest.TestCase):
         )
         assert_data_equal(data, expected_data)
 
-    @patch.object(BaseEndpoint, "get_response")
+    @patch.object(BaseEndpoint, "_get_response")
     def test_get_player_data_args(
-        self, mock_get_response, mock_get, mock_request_url
+        self, mock__get_response, mock_get, mock__request_url
     ):
         """ test ``get_player_data()`` """
         self.team.get_player_data(season="2019")
-        mock_get_response.assert_called_with(
+        mock__get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
             query="playersData",
         )
 
-    def test_get_match_data_return_value(self, mock_get, mock_request_url):
+    def test_get_match_data_return_value(self, mock_get, mock__request_url):
         """ test ``get_match_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock__request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
         data = self.team.get_match_data(season="2019")
@@ -62,20 +62,20 @@ class TestTeamEndpoint(unittest.TestCase):
         )
         assert_data_equal(data, expected_data)
 
-    @patch.object(BaseEndpoint, "get_response")
+    @patch.object(BaseEndpoint, "_get_response")
     def test_get_match_data_args(
-        self, mock_get_response, mock_get, mock_request_url
+        self, mock__get_response, mock_get, mock__request_url
     ):
         """ test ``get_match_data()`` """
         self.team.get_match_data(season="2019")
-        mock_get_response.assert_called_with(
+        mock__get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
             query="datesData",
         )
 
-    def test_get_context_data_return_value(self, mock_get, mock_request_url):
+    def test_get_context_data_return_value(self, mock_get, mock__request_url):
         """ test ``get_context_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock__request_url.return_value = mocked_requests_get(
             "test/resources/team.html"
         )
         data = self.team.get_context_data(season="2019")
@@ -85,13 +85,13 @@ class TestTeamEndpoint(unittest.TestCase):
         )
         assert_data_equal(data, expected_data)
 
-    @patch.object(BaseEndpoint, "get_response")
+    @patch.object(BaseEndpoint, "_get_response")
     def test_get_context_data_args(
-        self, mock_get_response, mock_get, mock_request_url
+        self, mock__get_response, mock_get, mock__request_url
     ):
         """ test ``get_match_data()`` """
         self.team.get_context_data(season="2019")
-        mock_get_response.assert_called_with(
+        mock__get_response.assert_called_with(
             url="https://understat.com/team/Manchester_United/2019",
             query="statisticsData",
         )

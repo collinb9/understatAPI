@@ -60,7 +60,7 @@ class TeamEndpoint(BaseEndpoint):
         :param query: Identifies the type of data to get,
             one of {playersData, statisticsData, datesData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         if not isinstance(self.team, str):
             raise TypeError("``team`` must be a string")
@@ -68,7 +68,7 @@ class TeamEndpoint(BaseEndpoint):
         url = self.base_url + "team/" + self.team + "/" + season
 
         try:
-            data = self.get_response(url=url, query=query, **kwargs)
+            data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
             raise InvalidTeam(self.team) from err
 
@@ -80,7 +80,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(season=season, query="playersData", **kwargs)
         return data
@@ -91,7 +91,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(season=season, query="datesData", **kwargs)
         return data
@@ -106,7 +106,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(
             season=season, query="statisticsData", **kwargs

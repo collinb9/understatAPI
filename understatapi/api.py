@@ -3,6 +3,8 @@ from types import TracebackType
 from typing import Iterator
 import requests
 from selenium.common.exceptions import WebDriverException
+from understatapi.endpoints.base import BaseEndpoint
+from .utils import get_public_methods, str_to_class, find_endpoints
 from .endpoints import (
     LeagueEndpoint,
     PlayerEndpoint,
@@ -34,6 +36,17 @@ class UnderstatClient:
             roster_data = understat.match(match="14711").get_roster_data()
             player_match_data = understat.search("Cristiano Ronaldo").get_match_data()
 
+    Using the context manager gives some more verbose error handling
+
+    >>> with UnderstatClient() as understat:
+    >>>     understat.team("").get_bad_data() # doctest: +SKIP
+    Traceback (most recent call last):
+    File "<stdin>", line 2, in <module>
+    File "understatapi/api.py", line 59, in __exit__
+        raise AttributeError(
+    AttributeError: 'TeamEndpoint' object has no attribute 'get_bad_data'
+    Its public methods are ['get_context_data', 'get_match_data', 'get_player_data']
+
     """
 
     def __init__(self) -> None:
@@ -48,6 +61,16 @@ class UnderstatClient:
         exception_value: BaseException,
         traceback: TracebackType,
     ) -> None:
+        if exception_type is AttributeError:
+            endpoint = find_endpoints(str(exception_value))
+            if endpoint is not None:
+                endpoint_obj = str_to_class(__name__, endpoint[0])
+                if issubclass(endpoint_obj, BaseEndpoint):
+                    public_methods = get_public_methods(endpoint_obj)
+                    raise AttributeError(
+                        str(exception_value)
+                        + f"\nIts public methods are {public_methods}"
+                    )
         self.session.close()
 
     def league(self, league: PrimaryAttribute) -> LeagueEndpoint:

@@ -64,16 +64,33 @@ class TestUnderstatClient(unittest.TestCase):
         ):
             _ = list(self.understat.search(""))
 
-    @patch.object(requests.Session, "close")
-    def test_context_manager(self, mock_close):
+    def test_context_manager(self):
         """
         Test that ``UnderstatClient`` can be used as a context manager
         """
-        with UnderstatClient() as understat:
-            with self.subTest(test="session_exists"):
-                self.assertIsInstance(understat.session, requests.Session)
-        with self.subTest(test="close"):
-            mock_close.assert_called_once()
+        with patch.object(requests.Session, "close") as mock_close:
+            with UnderstatClient() as understat:
+                with self.subTest(test="session_exists"):
+                    self.assertIsInstance(understat.session, requests.Session)
+            with self.subTest(test="close"):
+                mock_close.assert_called_once()
+        understat.session.close()
+
+    def test_error_handling_method(self):
+        # pylint: disable=no-member
+        """
+        test the error handling works as expected when a method is called
+        that does not belong to the given endpoint
+        """
+        with self.assertRaises(AttributeError) as err:
+            with UnderstatClient() as understat:
+                understat.team("").get_bad_data()
+            self.assertEqual(
+                str(err),
+                "'TeamEndpoint' object has no attribute 'get_bad_data'\n"
+                "Its public methods are ['get_context_data', "
+                "'get_match_data', get_player_data']",
+            )
 
 
 if __name__ == "__main__":

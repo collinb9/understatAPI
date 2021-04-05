@@ -71,7 +71,7 @@ class BaseEndpoint:
         if query is not None and query not in self.queries:
             raise InvalidQuery(query)
 
-    def request_url(self, *args: str, **kwargs: str) -> Response:
+    def _request_url(self, *args: str, **kwargs: str) -> Response:
         """
         Use the requests module to send a HTTP request to a url, and check
         that this request worked.
@@ -85,7 +85,7 @@ class BaseEndpoint:
         return res
 
     @staticmethod
-    def extract_data_from_html(
+    def _extract_data_from_html(
         html: str,
         query: str = "teamsData",
     ) -> pd.DataFrame:
@@ -110,7 +110,7 @@ class BaseEndpoint:
         data = json_to_dataframe(data, orient="index")
         return data
 
-    def get_response(
+    def _get_response(
         self,
         url: str,
         query: str = "teamsData",
@@ -125,7 +125,7 @@ class BaseEndpoint:
 
         :return: pd.DataFrame: Data retrieved from html page
         """
-        res = self.request_url(url, **kwargs)
-        data = self.extract_data_from_html(res.text, query=query)
+        res = self._request_url(url, **kwargs)
+        data = self._extract_data_from_html(res.text, query=query)
 
         return data

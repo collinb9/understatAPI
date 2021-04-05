@@ -54,7 +54,7 @@ class MatchEndpoint(BaseEndpoint):
         :param query: Identifies the type of data to get,
             one of {shotsData, rostersData, match_info}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
@@ -62,7 +62,7 @@ class MatchEndpoint(BaseEndpoint):
         url = self.base_url + "match/" + self.match
 
         try:
-            data = self.get_response(url=url, query=query, **kwargs)
+            data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
             raise InvalidMatch(self.match) from err
 
@@ -73,7 +73,7 @@ class MatchEndpoint(BaseEndpoint):
         Get shot level data for a match
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="shotsData", **kwargs).T
         return data
@@ -83,7 +83,7 @@ class MatchEndpoint(BaseEndpoint):
         Get data about the roster for each team
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="rostersData", **kwargs).T
         return data
@@ -93,7 +93,7 @@ class MatchEndpoint(BaseEndpoint):
         Get information about the match
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint.get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="match_info", **kwargs).T
         return data

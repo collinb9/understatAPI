@@ -4,13 +4,40 @@ import unittest
 import pandas as pd
 import numpy as np
 import understatapi.utils as utils
+from understatapi.endpoints import BaseEndpoint
+
+
+class Spam:
+    """ Dummy class """
+
+    def __init__(self):
+        self._attr = None
+
+    @property
+    def attr(self):
+        """ attr """
+        return self._attr
+
+    @attr.setter
+    def attr(self, _attr):
+        self._attr = _attr
+
+    @classmethod
+    def with_attr(cls, attr):
+        """ with attribute """
+        instance = cls()
+        instance.attr = attr
+        return instance
+
+    def _ham(self):
+        """ ham """
+
+    def eggs(self):
+        """ spam """
 
 
 class TestUtils(unittest.TestCase):
     """ Test functions in ``understatapi.utils`` """
-
-    def setUp(self):
-        """ setUp """
 
     def test_json_to_dataframe_dict(self):
         """ test ``json_to_dataframe()`` when it is passed a dict """
@@ -68,6 +95,41 @@ class TestUtils(unittest.TestCase):
             columns=["goals"],
         )
         pd.testing.assert_frame_equal(data, expected_data)
+
+    def test_get_all_methods(self):
+        """ test ``get_all_methods`` """
+        self.assertListEqual(
+            utils.get_all_methods(Spam), ["__init__", "_ham", "eggs"]
+        )
+
+    def test_get_public_methods(self):
+        """ test ``get_public_methods`` """
+        self.assertListEqual(utils.get_public_methods(Spam), ["eggs"])
+
+    def test_find_endpoints(self):
+        """ test ``find_endpoint`` """
+        text = """nothing here
+        there is a 'BaseEndpoint' here
+        this Endpoint should not be found
+        TeamEndpoint OtherEndpoint - 2 endpoints
+        """
+        for i, line in enumerate(text.split("\n")):
+            with self.subTest(line=i):
+                match = utils.find_endpoints(line)
+                if i in [0, 2]:
+                    self.assertIsNone(match)
+                elif i == 1:
+                    self.assertListEqual(match, ["BaseEndpoint"])
+                elif i == 3:
+                    self.assertListEqual(
+                        match, ["TeamEndpoint", "OtherEndpoint"]
+                    )
+
+    def test_str_to_class(self):
+        """ test ``str_to_class`` """
+        self.assertIs(
+            utils.str_to_class(__name__, "BaseEndpoint"), BaseEndpoint
+        )
 
 
 if __name__ == "__main__":

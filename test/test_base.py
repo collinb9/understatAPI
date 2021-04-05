@@ -50,22 +50,22 @@ class TestBaseRequests(unittest.TestCase):
 
     @patch("test.open", new_callable=mock_open)
     def test_get_response_fails(self, mock_get, mock_open_method):
-        """ Test that get_response fails correctly """
+        """ Test that _get_response fails correctly """
         with self.assertRaises(HTTPError):
-            self.base.request_url("https://understat.com/", status_code=404)
+            self.base._request_url("https://understat.com/", status_code=404)
 
     @patch("test.open", new_callable=mock_open)
     def test_request_url(self, mock_get, mock_open_method):
-        """ Test get_response """
-        res = self.base.request_url(self.base.base_url)
+        """ Test _get_response """
+        res = self.base._request_url(self.base.base_url)
         mock_open_method.assert_called_with("https://understat.com/")
         self.assertEqual(res.url, "https://understat.com/")
         self.assertEqual(res.status_code, 200)
         self.assertEqual(res.reason, "OK")
 
     def test_get_response_teamsdata(self, mock_get):
-        """ Test ``get_response()`` works with ``query='teamsData'`` """
-        data = self.base.get_response(
+        """ Test ``_get_response()`` works with ``query='teamsData'`` """
+        data = self.base._get_response(
             "test/resources/league_epl.html",
             query="teamsData",
         )
@@ -76,8 +76,8 @@ class TestBaseRequests(unittest.TestCase):
         assert_data_equal(data, expected_data)
 
     def test_get_response_datesdata(self, mock_get):
-        """ Test ``get_response()`` works with ``query='datesData'`` """
-        data = self.base.get_response(
+        """ Test ``_get_response()`` works with ``query='datesData'`` """
+        data = self.base._get_response(
             "test/resources/league_epl.html",
             query="datesData",
         )
@@ -88,8 +88,8 @@ class TestBaseRequests(unittest.TestCase):
         assert_data_equal(data, expected_data)
 
     def test_get_response_playersdata(self, mock_get):
-        """ Test ``get_response()`` works with ``query='playersData'`` """
-        data = self.base.get_response(
+        """ Test ``_get_response()`` works with ``query='playersData'`` """
+        data = self.base._get_response(
             "test/resources/league_epl.html",
             query="playersData",
         )
@@ -117,11 +117,11 @@ class TestExtractData(unittest.TestCase):
             InvalidQuery,
             "There is no html entry matching the query invalidQuery",
         ):
-            self.base.extract_data_from_html(self.html, query="invalidQuery")
+            self.base._extract_data_from_html(self.html, query="invalidQuery")
 
     def test_extract_data_from_html(self):
-        """ Test extract_data_from_html """
-        data = self.base.extract_data_from_html(self.html, query="teamsData")
+        """ Test _extract_data_from_html """
+        data = self.base._extract_data_from_html(self.html, query="teamsData")
         self.assertTupleEqual(data.shape, (20, 3))
 
 
