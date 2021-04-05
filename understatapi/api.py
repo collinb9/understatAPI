@@ -38,7 +38,7 @@ class UnderstatClient:
 
     Using the context manager gives some more verbose error handling
 
-    >>> with UnderstatClient() as understat:
+    >>> with UnderstatClient() as understat: # doctest: +SKIP
     >>>     understat.team("").get_bad_data() # doctest: +SKIP
     Traceback (most recent call last):
     File "<stdin>", line 2, in <module>
