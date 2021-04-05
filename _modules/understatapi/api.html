@@ -199,14 +199,20 @@
 
 <span class="sd">    Using the context manager gives some more verbose error handling</span>
 
-<span class="sd">    &gt;&gt;&gt; with UnderstatClient() as understat: # doctest: +SKIP</span>
-<span class="sd">    &gt;&gt;&gt;     understat.team(&quot;&quot;).get_bad_data() # doctest: +SKIP</span>
-<span class="sd">    Traceback (most recent call last):</span>
-<span class="sd">    File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;</span>
-<span class="sd">    File &quot;understatapi/api.py&quot;, line 59, in __exit__</span>
-<span class="sd">        raise AttributeError(</span>
-<span class="sd">    AttributeError: &#39;TeamEndpoint&#39; object has no attribute &#39;get_bad_data&#39;</span>
-<span class="sd">    Its public methods are [&#39;get_context_data&#39;, &#39;get_match_data&#39;, &#39;get_player_data&#39;]</span>
+<span class="sd">    .. testsetup::</span>
+
+<span class="sd">        from understatapi import UnderstatClient</span>
+
+<span class="sd">    .. doctest::</span>
+
+<span class="sd">        &gt;&gt;&gt; with UnderstatClient() as understat: # doctest: +SKIP</span>
+<span class="sd">        &gt;&gt;&gt;     understat.team(&quot;&quot;).get_bad_data() # doctest: +SKIP</span>
+<span class="sd">        Traceback (most recent call last):</span>
+<span class="sd">        File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;module&gt;</span>
+<span class="sd">        File &quot;understatapi/api.py&quot;, line 59, in __exit__</span>
+<span class="sd">            raise AttributeError(</span>
+<span class="sd">        AttributeError: &#39;TeamEndpoint&#39; object has no attribute &#39;get_bad_data&#39;</span>
+<span class="sd">        Its public methods are [&#39;get_context_data&#39;, &#39;get_match_data&#39;, &#39;get_player_data&#39;]</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
