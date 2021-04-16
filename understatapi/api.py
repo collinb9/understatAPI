@@ -15,9 +15,9 @@ from .exceptions import PrimaryAttribute
 class UnderstatClient:
     """ API client for understat """
 
-    def __init__(self) -> None:
+    def __init__(self, session: requests.Session = None) -> None:
         """ Initialise APIClient """
-        self.session = requests.Session()
+        self.session = session or requests.Session()
 
     def __enter__(self) -> "UnderstatClient":
         return self
