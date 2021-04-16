@@ -36,7 +36,7 @@ class BaseEndpoint:
         """
         Base endpoint for understat API
 
-        :session: requests.Session: The current `request` session
+        :session: requests.Session: The current `requests` session
         """
         self.session = session
         self._primary_attr = primary_attr

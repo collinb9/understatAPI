@@ -16,7 +16,9 @@ class UnderstatClient:
     """ API client for understat """
 
     def __init__(self, session: requests.Session = None) -> None:
-        """ Initialise APIClient """
+        """
+        :session: An existing `requests` session
+        """
         self.session = session or requests.Session()
 
     def __enter__(self) -> "UnderstatClient":
