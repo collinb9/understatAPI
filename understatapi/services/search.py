@@ -10,10 +10,47 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class Search:
-    """
-    Use the search bar on understat.com
+    """#pylint: disable=line-too-long
+    Use the search bar on ``understat.com``
 
     All results matching the given player name will be returned
+
+    :Example:
+
+    .. testsetup::
+
+        import requests
+        from minimock import Mock
+        from understatapi.endpoints import PlayerEndpoint
+        from understatapi.services import Search
+        players = [[
+            "2371",
+            "2028",
+            "7097",
+            ],
+            ["2371"]
+        ]
+        Search.get_player_ids = Mock("Search.get_player_ids", returns_iter=players, tracker=None)
+
+    .. testcleanup::
+
+        session.close()
+
+    .. doctest::
+
+        >>> session = requests.Session()
+        >>> player_name = "Ronaldo"
+        >>> with Search(player_name, session=session) as search:
+        ...     for player_id in search.get_player_ids():
+        ...         print(player_id)
+        2371
+        2028
+        7097
+        >>> with Search(player_name, session=session, max_ids=1) as search:
+        ...     for player_id in search.get_player_ids():
+        ...         print(player_id)
+        2371
+
     """
 
     opts = Options()
@@ -28,11 +65,11 @@ class Search:
         page_load_timeout: int = 5,
     ) -> None:
         """
-        :player_name: str: Name of player to search for
-        :session: requests.Session: A requests `Session` object
-        :max_ids: int: The maximum number of player ids to return
-        :page_load_timeout: int: Number of seconds to wait for the page
-            to load before raising a `TimeoutError`
+        :param player_name: Name of player to search for
+        :param session: The current session
+        :param max_ids: The maximum number of player ids to return
+        :param page_load_timeout: Number of seconds to wait for the page
+            to load before raising a ``TimeoutError``
         """
         self.player_name = player_name
         self.session = session
@@ -58,12 +95,12 @@ class Search:
         self.browser.quit()
 
     def _initialise_browser(self) -> None:
-        """ Inilise the WebDriver object """
+        """ Initialise the Firefox WebDriver object """
         self.browser = Firefox(options=self.opts)
 
     def get_player_ids(self) -> Iterator[str]:
         """
-        Get the ids that are returned when you look for the given
+        Get the ids that are returned when you search for the given
         player name
         """
         self.browser.get(self.url)
@@ -82,7 +119,9 @@ class Search:
         id_number = url.split("/")[-1]
         return id_number
 
-    def _cycle_results(self, results: Sequence) -> Iterator[str]:
+    def _cycle_results(
+        self, results: Sequence[Tuple[str, str]]
+    ) -> Iterator[str]:
         """
         Cycles through each of the search results, getting the url each time
         """
@@ -133,7 +172,7 @@ class Search:
             )
         )
 
-    def _get_search_results(self) -> Tuple[str, str]:
+    def _get_search_results(self) -> Sequence[Tuple[str, str]]:
         """
         Get results from the search
         """
@@ -141,10 +180,6 @@ class Search:
             "//*[@id='header']/div/nav[2]/ul/li[1]/span[1]/div"
         )
         player_club_list = players.text.split("\n")
-        players = [
-            (player, club)
-            for player, club in zip(
-                player_club_list[::2], player_club_list[1::2]
-            )
-        ]
+        players = zip(player_club_list[::2], player_club_list[1::2])
+
         return players

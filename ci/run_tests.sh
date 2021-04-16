@@ -8,3 +8,4 @@ pylint ${CHANGED_FILES}
 mypy -p understatapi
 coverage run -m unittest discover
 coverage report --fail-under=100
+make -C docs/ doctest

@@ -17,7 +17,7 @@ def make_url_with_player_id(player_id):
 
 
 class TestSearch(unittest.TestCase):
-    """ Test `Search` service """
+    """ Test ``Search`` service """
 
     @patch(
         "understatapi.services.search.Search._initialise_browser",
@@ -32,7 +32,7 @@ class TestSearch(unittest.TestCase):
         self.search.session.close()
 
     def test_init(self):
-        """ test `__init__()` """
+        """ test ``__init__()`` """
         with self.subTest(test="player_name"):
             self.search.player_name = "Ronaldo"
         with self.subTest(test="session"):
@@ -45,11 +45,11 @@ class TestSearch(unittest.TestCase):
             self.assertEqual(self.search.page_load_timeout, 5)
 
     def test_repr(self):
-        """ test `__repr__()` """
+        """ test ``__repr__()`` """
         self.assertEqual(repr(self.search), "<Search>")
 
     def test_get_search_results(self):
-        """ test `_get_search_results()` """
+        """ test ``_get_search_results()`` """
         self.search.browser.get("test/resources/home.html")
         players = self.search._get_search_results()
         expected_players = [
@@ -57,12 +57,12 @@ class TestSearch(unittest.TestCase):
             ("Ronaldo", "Empoli"),
             ("Ronaldo Vieira", "Verona"),
         ]
-        self.assertListEqual(players, expected_players)
+        self.assertListEqual(list(players), expected_players)
 
     @patch("understatapi.services.search.Search._wait_for_page_load")
     @patch.object(time, "sleep")
     def test_make_search(self, mock_sleep, mock_wait_for_page_load):
-        """ test `_make_search()` """
+        """ test ``_make_search()`` """
         self.search.browser.get("test/resources/home.html")
         with patch(
             "understatapi.services.search.WebDriverWait", new=MockWebDriverWait
@@ -85,7 +85,7 @@ class TestSearch(unittest.TestCase):
 
     @patch.object(Search, "_make_search")
     def test_cycle_results(self, mock_make_search):
-        """ test `_cycle_results()` """
+        """ test ``_cycle_results()`` """
         expected_player_ids = ["2371", "2028", "7097"]
         with patch.object(
             MockWebDriver,
@@ -108,7 +108,7 @@ class TestSearch(unittest.TestCase):
             mock_make_search.assert_has_calls([call()] * 3)
 
     def test_get_player_id_from_url(self):
-        """ test `get_player_id_from_url()` """
+        """ test ``get_player_id_from_url()`` """
         self.assertEqual(
             self.search._get_player_id_from_url(
                 "https://understat.com/player/2371"
@@ -118,7 +118,7 @@ class TestSearch(unittest.TestCase):
 
     @patch.object(time, "sleep")
     def test_get_player_ids(self, mock_sleep):
-        """ test `get_player_ids()` """
+        """ test ``get_player_ids()`` """
         self.search.url = "test/resources/home.html"
         expected_player_ids = ["2371", "2028", "7097"]
         with patch.object(
@@ -140,7 +140,7 @@ class TestSearch(unittest.TestCase):
 
     @patch.object(time, "sleep")
     def test_get_player_ids_max_ids(self, mock_sleep):
-        """ test `get_player_ids()` with `max_ids=1` """
+        """ test ``get_player_ids()`` with ``max_ids=1`` """
         self.search.url = "test/resources/home.html"
         player_id_list = ["2371", "2028", "7097"]
         self.search.max_ids = 1
@@ -164,7 +164,7 @@ class TestSearch(unittest.TestCase):
 
     @patch("understatapi.services.search.Firefox", autospec=True)
     def test_initialise_browser(self, mock_firefox):
-        """ test `_initialise_browser()` """
+        """ test ``_initialise_browser()`` """
         self.search._initialise_browser()
         mock_firefox.assert_called_once()
         _, kwargs = mock_firefox.call_args
@@ -175,7 +175,7 @@ class TestSearch(unittest.TestCase):
         "understatapi.services.search.Search._initialise_browser",
     )
     def test_context_manager(self, mock_initialise_browser, mock_quit):
-        """ Test that `Search` works as a context manager """
+        """ Test that ``Search`` works as a context manager """
         with Search(
             player_name="Ronaldo", session=requests.Session()
         ) as search:

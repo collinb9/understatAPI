@@ -16,12 +16,12 @@ jobs:
         - git remote set-branches --add origin master
         - git fetch
       script:
-        - ./run_tests.sh
+        - ci/run_tests.sh
     - name: "Deploying"
       stage: deploy
       if: branch = master
       script:
-        - ./make_docs.sh
+        - ci/make_docs.sh
         - python setup.py sdist
       deploy: 
         - provider: pages:git
@@ -53,9 +53,6 @@ jobs:
 
 
 install:
-  - pip install -r requirements.txt
-  - pip install -r test_requirements.txt
-  - pip install -r docs/requirements.txt
-
+  - ci/install_dependencies.sh
 script:
   - python setup.py install

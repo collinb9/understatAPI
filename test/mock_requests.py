@@ -26,7 +26,7 @@ class MockResponse:
         return text
 
     def raise_for_status(self):
-        """Raises `HTTPError`, if one occurred."""
+        """Raises ``HTTPError``, if one occurred."""
 
         http_error_msg = ""
         reason = self.reason

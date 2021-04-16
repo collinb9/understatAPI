@@ -1,24 +1,17 @@
-.. understatAPI documentation master file, created by
-   sphinx-quickstart on Wed Mar 17 15:10:29 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+understatAPI Home
+=================
 
-Welcome to understatAPI's documentation!
-========================================
+.. toctree::
+   :hidden:
+
+   self
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-   Readme <README.md>
+   Usage <usage.md>
+   API Referance <api_index.rst>
+   Glossary <glossary.rst>
 
-   Copyright <copyright.rst>
+.. mdinclude:: README.md
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

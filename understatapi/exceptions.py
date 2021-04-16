@@ -26,7 +26,7 @@ class InvalidSeason(Exception):
         if args:
             self.message = f"{args[0]} is not a valid season"
         else:
-            self.message = "The value passed to `season` is not valid"
+            self.message = "The value passed to ``season`` is not valid"
 
     def __str__(self) -> str:
         return self.message
@@ -39,7 +39,7 @@ class InvalidPlayer(Exception):
         if args:
             self.message = f"{args[0]} is not a valid player or player id"
         else:
-            self.message = "The value passed to `player` is not valid"
+            self.message = "The value passed to ``player`` is not valid"
 
     def __str__(self) -> str:
         return self.message
@@ -52,7 +52,7 @@ class InvalidLeague(Exception):
         if args:
             self.message = f"{args[0]} is not a valid league"
         else:
-            self.message = "The value passed to `league` is not valid"
+            self.message = "The value passed to ``league`` is not valid"
 
     def __str__(self) -> str:
         return self.message
@@ -65,7 +65,7 @@ class InvalidTeam(Exception):
         if args:
             self.message = f"{args[0]} is not a valid team"
         else:
-            self.message = "The value passed to `team` is not valid"
+            self.message = "The value passed to ``team`` is not valid"
 
     def __str__(self) -> str:
         return self.message
@@ -78,7 +78,7 @@ class InvalidMatch(Exception):
         if args:
             self.message = f"{args[0]} is not a valid match"
         else:
-            self.message = "The value passed to `match` is not valid"
+            self.message = "The value passed to ``match`` is not valid"
 
     def __str__(self) -> str:
         return self.message
