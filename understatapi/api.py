@@ -38,14 +38,21 @@ class UnderstatClient:
 
     Using the context manager gives some more verbose error handling
 
-    >>> with UnderstatClient() as understat: # doctest: +SKIP
-    >>>     understat.team("").get_bad_data() # doctest: +SKIP
-    Traceback (most recent call last):
-    File "<stdin>", line 2, in <module>
-    File "understatapi/api.py", line 59, in __exit__
-        raise AttributeError(
-    AttributeError: 'TeamEndpoint' object has no attribute 'get_bad_data'
-    Its public methods are ['get_context_data', 'get_match_data', 'get_player_data']
+    .. testsetup::
+
+            from understatapi import UnderstatClient
+
+    .. doctest::
+
+        >>> team=""
+        >>> with UnderstatClient() as understat:
+        ...     understat.team(team).get_bad_data() # doctest: +SKIP
+        Traceback (most recent call last)
+        File "<stdin>", line 2, in <module>
+        File "understatapi/api.py", line 59, in __exit__
+            raise AttributeError(
+        AttributeError: 'TeamEndpoint' object has no attribute 'get_bad_data'
+        Its public methods are ['get_context_data', 'get_match_data', 'get_player_data']
 
     """
 
