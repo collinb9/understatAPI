@@ -36,14 +36,16 @@ class PlayerEndpoint(BaseEndpoint):
     queries = ["matchesData", "shotsData", "groupsData"]
 
     def __init__(
-        self, player: PrimaryAttribute, session: requests.Session
+        self, player: PrimaryAttribute, session: requests.Session, **kwargs
     ) -> None:
         """
         :param player: Id of the player(s) to get data for
         :param session: The current session
         """
         self._primary_attr = player
-        super().__init__(primary_attr=self._primary_attr, session=session)
+        super().__init__(
+            primary_attr=self._primary_attr, session=session, **kwargs
+        )
 
     @property
     def player(self) -> PrimaryAttribute:

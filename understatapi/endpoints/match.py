@@ -34,13 +34,17 @@ class MatchEndpoint(BaseEndpoint):
 
     queries = ["shotsData", "rostersData", "match_info"]
 
-    def __init__(self, match: PrimaryAttribute, session: requests.Session):
+    def __init__(
+        self, match: PrimaryAttribute, session: requests.Session, **kwargs
+    ):
         """
         :param match: Id of match(es) to get data for
         :param session: The current session
         """
         self._primary_attr = match
-        super().__init__(primary_attr=self._primary_attr, session=session)
+        super().__init__(
+            primary_attr=self._primary_attr, session=session, **kwargs
+        )
 
     @property
     def match(self) -> PrimaryAttribute:
@@ -75,7 +79,9 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="shotsData", **kwargs).T
+        data = self._get_data(query="shotsData", **kwargs)
+        if self.return_dataframe:
+            data = data.T
         return data
 
     def get_roster_data(self, **kwargs: str) -> pd.DataFrame:

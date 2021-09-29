@@ -33,12 +33,14 @@ class BaseEndpoint:
         self,
         primary_attr: PrimaryAttribute,
         session: requests.Session,
+        return_dataframe: bool = True,
     ) -> None:
         """
         :session: requests.Session: The current ``request`` session
         """
         self.session = session
         self._primary_attr = primary_attr
+        self.return_dataframe = return_dataframe
 
     def __repr__(self) -> str:
         return "<%s>" % self.__class__.__name__
@@ -84,8 +86,9 @@ class BaseEndpoint:
 
         return res
 
-    @staticmethod
+    # @staticmethod
     def _extract_data_from_html(
+        self,
         html: str,
         query: str = "teamsData",
     ) -> pd.DataFrame:
@@ -107,7 +110,8 @@ class BaseEndpoint:
         # Clean up the json and return the data
         json_data = json_data.encode("utf8").decode("unicode_escape")
         data = json.loads(json_data)
-        data = json_to_dataframe(data, orient="index")
+        if self.return_dataframe:
+            data = json_to_dataframe(data, orient="index")
         return data
 
     def _get_response(

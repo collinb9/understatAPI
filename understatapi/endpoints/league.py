@@ -34,14 +34,18 @@ class LeagueEndpoint(BaseEndpoint):
 
     queries = ["teamsData", "datesData", "playersData"]
 
-    def __init__(self, league: PrimaryAttribute, session: requests.Session):
+    def __init__(
+        self, league: PrimaryAttribute, session: requests.Session, **kwargs
+    ):
         """
         :param league: Name of the league(s) to get data for,
             one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param session: The current session
         """
         self._primary_attr = league
-        super().__init__(primary_attr=self._primary_attr, session=session)
+        super().__init__(
+            primary_attr=self._primary_attr, session=session, **kwargs
+        )
 
     @property
     def league(self) -> PrimaryAttribute:

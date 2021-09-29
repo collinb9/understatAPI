@@ -56,8 +56,9 @@ class UnderstatClient:
 
     """
 
-    def __init__(self) -> None:
+    def __init__(self, return_dataframe=True) -> None:
         self.session = requests.Session()
+        self.return_dataframe = return_dataframe
 
     def __enter__(self) -> "UnderstatClient":
         return self
@@ -105,7 +106,11 @@ class UnderstatClient:
             Bundesliga
 
         """
-        return LeagueEndpoint(league=league, session=self.session)
+        return LeagueEndpoint(
+            league=league,
+            session=self.session,
+            return_dataframe=self.return_dataframe,
+        )
 
     def player(self, player: PrimaryAttribute) -> PlayerEndpoint:
         """
@@ -157,7 +162,11 @@ class UnderstatClient:
             Liverpool
 
         """
-        return TeamEndpoint(team=team, session=self.session)
+        return TeamEndpoint(
+            team=team,
+            session=self.session,
+            return_dataframe=self.return_dataframe,
+        )
 
     def match(self, match: PrimaryAttribute) -> MatchEndpoint:
         """
@@ -183,7 +192,11 @@ class UnderstatClient:
             456
 
         """
-        return MatchEndpoint(match=match, session=self.session)
+        return MatchEndpoint(
+            match=match,
+            session=self.session,
+            return_dataframe=self.return_dataframe,
+        )
 
     def search(
         self, player_name: str, max_ids: int = 5, page_load_timeout: int = 5
