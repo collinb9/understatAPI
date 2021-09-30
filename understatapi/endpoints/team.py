@@ -110,7 +110,7 @@ class TeamEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(
-            season=season, query="statisticsData", **kwargs
-        ).T
+        data = self._get_data(season=season, query="statisticsData", **kwargs)
+        if self.return_dataframe:
+            data = data.T
         return data

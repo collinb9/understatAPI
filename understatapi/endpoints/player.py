@@ -100,5 +100,7 @@ class PlayerEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="groupsData", **kwargs).T
+        data = self._get_data(query="groupsData", **kwargs)
+        if self.return_dataframe:
+            data = data.T
         return data

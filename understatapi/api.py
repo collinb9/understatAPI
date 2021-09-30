@@ -136,7 +136,11 @@ class UnderstatClient:
             111
 
         """
-        return PlayerEndpoint(player=player, session=self.session)
+        return PlayerEndpoint(
+            player=player,
+            session=self.session,
+            return_dataframe=self.return_dataframe,
+        )
 
     def team(self, team: PrimaryAttribute) -> TeamEndpoint:
         """
