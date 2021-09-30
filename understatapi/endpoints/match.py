@@ -91,7 +91,9 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="rostersData", **kwargs).T
+        data = self._get_data(query="rostersData", **kwargs)
+        if self.return_dataframe:
+            data = data.T
         return data
 
     def get_match_info(self, **kwargs: str) -> pd.DataFrame:
@@ -101,5 +103,7 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="match_info", **kwargs).T
+        data = self._get_data(query="match_info", **kwargs)
+        if self.return_dataframe:
+            data = data.T
         return data
