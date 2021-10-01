@@ -4,6 +4,7 @@ import json
 import requests
 from requests import Response
 import pandas as pd
+from ..parsers import BaseParser
 from ..utils import json_to_dataframe
 from ..exceptions import (
     InvalidQuery,
@@ -33,12 +34,14 @@ class BaseEndpoint:
         self,
         primary_attr: PrimaryAttribute,
         session: requests.Session,
+        parser: BaseParser,
     ) -> None:
         """
         :session: requests.Session: The current ``request`` session
         """
         self.session = session
         self._primary_attr = primary_attr
+        self.parser = parser
 
     def __repr__(self) -> str:
         return "<%s>" % self.__class__.__name__
@@ -63,7 +66,7 @@ class BaseEndpoint:
         season: str = None,
         query: str = None,
     ) -> None:
-        """ Handle invalid arguments """
+        """Handle invalid arguments"""
         if league is not None and league not in self.leagues:
             raise InvalidLeague(league)
         if season is not None and int(season) < 2014:
@@ -126,6 +129,6 @@ class BaseEndpoint:
         :return: pd.DataFrame: Data retrieved from html page
         """
         res = self._request_url(url, **kwargs)
-        data = self._extract_data_from_html(res.text, query=query)
+        data = self.parser.parse(res.text, query=query)
 
         return data
