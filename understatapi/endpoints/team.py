@@ -72,7 +72,9 @@ class TeamEndpoint(BaseEndpoint):
         try:
             data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidTeam(self.team) from err
+            raise InvalidTeam(
+                f"{self.team} is not a valid team", team=self.team
+            ) from err
 
         return data
 
@@ -111,6 +113,4 @@ class TeamEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(season=season, query="statisticsData", **kwargs)
-        if self.return_dataframe:
-            data = data.T
         return data

@@ -69,7 +69,10 @@ class PlayerEndpoint(BaseEndpoint):
         try:
             data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidPlayer(self.player) from err
+            raise InvalidPlayer(
+                f"{self.player} is not a valid player or player id",
+                player=self.player,
+            ) from err
 
         return data
 
@@ -101,6 +104,4 @@ class PlayerEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="groupsData", **kwargs)
-        if self.return_dataframe:
-            data = data.T
         return data

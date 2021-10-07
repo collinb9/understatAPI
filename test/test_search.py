@@ -19,6 +19,8 @@ def make_url_with_player_id(player_id):
 class TestSearch(unittest.TestCase):
     """ Test ``Search`` service """
 
+    # TODO: Rewrite this to use the client
+
     @patch(
         "understatapi.services.search.Search._initialise_browser",
     )

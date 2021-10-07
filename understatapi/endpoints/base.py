@@ -4,9 +4,7 @@ import json
 import requests
 from requests import Response
 import pandas as pd
-from ..utils import json_to_dataframe
 from ..exceptions import (
-    InvalidQuery,
     InvalidLeague,
     InvalidSeason,
     PrimaryAttribute,
@@ -67,11 +65,15 @@ class BaseEndpoint:
     ) -> None:
         """ Handle invalid arguments """
         if league is not None and league not in self.leagues:
-            raise InvalidLeague(league)
+            raise InvalidLeague(
+                f"{league}is not a valid league", league=league
+            )
         if season is not None and int(season) < 2014:
-            raise InvalidSeason(season)
-        if query is not None and query not in self.queries:
-            raise InvalidQuery(query)
+            raise InvalidSeason(
+                f"{season} is not a valid season", season=season
+            )
+        # if query is not None and query not in self.queries:
+        #     raise InvalidQuery(query)
 
     def _request_url(self, *args: str, **kwargs: str) -> Response:
         """
@@ -83,7 +85,6 @@ class BaseEndpoint:
         """
         res = self.session.get(*args, **kwargs)
         res.raise_for_status()
-
         return res
 
     # @staticmethod
@@ -101,8 +102,8 @@ class BaseEndpoint:
         """
         # find the query in the html string
         query_index = html.find(query)
-        if not query_index > 0:
-            raise InvalidQuery(query)
+        # if not query_index > 0:
+        #     raise InvalidQuery(query)
         # get the start and end of the JSON data string
         start = html.find("(", query_index) + 2
         end = html.find(")", start) - 1
@@ -110,8 +111,6 @@ class BaseEndpoint:
         # Clean up the json and return the data
         json_data = json_data.encode("utf8").decode("unicode_escape")
         data = json.loads(json_data)
-        if self.return_dataframe:
-            data = json_to_dataframe(data, orient="index")
         return data
 
     def _get_response(

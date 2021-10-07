@@ -68,7 +68,9 @@ class MatchEndpoint(BaseEndpoint):
         try:
             data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidMatch(self.match) from err
+            raise InvalidMatch(
+                f"{self.match} is not a valid match", match=self.match
+            ) from err
 
         return data
 
@@ -80,8 +82,6 @@ class MatchEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="shotsData", **kwargs)
-        if self.return_dataframe:
-            data = data.T
         return data
 
     def get_roster_data(self, **kwargs: str) -> pd.DataFrame:
@@ -92,8 +92,6 @@ class MatchEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="rostersData", **kwargs)
-        if self.return_dataframe:
-            data = data.T
         return data
 
     def get_match_info(self, **kwargs: str) -> pd.DataFrame:
@@ -104,6 +102,4 @@ class MatchEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         data = self._get_data(query="match_info", **kwargs)
-        if self.return_dataframe:
-            data = data.T
         return data

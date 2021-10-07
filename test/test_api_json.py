@@ -12,6 +12,7 @@ from understatapi.exceptions import (
     InvalidPlayer,
     InvalidTeam,
     InvalidLeague,
+    InvalidSeason,
 )
 
 
@@ -347,7 +348,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
         with self.assertRaises(InvalidPlayer):
             self.player.get_shot_data(status_code=404)
 
-    def test_get_data_type_error(self, mock_get):
+    def test_player_get_data_type_error(self, mock_get):
         """
         test that ``player._get_data()`` raises a TypeError
         when ``player`` is not a string
@@ -377,7 +378,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
         with self.assertRaises(InvalidLeague):
             _ = league.get_match_data(season="2019", status_code=404)
 
-    def test_get_data_type_error(self, mock_get):
+    def test_league_get_data_type_error(self, mock_get):
         """
         test that ``league._get_data()`` raises a TypeError
         when ``league`` is not a string
@@ -385,6 +386,14 @@ class TestEndpointErrors(EndpointBaseTestCase):
         league = self.understat.league(None)
         with self.assertRaises(TypeError):
             _ = league.get_match_data(season="2019")
+
+    def test_invalid_season(self, mock_get):
+        """
+        Test that an error is raised when you try to get data for a
+        season before 2014
+        """
+        with self.assertRaises(InvalidSeason):
+            _ = self.league.get_match_data(season="2013")
 
 
 class TestEndpointDunder(EndpointBaseTestCase):
