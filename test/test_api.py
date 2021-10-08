@@ -23,12 +23,6 @@ from understatapi.exceptions import (
 )
 
 
-def save_data(data, path):
-    """Save json data"""
-    with open(path, "w", encoding="utf-8") as fh:
-        json.dump(data, fh)
-
-
 def read_json(path: str) -> Dict:
     """Read json data"""
     with open(path, "r", encoding="utf-8") as fh:
@@ -54,14 +48,13 @@ class EndpointBaseTestCase(unittest.TestCase):
         self.understat.session.close()
 
 
-@patch.object(BaseEndpoint, "_request_url")
-@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
+@patch.object(requests.Session, "get")
 class TestEndpointsResponse(EndpointBaseTestCase):
     """Test that endpoints return the expected output"""
 
-    def test_match_get_shot_data(self, mock_get, mock_request_url):
+    def test_match_get_shot_data(self, mock_get):
         """ test ``match.get_shot_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
         data = self.match.get_shot_data()
@@ -69,9 +62,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         self.assertDictEqual(expected_data, data)
 
-    def test_match_get_roster_data(self, mock_get, mock_request_url):
+    def test_match_get_roster_data(self, mock_get):
         """ test ``match.get_roster_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
         data = self.match.get_roster_data()
@@ -79,9 +72,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         self.assertDictEqual(expected_data, data)
 
-    def test_match_get_match_info(self, mock_get, mock_request_url):
+    def test_match_get_match_info(self, mock_get):
         """ test ``match.get_match_info()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
         data = self.match.get_match_info()
@@ -89,9 +82,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         self.assertDictEqual(expected_data, data)
 
-    def test_player_get_match_data(self, mock_get, mock_request_url):
+    def test_player_get_match_data(self, mock_get):
         """ test ``player.get_match_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
         data = self.player.get_match_data()
@@ -103,9 +96,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-    def test_get_shot_data_return_value(self, mock_get, mock_request_url):
+    def test_get_shot_data_return_value(self, mock_get):
         """ test ``player.get_shot_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
         data = self.player.get_shot_data()
@@ -117,9 +110,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-    def test_player_get_season_data(self, mock_get, mock_request_url):
+    def test_player_get_season_data(self, mock_get):
         """ test ``player.get_season_data()`` """
-        mock_request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
         data = self.player.get_season_data()
@@ -127,11 +120,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         self.assertDictEqual(data, expected_data)
 
-    def test_team_get_player_data(self, mock_get, mock__request_url):
+    def test_team_get_player_data(self, mock_get):
         """ test ``team.get_match_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
-            "test/resources/team.html"
-        )
+        mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_player_data(season="2019")
         data_path = "test/resources/data/team_playersdata.json"
         expected_data = read_json(data_path)
@@ -141,11 +132,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-    def test_team_get_match_data(self, mock_get, mock__request_url):
+    def test_team_get_match_data(self, mock_get):
         """ test ``team.get_match_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
-            "test/resources/team.html"
-        )
+        mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_match_data(season="2019")
         data_path = "test/resources/data/team_datesdata.json"
         expected_data = read_json(data_path)
@@ -155,20 +144,17 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-    def test_team_get_context_data(self, mock_get, mock__request_url):
+    def test_team_get_context_data(self, mock_get):
         """ test ``team.get_context_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
-            "test/resources/team.html"
-        )
+        mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_context_data(season="2019")
         data_path = "test/resources/data/team_statisticsdata.json"
-        # save_data(data, data_path)
         expected_data = read_json(data_path)
         self.assertDictEqual(data, expected_data)
 
-    def test_league_get_team_data(self, mock_get, mock__request_url):
+    def test_league_get_team_data(self, mock_get):
         """ test ``league.get_team_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
         data = self.league.get_team_data(season="2019")
@@ -176,9 +162,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         self.assertDictEqual(data, expected_data)
 
-    def test_league_get_match_data(self, mock_get, mock__request_url):
+    def test_league_get_match_data(self, mock_get):
         """ test ``league.get_match_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
         data = self.league.get_match_data(season="2019")
@@ -190,9 +176,9 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-    def test_league_get_player_data(self, mock_get, mock__request_url):
+    def test_league_get_player_data(self, mock_get):
         """ test ``league.get_player_data()`` """
-        mock__request_url.return_value = mocked_requests_get(
+        mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
         data = self.league.get_player_data(season="2019")
@@ -484,6 +470,16 @@ class TestEndpointDunder(EndpointBaseTestCase):
     def test_getitem_one(self):
         """Test getitem() when there is only one player"""
         self.assertEqual(self.player[0].player, self.player.player)
+
+    def test_context_manager(self):
+        """
+        Test that the client behaves as a context manager as expected
+        """
+        try:
+            with UnderstatClient():
+                pass
+        except Exception:  # pylint: disable=broad-except
+            self.fail()
 
 
 class TestSearch(unittest.TestCase):
