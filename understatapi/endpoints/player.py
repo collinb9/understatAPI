@@ -1,6 +1,6 @@
 """ Player endpoint """
+from typing import Dict, Any
 import requests
-import pandas as pd
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
 from ..exceptions import InvalidPlayer, PrimaryAttribute
@@ -50,7 +50,7 @@ class PlayerEndpoint(BaseEndpoint):
         """ player id """
         return self._primary_attr
 
-    def _get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
+    def _get_data(self, query: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-player basis
 
@@ -74,7 +74,7 @@ class PlayerEndpoint(BaseEndpoint):
 
         return data
 
-    def get_match_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_match_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get match level data for a player
 
@@ -84,7 +84,7 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(query="matchesData", **kwargs)
         return data
 
-    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get shot level data for a player
 
@@ -94,7 +94,7 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(query="shotsData", **kwargs)
         return data
 
-    def get_season_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_season_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get season level data for a player
 

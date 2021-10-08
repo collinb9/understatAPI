@@ -1,7 +1,7 @@
 """ Match endpoint """
+from typing import Dict, Any
 import requests
 from requests.exceptions import HTTPError
-import pandas as pd
 from .base import BaseEndpoint
 from ..exceptions import InvalidMatch, PrimaryAttribute
 
@@ -47,7 +47,7 @@ class MatchEndpoint(BaseEndpoint):
         """  match id """
         return self._primary_attr
 
-    def _get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
+    def _get_data(self, query: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-match basis
 
@@ -70,7 +70,7 @@ class MatchEndpoint(BaseEndpoint):
 
         return data
 
-    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get shot level data for a match
 
@@ -80,7 +80,7 @@ class MatchEndpoint(BaseEndpoint):
         data = self._get_data(query="shotsData", **kwargs)
         return data
 
-    def get_roster_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_roster_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get data about the roster for each team
 
@@ -90,7 +90,7 @@ class MatchEndpoint(BaseEndpoint):
         data = self._get_data(query="rostersData", **kwargs)
         return data
 
-    def get_match_info(self, **kwargs: str) -> pd.DataFrame:
+    def get_match_info(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get information about the match
 

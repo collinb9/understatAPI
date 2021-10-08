@@ -1,9 +1,8 @@
 """ Base endpoint """
-from typing import List, Sequence
+from typing import List, Sequence, Dict, Any
 import json
 import requests
 from requests import Response
-import pandas as pd
 from ..exceptions import (
     InvalidLeague,
     InvalidSeason,
@@ -80,7 +79,7 @@ class BaseEndpoint:
     def _extract_data_from_html(
         html: str,
         query: str = "teamsData",
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Finds a JSON in the HTML according to a query, and returns the
         dictionary corresponding to this JSON.
@@ -104,7 +103,7 @@ class BaseEndpoint:
         url: str,
         query: str = "teamsData",
         **kwargs: str,
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Retrieve data from html page
 
@@ -112,7 +111,7 @@ class BaseEndpoint:
         :param query: str: A sub-string to look for in the html document
         :param kwargs: Keyword arguments to pass to ``requests.get()``
 
-        :return: pd.DataFrame: Data retrieved from html page
+        :return: JSON data retrieved from html page
         """
         res = self._request_url(url, **kwargs)
         data = self._extract_data_from_html(res.text, query=query)

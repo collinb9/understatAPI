@@ -1,7 +1,7 @@
 """ Team endpoint """
+from typing import Dict, Any
 import requests
 from requests.exceptions import HTTPError
-import pandas as pd
 from .base import BaseEndpoint
 from ..exceptions import InvalidTeam, PrimaryAttribute
 
@@ -52,7 +52,7 @@ class TeamEndpoint(BaseEndpoint):
 
     def _get_data(
         self, season: str, query: str, **kwargs: str
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Get data on a per-team basis
 
@@ -76,7 +76,7 @@ class TeamEndpoint(BaseEndpoint):
 
         return data
 
-    def get_player_data(self, season: str, **kwargs: str) -> pd.DataFrame:
+    def get_player_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data for all players on a given team in a given season
 
@@ -87,7 +87,7 @@ class TeamEndpoint(BaseEndpoint):
         data = self._get_data(season=season, query="playersData", **kwargs)
         return data
 
-    def get_match_data(self, season: str, **kwargs: str) -> pd.DataFrame:
+    def get_match_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per match level for a given team in a given season
 
@@ -102,7 +102,7 @@ class TeamEndpoint(BaseEndpoint):
         self,
         season: str,
         **kwargs: str,
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Get data based on different contexts in the game
 
