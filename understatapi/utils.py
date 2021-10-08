@@ -1,6 +1,6 @@
 """ Helper functions for formatting data """
 import sys
-from typing import List, Union
+from typing import List
 import inspect
 import re
 
@@ -28,7 +28,7 @@ def get_public_methods(cls: type) -> List[str]:
     return methods
 
 
-def find_endpoints(line: str) -> Union[List[str], None]:
+def find_endpoints(line: str) -> List[str]:
     """
     Find the name of a subclass of
     ``~understatapi.endpoints.base.BaseEndpoint`` in a string
@@ -37,6 +37,8 @@ def find_endpoints(line: str) -> Union[List[str], None]:
         ``~understatapi.endpoints.base.BaseEndpoint`` object
     """
     match = re.findall(r"\w+Endpoint", line)
+    if match is None:
+        return []  # pragma: no cover
     return match
 
 

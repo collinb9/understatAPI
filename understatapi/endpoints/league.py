@@ -34,18 +34,14 @@ class LeagueEndpoint(BaseEndpoint):
 
     queries = ["teamsData", "datesData", "playersData"]
 
-    def __init__(
-        self, league: PrimaryAttribute, session: requests.Session, **kwargs
-    ):
+    def __init__(self, league: PrimaryAttribute, session: requests.Session):
         """
         :param league: Name of the league(s) to get data for,
             one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}
         :param session: The current session
         """
         self._primary_attr = league
-        super().__init__(
-            primary_attr=self._primary_attr, session=session, **kwargs
-        )
+        super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def league(self) -> PrimaryAttribute:
@@ -66,7 +62,7 @@ class LeagueEndpoint(BaseEndpoint):
         """
         if not isinstance(self.league, str):
             raise TypeError("``league`` must be a string")
-        self._check_args(league=self.league, season=season, query=query)
+        self._check_args(league=self.league, season=season)
         url = self.base_url + "league/" + self.league + "/" + season
 
         data = self._get_response(url=url, query=query, **kwargs)

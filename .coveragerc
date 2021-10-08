@@ -1,10 +1,10 @@
 [run]
 branch = True
 
-include = 
+include =
 		understatapi/*
 
-omit = 
+omit =
 		*/__init__.py
 
 [report]

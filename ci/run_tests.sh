@@ -1,4 +1,5 @@
-export CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
+echo $CHANGED_FILES
 if [ -z "$CHANGED_FILES" ]
 then
 		export CHANGED_FILES="understatapi/api.py"

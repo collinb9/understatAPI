@@ -57,6 +57,7 @@ class MockWebDriver:
         self.options = options
         self._content = None
         self.url = None
+        self._current_url = None
 
     def __repr__(self):
         return f"<{self.__class__.__name__}>"
@@ -73,18 +74,20 @@ class MockWebDriver:
     @property
     def current_url(self):
         """ current url """
-        return
+        return self._current_url
 
     def find_element_by_xpath(self, xpath):
         """ find element by xpath """
         tree = html.fromstring(self._content)
         res = tree.xpath(xpath)
-        return MockWebElement(element=res[0])
+        element = MockWebElement(element=res[0])
+        self._current_url = res[0].text
+        return element
 
     def get(self, url):
         """ get """
         self.url = url
-        with open(url) as file:
+        with open(url, encoding="utf-8") as file:
             content = file.read()
         self._content = content
         return content

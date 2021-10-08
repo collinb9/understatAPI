@@ -36,16 +36,14 @@ class PlayerEndpoint(BaseEndpoint):
     queries = ["matchesData", "shotsData", "groupsData"]
 
     def __init__(
-        self, player: PrimaryAttribute, session: requests.Session, **kwargs
+        self, player: PrimaryAttribute, session: requests.Session
     ) -> None:
         """
         :param player: Id of the player(s) to get data for
         :param session: The current session
         """
         self._primary_attr = player
-        super().__init__(
-            primary_attr=self._primary_attr, session=session, **kwargs
-        )
+        super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def player(self) -> PrimaryAttribute:
@@ -63,7 +61,7 @@ class PlayerEndpoint(BaseEndpoint):
         """
         if not isinstance(self.player, str):
             raise TypeError("``player`` must be a string")
-        self._check_args(query=query)
+        self._check_args()
         url = self.base_url + "player/" + self.player
 
         try:

@@ -23,7 +23,7 @@ jobs:
       script:
         - ci/make_docs.sh
         - python setup.py sdist
-      deploy: 
+      deploy:
         - provider: pages:git
           edge: true
           verbose: true

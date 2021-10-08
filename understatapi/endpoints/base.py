@@ -28,20 +28,16 @@ class BaseEndpoint:
     queries: List[str] = []
 
     def __init__(
-        self,
-        primary_attr: PrimaryAttribute,
-        session: requests.Session,
-        return_dataframe: bool = True,
+        self, primary_attr: PrimaryAttribute, session: requests.Session
     ) -> None:
         """
         :session: requests.Session: The current ``request`` session
         """
         self.session = session
         self._primary_attr = primary_attr
-        self.return_dataframe = return_dataframe
 
     def __repr__(self) -> str:
-        return "<%s>" % self.__class__.__name__
+        return f"<{self.__class__.__name__}({self._primary_attr!r})>"
 
     def __len__(self) -> int:
         if isinstance(self._primary_attr, str):
@@ -57,12 +53,7 @@ class BaseEndpoint:
             return self.__class__(self._primary_attr, session=self.session)
         return self.__class__(self._primary_attr[index], session=self.session)
 
-    def _check_args(
-        self,
-        league: str = None,
-        season: str = None,
-        query: str = None,
-    ) -> None:
+    def _check_args(self, league: str = None, season: str = None) -> None:
         """ Handle invalid arguments """
         if league is not None and league not in self.leagues:
             raise InvalidLeague(
@@ -72,8 +63,6 @@ class BaseEndpoint:
             raise InvalidSeason(
                 f"{season} is not a valid season", season=season
             )
-        # if query is not None and query not in self.queries:
-        #     raise InvalidQuery(query)
 
     def _request_url(self, *args: str, **kwargs: str) -> Response:
         """
@@ -87,9 +76,8 @@ class BaseEndpoint:
         res.raise_for_status()
         return res
 
-    # @staticmethod
+    @staticmethod
     def _extract_data_from_html(
-        self,
         html: str,
         query: str = "teamsData",
     ) -> pd.DataFrame:
@@ -102,8 +90,6 @@ class BaseEndpoint:
         """
         # find the query in the html string
         query_index = html.find(query)
-        # if not query_index > 0:
-        #     raise InvalidQuery(query)
         # get the start and end of the JSON data string
         start = html.find("(", query_index) + 2
         end = html.find(")", start) - 1

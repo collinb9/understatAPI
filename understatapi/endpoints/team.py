@@ -36,16 +36,14 @@ class TeamEndpoint(BaseEndpoint):
     queries = ["datesData", "statisticsData", "playersData"]
 
     def __init__(
-        self, team: PrimaryAttribute, session: requests.Session, **kwargs
+        self, team: PrimaryAttribute, session: requests.Session
     ) -> None:
         """
         :param team: Name of the team(s) to get data for
         :param session: The current session
         """
         self._primary_attr = team
-        super().__init__(
-            primary_attr=self._primary_attr, session=session, **kwargs
-        )
+        super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def team(self) -> PrimaryAttribute:
@@ -66,7 +64,7 @@ class TeamEndpoint(BaseEndpoint):
         """
         if not isinstance(self.team, str):
             raise TypeError("``team`` must be a string")
-        self._check_args(query=query)
+        self._check_args()
         url = self.base_url + "team/" + self.team + "/" + season
 
         try:

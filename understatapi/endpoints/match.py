@@ -34,17 +34,13 @@ class MatchEndpoint(BaseEndpoint):
 
     queries = ["shotsData", "rostersData", "match_info"]
 
-    def __init__(
-        self, match: PrimaryAttribute, session: requests.Session, **kwargs
-    ):
+    def __init__(self, match: PrimaryAttribute, session: requests.Session):
         """
         :param match: Id of match(es) to get data for
         :param session: The current session
         """
         self._primary_attr = match
-        super().__init__(
-            primary_attr=self._primary_attr, session=session, **kwargs
-        )
+        super().__init__(primary_attr=self._primary_attr, session=session)
 
     @property
     def match(self) -> PrimaryAttribute:
@@ -62,7 +58,7 @@ class MatchEndpoint(BaseEndpoint):
         """
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
-        self._check_args(query=query)
+        self._check_args()
         url = self.base_url + "match/" + self.match
 
         try:

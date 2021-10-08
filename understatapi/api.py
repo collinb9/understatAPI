@@ -3,7 +3,6 @@ from types import TracebackType
 from typing import Iterator
 import requests
 from selenium.common.exceptions import WebDriverException
-from understatapi.endpoints.base import BaseEndpoint
 from .utils import get_public_methods, str_to_class, find_endpoints
 from .endpoints import (
     LeagueEndpoint,
@@ -56,9 +55,8 @@ class UnderstatClient:
 
     """
 
-    def __init__(self, return_dataframe=True) -> None:
+    def __init__(self) -> None:
         self.session = requests.Session()
-        self.return_dataframe = return_dataframe
 
     def __enter__(self) -> "UnderstatClient":
         return self
@@ -71,14 +69,12 @@ class UnderstatClient:
     ) -> None:
         if exception_type is AttributeError:
             endpoint = find_endpoints(str(exception_value))
-            if endpoint is not None:
-                endpoint_obj = str_to_class(__name__, endpoint[0])
-                if issubclass(endpoint_obj, BaseEndpoint):
-                    public_methods = get_public_methods(endpoint_obj)
-                    raise AttributeError(
-                        str(exception_value)
-                        + f"\nIts public methods are {public_methods}"
-                    )
+            endpoint_obj = str_to_class(__name__, endpoint[0])
+            public_methods = get_public_methods(endpoint_obj)
+            raise AttributeError(
+                str(exception_value)
+                + f"\nIts public methods are {public_methods}"
+            )
         self.session.close()
 
     def league(self, league: PrimaryAttribute) -> LeagueEndpoint:
@@ -106,11 +102,7 @@ class UnderstatClient:
             Bundesliga
 
         """
-        return LeagueEndpoint(
-            league=league,
-            session=self.session,
-            return_dataframe=self.return_dataframe,
-        )
+        return LeagueEndpoint(league=league, session=self.session)
 
     def player(self, player: PrimaryAttribute) -> PlayerEndpoint:
         """
@@ -136,11 +128,7 @@ class UnderstatClient:
             111
 
         """
-        return PlayerEndpoint(
-            player=player,
-            session=self.session,
-            return_dataframe=self.return_dataframe,
-        )
+        return PlayerEndpoint(player=player, session=self.session)
 
     def team(self, team: PrimaryAttribute) -> TeamEndpoint:
         """
@@ -166,11 +154,7 @@ class UnderstatClient:
             Liverpool
 
         """
-        return TeamEndpoint(
-            team=team,
-            session=self.session,
-            return_dataframe=self.return_dataframe,
-        )
+        return TeamEndpoint(team=team, session=self.session)
 
     def match(self, match: PrimaryAttribute) -> MatchEndpoint:
         """
@@ -199,7 +183,6 @@ class UnderstatClient:
         return MatchEndpoint(
             match=match,
             session=self.session,
-            return_dataframe=self.return_dataframe,
         )
 
     def search(
