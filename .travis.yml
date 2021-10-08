@@ -12,6 +12,9 @@ jobs:
   include:
     - name: "Testing"
       stage: test
+      if: |
+        type = pull_request AND \
+        branch = master
       before_script:
         - git remote set-branches --add origin master
         - git fetch
@@ -19,7 +22,9 @@ jobs:
         - ci/run_tests.sh
     - name: "Deploying"
       stage: deploy
-      if: branch = master
+      if: |
+        type = push AND \
+        branch = master
       script:
         - ci/make_docs.sh
         - python setup.py sdist
