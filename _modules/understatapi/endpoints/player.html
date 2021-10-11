@@ -160,8 +160,8 @@
             
   <h1>Source code for understatapi.endpoints.player</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Player endpoint &quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="kn">import</span> <span class="n">HTTPError</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseEndpoint</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">InvalidPlayer</span><span class="p">,</span> <span class="n">PrimaryAttribute</span>
@@ -211,7 +211,7 @@
         <span class="sd">&quot;&quot;&quot; player id &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
-<div class="viewcode-block" id="PlayerEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PlayerEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a per-player basis</span>
 
@@ -222,17 +222,20 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``player`` must be a string&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">()</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;player/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">player</span>
 
         <span class="k">try</span><span class="p">:</span>
             <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">InvalidPlayer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
+            <span class="k">raise</span> <span class="n">InvalidPlayer</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="si">}</span><span class="s2"> is not a valid player or player id&quot;</span><span class="p">,</span>
+                <span class="n">player</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">player</span><span class="p">,</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
 
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="PlayerEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PlayerEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get match level data for a player</span>
 
@@ -242,7 +245,7 @@
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;matchesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="PlayerEndpoint.get_shot_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_shot_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_shot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PlayerEndpoint.get_shot_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_shot_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_shot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get shot level data for a player</span>
 
@@ -252,14 +255,14 @@
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;shotsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="PlayerEndpoint.get_season_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_season_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_season_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="PlayerEndpoint.get_season_data"><a class="viewcode-back" href="../../../understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_season_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_season_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get season level data for a player</span>
 
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;groupsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">query</span><span class="o">=</span><span class="s2">&quot;groupsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 

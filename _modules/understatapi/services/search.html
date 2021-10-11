@@ -217,6 +217,7 @@
     <span class="n">opts</span> <span class="o">=</span> <span class="n">Options</span><span class="p">()</span>
     <span class="n">opts</span><span class="o">.</span><span class="n">set_headless</span><span class="p">()</span>
     <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://understat.com/&quot;</span>
+    <span class="n">_web_driver</span> <span class="o">=</span> <span class="n">Firefox</span>
 
 <div class="viewcode-block" id="Search.__init__"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
@@ -239,7 +240,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialise_browser</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;&lt;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">&quot;</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">player_name</span><span class="si">}</span><span class="s2">)&gt;&quot;</span>
+        <span class="p">)</span>  <span class="c1"># pragma: no cover</span>
 
     <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Search&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -257,7 +260,7 @@
 
 <div class="viewcode-block" id="Search._initialise_browser"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._initialise_browser">[docs]</a>    <span class="k">def</span> <span class="nf">_initialise_browser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot; Initialise the Firefox WebDriver object &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">browser</span> <span class="o">=</span> <span class="n">Firefox</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">browser</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_web_driver</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">opts</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Search.get_player_ids"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search.get_player_ids">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -306,7 +309,7 @@
                     <span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">XPATH</span><span class="p">,</span> <span class="s2">&quot;/html/body/div[1]/div[1]&quot;</span><span class="p">)</span>
                 <span class="p">)</span>
             <span class="p">)</span>
-        <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">TimeoutError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>  <span class="c1"># pragma: no cover</span>
             <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="n">err</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
 
 <div class="viewcode-block" id="Search._make_search"><a class="viewcode-back" href="../../../understatapi.services.search.html#understatapi.services.search.Search._make_search">[docs]</a>    <span class="k">def</span> <span class="nf">_make_search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

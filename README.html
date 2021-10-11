@@ -183,13 +183,14 @@
 python setup.py install
 </pre></div>
 </div>
-<p>This package primarily uses the <a class="reference external" href="https://github.com/psf/requests">requests</a> library for interacting with understat.com, but the function <code class="docutils literal notranslate"><span class="pre">UnderstatClient.search()</span></code>, which allows you to use the search bar, is implemented using <a class="reference external" href="https://github.com/SeleniumHQ/selenium/tree/trunk/py">selenium</a>. If you wish to use this function then you will have to install <a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a>.</p>
+<p>This package primarily uses the <a class="reference external" href="https://github.com/psf/requests">requests</a> library for interacting with understat.com, but the method <code class="docutils literal notranslate"><span class="pre">UnderstatClient.search()</span></code>, which allows you to use the search bar, is implemented using <a class="reference external" href="https://github.com/SeleniumHQ/selenium/tree/trunk/py">selenium</a>.
+If you wish to use this method then you will have to install <a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a>.</p>
 </section>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <hr class="docutils" />
 <p><strong>NOTE</strong></p>
-<p>This package is in very early stages of development and the API is likely to change</p>
+<p>This package is in early stages of development and the API is likely to change</p>
 <hr class="docutils" />
 <p>The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond</p>
 <table class="docutils align-default">
@@ -217,17 +218,15 @@ python setup.py install
 </tr>
 </tbody>
 </table>
-<p>Every function in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint. Each function returns a pandas <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> with the relevant data. Below are some examples of how to use the API. Note how the <code class="docutils literal notranslate"><span class="pre">league()</span></code> and <code class="docutils literal notranslate"><span class="pre">team()</span></code> methods can accept the names of leagues and teams respectively, but <code class="docutils literal notranslate"><span class="pre">player()</span></code> and <code class="docutils literal notranslate"><span class="pre">match()</span></code> must receive an id number.</p>
+<p>Every mwthod in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint.
+Each method returns JSON with the relevant data. Below are some examples of how to use the API. Note how the <code class="docutils literal notranslate"><span class="pre">league()</span></code> and <code class="docutils literal notranslate"><span class="pre">team()</span></code> methods can accept the names of leagues and teams respectively, but <code class="docutils literal notranslate"><span class="pre">player()</span></code> and <code class="docutils literal notranslate"><span class="pre">match()</span></code> must receive an id number.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
 <span class="n">understat</span> <span class="o">=</span> <span class="n">UnderstatClient</span><span class="p">()</span>
 <span class="c1"># get data for every player playing in the Premier League in 2019/20</span>
 <span class="n">league_player_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">league</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="s2">&quot;EPL&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
-<span class="c1"># Get the name and id of the player with the highest xG in that season</span>
-<span class="c1"># First we need to change the type of the &#39;xG&#39; column, by default it is a string</span>
-<span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="p">[</span><span class="s2">&quot;xG&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-<span class="n">league_player_data</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s2">&quot;xG&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">player_id</span><span class="p">,</span> <span class="n">player_name</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][[</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;player_name&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="c1"># Get the name and id of one of the player</span>
+<span class="n">player_id</span><span class="p">,</span> <span class="n">player_name</span> <span class="o">=</span> <span class="n">league_player_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">],</span> <span class="n">league_player_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;player_name&quot;</span><span class="p">]</span>
 <span class="c1"># Get data for every shot this player has taken in a league match (for all seasons)</span>
 <span class="n">player_shot_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">player</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_shot_data</span><span class="p">()</span>
 </pre></div>
@@ -238,7 +237,7 @@ python setup.py install
 <span class="c1"># get data for every league match involving Manchester United in 2019/20</span>
 <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># get the id for the first match of the season</span>
-<span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+<span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
 <span class="c1"># get the rosters for the both teams in that match</span>
 <span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">()</span>
 </pre></div>

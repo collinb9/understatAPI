@@ -160,8 +160,8 @@
             
   <h1>Source code for understatapi.endpoints.league</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; League endpoint &quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseEndpoint</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">PrimaryAttribute</span>
 
@@ -211,7 +211,7 @@
 
 <div class="viewcode-block" id="LeagueEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a league-wide basis</span>
 
@@ -223,14 +223,14 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">league</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``league`` must be a string&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">league</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">(</span><span class="n">league</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">league</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">)</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;league/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">league</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">season</span>
 
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="LeagueEndpoint.get_team_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_team_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="LeagueEndpoint.get_team_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_team_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_team_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all teams in a given league and season</span>
 
@@ -241,7 +241,7 @@
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;teamsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="LeagueEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="LeagueEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all fixtures in a given league and season.</span>
 
@@ -252,7 +252,7 @@
         <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="LeagueEndpoint.get_player_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_player_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<div class="viewcode-block" id="LeagueEndpoint.get_player_data"><a class="viewcode-back" href="../../../understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_player_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data for all players in a given league and season</span>
 
