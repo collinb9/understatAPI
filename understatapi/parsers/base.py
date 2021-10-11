@@ -1,9 +1,7 @@
 """Base html parser"""
+from typing import List
 import json
-import pandas as pd
-from ..utils import json_to_dataframe
 from ..exceptions import (
-    InvalidQuery,
     InvalidLeague,
     InvalidSeason,
     PrimaryAttribute,
@@ -12,6 +10,8 @@ from ..exceptions import (
 
 class BaseParser:
     """Parse a html document and extract relevant data"""
+
+    queries: List[str]
 
     # def __init__(self, html: str):
     #     self.html = html
@@ -26,8 +26,6 @@ class BaseParser:
         :param query: A sub-string to look for in the html document
         """
         query_index = html.find(query)
-        if not query_index > 0:
-            raise InvalidQuery(query)
         # get the start and end of the JSON data string
         start = html.find("(", query_index) + 2
         end = html.find(")", start) - 1

@@ -3,6 +3,7 @@ from typing import Dict, Any
 import requests
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
+from ..parsers import MatchParser
 from ..exceptions import InvalidMatch, PrimaryAttribute
 
 
@@ -32,7 +33,7 @@ class MatchEndpoint(BaseEndpoint):
         456
     """
 
-    queries = ["shotsData", "rostersData", "match_info"]
+    parser = MatchParser()
 
     def __init__(self, match: PrimaryAttribute, session: requests.Session):
         """
@@ -47,7 +48,7 @@ class MatchEndpoint(BaseEndpoint):
         """  match id """
         return self._primary_attr
 
-    def _get_data(self, query: str, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-match basis
 
@@ -62,7 +63,7 @@ class MatchEndpoint(BaseEndpoint):
         url = self.base_url + "match/" + self.match
 
         try:
-            data = self._get_response(url=url, query=query, **kwargs)
+            data = self._request_url(url=url, **kwargs)
         except HTTPError as err:
             raise InvalidMatch(
                 f"{self.match} is not a valid match", match=self.match
@@ -77,7 +78,8 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="shotsData", **kwargs)
+        res = self._get_data(**kwargs)
+        data = self.parser.get_shot_data(html=res.text)
         return data
 
     def get_roster_data(self, **kwargs: str) -> Dict[str, Any]:
@@ -87,7 +89,8 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="rostersData", **kwargs)
+        res = self._get_data(**kwargs)
+        data = self.parser.get_roster_data(html=res.text)
         return data
 
     def get_match_info(self, **kwargs: str) -> Dict[str, Any]:
@@ -97,5 +100,6 @@ class MatchEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="match_info", **kwargs)
+        res = self._get_data(**kwargs)
+        data = self.parser.get_match_info(html=res.text)
         return data

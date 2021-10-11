@@ -2,6 +2,7 @@
 from typing import Dict, Any
 import requests
 from .base import BaseEndpoint
+from ..parsers import LeagueParser
 from ..exceptions import PrimaryAttribute
 
 
@@ -32,7 +33,7 @@ class LeagueEndpoint(BaseEndpoint):
 
     """
 
-    queries = ["teamsData", "datesData", "playersData"]
+    parser = LeagueParser()
 
     def __init__(self, league: PrimaryAttribute, session: requests.Session):
         """
@@ -48,9 +49,7 @@ class LeagueEndpoint(BaseEndpoint):
         """ league name """
         return self._primary_attr
 
-    def _get_data(
-        self, season: str, query: str, **kwargs: str
-    ) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a league-wide basis
 
@@ -65,7 +64,7 @@ class LeagueEndpoint(BaseEndpoint):
         self._check_args(league=self.league, season=season)
         url = self.base_url + "league/" + self.league + "/" + season
 
-        data = self._get_response(url=url, query=query, **kwargs)
+        data = self._request_url(url=url, **kwargs)
 
         return data
 
@@ -77,7 +76,8 @@ class LeagueEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(season=season, query="teamsData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_team_data(html=res.text)
         return data
 
     def get_match_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
@@ -88,7 +88,8 @@ class LeagueEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(season=season, query="datesData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_match_data(html=res.text)
         return data
 
     def get_player_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
@@ -99,5 +100,6 @@ class LeagueEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response()`
         """
-        data = self._get_data(season=season, query="playersData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_player_data(html=res.text)
         return data

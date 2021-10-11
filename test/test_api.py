@@ -23,10 +23,6 @@ from understatapi.exceptions import (
 )
 
 
-<<<<<<< HEAD
-class TestUnderstatClient(unittest.TestCase):
-    """Tests  ``UnderstatClient"""
-=======
 def read_json(path: str) -> Dict:
     """Read json data"""
     with open(path, "r", encoding="utf-8") as fh:
@@ -36,7 +32,6 @@ def read_json(path: str) -> Dict:
 
 class EndpointBaseTestCase(unittest.TestCase):
     """Base class for all endpoint ``unittest.TestCase``` classes"""
->>>>>>> origin/master
 
     def setUp(self):
         self.understat = UnderstatClient()
@@ -52,12 +47,6 @@ class EndpointBaseTestCase(unittest.TestCase):
     def tearDown(self):
         self.understat.session.close()
 
-<<<<<<< HEAD
-    def test_league(self):
-        """test ``league()``"""
-        self.assertEqual(
-            repr(self.understat.league(league="")), "<LeagueEndpoint>"
-=======
 
 @patch.object(requests.Session, "get")
 class TestEndpointsResponse(EndpointBaseTestCase):
@@ -67,40 +56,22 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         """ test ``match.get_shot_data()`` """
         mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
->>>>>>> origin/master
         )
         data = self.match.get_shot_data()
         data_path = "test/resources/data/match_shotsdata.json"
         expected_data = read_json(data_path)
         self.assertDictEqual(expected_data, data)
 
-<<<<<<< HEAD
-    def test_player(self):
-        """test ``player()``"""
-        self.assertEqual(
-            repr(self.understat.player(player="")), "<PlayerEndpoint>"
-=======
     def test_match_get_roster_data(self, mock_get):
         """ test ``match.get_roster_data()`` """
         mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
->>>>>>> origin/master
         )
         data = self.match.get_roster_data()
         data_path = "test/resources/data/match_rostersdata.json"
         expected_data = read_json(data_path)
         self.assertDictEqual(expected_data, data)
 
-<<<<<<< HEAD
-    def test_team(self):
-        """test ``team()``"""
-        self.assertEqual(repr(self.understat.team(team="")), "<TeamEndpoint>")
-
-    def test_match(self):
-        """test ``match()``"""
-        self.assertEqual(
-            repr(self.understat.match(match="")), "<MatchEndpoint>"
-=======
     def test_match_get_match_info(self, mock_get):
         """ test ``match.get_match_info()`` """
         mock_get.return_value = mocked_requests_get(
@@ -129,7 +100,6 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         """ test ``player.get_shot_data()`` """
         mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
->>>>>>> origin/master
         )
         data = self.player.get_shot_data()
         data_path = "test/resources/data/player_shotsdata.json"
@@ -140,16 +110,6 @@ class TestEndpointsResponse(EndpointBaseTestCase):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
-<<<<<<< HEAD
-    @unittest.skip("problems with geckodriver")
-    @patch.object(Search, "get_player_ids")
-    def test_search(self, mock_get_player_ids):
-        """test ``search()``"""
-        player_ids = ["1", "2", "3"]
-        mock_get_player_ids.side_effect = player_ids
-        for player_id, return_value in zip(
-            player_ids, self.understat.search("Ronaldo")
-=======
     def test_player_get_season_data(self, mock_get):
         """ test ``player.get_season_data()`` """
         mock_get.return_value = mocked_requests_get(
@@ -168,7 +128,6 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         expected_data = read_json(data_path)
         for i, (record, expected_record) in enumerate(
             zip(data, expected_data)
->>>>>>> origin/master
         ):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
@@ -230,133 +189,6 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         ):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
-
-
-@patch.object(BaseEndpoint, "_request_url")
-@patch.object(requests.Session, "get", side_effect=mocked_requests_get)
-@patch.object(BaseEndpoint, "_get_response")
-class TestEndpointArguments(EndpointBaseTestCase):
-    """Test that endpoints receive the expectred arguments"""
-
-    def test_match_get_shot_data_args(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``match.get_shot_data()`` """
-        self.match.get_shot_data()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/match/{self.match_id}",
-            query="shotsData",
-        )
-
-    def test_match_get_roster(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``match.get_roster_data()`` """
-        self.match.get_roster_data()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/match/{self.match_id}",
-            query="rostersData",
-        )
-
-    def test_match_get_match_info(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``match.get_match_info()`` """
-        self.match.get_match_info()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/match/{self.match_id}",
-            query="match_info",
-        )
-
-    def test_player_get_match_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``player.get_match_data()`` """
-        self.player.get_match_data()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/player/{self.player_id}",
-            query="matchesData",
-        )
-
-    def test_player_get_shot_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``player.get_shot_data()`` """
-        self.player.get_shot_data()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/player/{self.player_id}",
-            query="shotsData",
-        )
-
-    def test_player_get_season_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``player.get_season_data()`` """
-        self.player.get_season_data()
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/player/{self.player_id}",
-            query="groupsData",
-        )
-
-    def test_team_get_player_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``team.get_player_data()`` """
-        self.team.get_player_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/team/{self.team_name}/2019",
-            query="playersData",
-        )
-
-    def test_team_get_match_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``team.get_match_data()`` """
-        self.team.get_match_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/team/{self.team_name}/2019",
-            query="datesData",
-        )
-
-    def test_get_context_data_args(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``team.get_match_data()`` """
-        self.team.get_context_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/team/{self.team_name}/2019",
-            query="statisticsData",
-        )
-
-    def test_league_get_team_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``league.get_team_data()`` """
-        self.league.get_team_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/league/{self.league_name}/2019",
-            query="teamsData",
-        )
-
-    def test_league_get_match_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``league.get_match_data()`` """
-        self.league.get_match_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/league/{self.league_name}/2019",
-            query="datesData",
-        )
-
-    def test_league_getplayer_data(
-        self, mock_get_response, mock_get, mock_request_url
-    ):
-        """ test ``league.get_player_data()`` """
-        self.league.get_player_data(season="2019")
-        mock_get_response.assert_called_with(
-            url=f"https://understat.com/league/{self.league_name}/2019",
-            query="playersData",
-        )
 
 
 @patch.object(requests.Session, "get", side_effect=mocked_requests_get)
@@ -529,12 +361,16 @@ class TestSearch(unittest.TestCase):
     def setUp(self):
         """ setUp """
         self.url = "test/resources/home.html"
+        self.real_url = Search.url
         Search.url = self.url
+        self.real_web_driver = Search._web_driver
         Search._web_driver = MockWebDriver
         self.understat = UnderstatClient()
 
     def tearDown(self):
         self.understat.session.close()
+        Search._web_driver = self.real_web_driver
+        Search.url = self.real_url
 
     def test_search(self):
         """Test the search endpoint"""

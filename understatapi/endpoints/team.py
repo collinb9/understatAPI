@@ -3,6 +3,7 @@ from typing import Dict, Any
 import requests
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
+from ..parsers import TeamParser
 from ..exceptions import InvalidTeam, PrimaryAttribute
 
 
@@ -33,7 +34,7 @@ class TeamEndpoint(BaseEndpoint):
 
     """
 
-    queries = ["datesData", "statisticsData", "playersData"]
+    parser = TeamParser()
 
     def __init__(
         self, team: PrimaryAttribute, session: requests.Session
@@ -50,9 +51,7 @@ class TeamEndpoint(BaseEndpoint):
         """ team name """
         return self._primary_attr
 
-    def _get_data(
-        self, season: str, query: str, **kwargs: str
-    ) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-team basis
 
@@ -68,7 +67,7 @@ class TeamEndpoint(BaseEndpoint):
         url = self.base_url + "team/" + self.team + "/" + season
 
         try:
-            data = self._get_response(url=url, query=query, **kwargs)
+            data = self._request_url(url=url, **kwargs)
         except HTTPError as err:
             raise InvalidTeam(
                 f"{self.team} is not a valid team", team=self.team
@@ -84,7 +83,8 @@ class TeamEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(season=season, query="playersData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_player_data(html=res.text)
         return data
 
     def get_match_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
@@ -95,7 +95,8 @@ class TeamEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(season=season, query="datesData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_match_data(html=res.text)
         return data
 
     def get_context_data(
@@ -110,5 +111,6 @@ class TeamEndpoint(BaseEndpoint):
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(season=season, query="statisticsData", **kwargs)
+        res = self._get_data(season=season, **kwargs)
+        data = self.parser.get_context_data(html=res.text)
         return data
