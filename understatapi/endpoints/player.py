@@ -1,6 +1,6 @@
 """ Player endpoint """
+from typing import Dict, Any
 import requests
-import pandas as pd
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
 from ..exceptions import InvalidPlayer, PrimaryAttribute
@@ -50,7 +50,7 @@ class PlayerEndpoint(BaseEndpoint):
         """ player id """
         return self._primary_attr
 
-    def _get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
+    def _get_data(self, query: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-player basis
 
@@ -61,17 +61,20 @@ class PlayerEndpoint(BaseEndpoint):
         """
         if not isinstance(self.player, str):
             raise TypeError("``player`` must be a string")
-        self._check_args(query=query)
+        self._check_args()
         url = self.base_url + "player/" + self.player
 
         try:
             data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidPlayer(self.player) from err
+            raise InvalidPlayer(
+                f"{self.player} is not a valid player or player id",
+                player=self.player,
+            ) from err
 
         return data
 
-    def get_match_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_match_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get match level data for a player
 
@@ -81,7 +84,7 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(query="matchesData", **kwargs)
         return data
 
-    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get shot level data for a player
 
@@ -91,12 +94,12 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(query="shotsData", **kwargs)
         return data
 
-    def get_season_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_season_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get season level data for a player
 
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="groupsData", **kwargs).T
+        data = self._get_data(query="groupsData", **kwargs)
         return data

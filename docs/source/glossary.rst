@@ -9,7 +9,7 @@ A glossary of terms used in column names for the different tables on understat.c
 :Team:
     Team name
 :M:
-    Mathes
+    Matches
 :W:
     Wins
 :D:
@@ -53,7 +53,7 @@ A glossary of terms used in column names for the different tables on understat.c
     Opponent passes completed within 20 yards of goal (excluding crosses)
 :xPTS:
     Expected points
-    
+
 .. _Glossary - Players:
 
 .. rubric:: Players

@@ -1,7 +1,7 @@
 """ Match endpoint """
+from typing import Dict, Any
 import requests
 from requests.exceptions import HTTPError
-import pandas as pd
 from .base import BaseEndpoint
 from ..exceptions import InvalidMatch, PrimaryAttribute
 
@@ -47,7 +47,7 @@ class MatchEndpoint(BaseEndpoint):
         """  match id """
         return self._primary_attr
 
-    def _get_data(self, query: str, **kwargs: str) -> pd.DataFrame:
+    def _get_data(self, query: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data on a per-match basis
 
@@ -58,42 +58,44 @@ class MatchEndpoint(BaseEndpoint):
         """
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
-        self._check_args(query=query)
+        self._check_args()
         url = self.base_url + "match/" + self.match
 
         try:
             data = self._get_response(url=url, query=query, **kwargs)
         except HTTPError as err:
-            raise InvalidMatch(self.match) from err
+            raise InvalidMatch(
+                f"{self.match} is not a valid match", match=self.match
+            ) from err
 
         return data
 
-    def get_shot_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get shot level data for a match
 
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="shotsData", **kwargs).T
+        data = self._get_data(query="shotsData", **kwargs)
         return data
 
-    def get_roster_data(self, **kwargs: str) -> pd.DataFrame:
+    def get_roster_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get data about the roster for each team
 
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="rostersData", **kwargs).T
+        data = self._get_data(query="rostersData", **kwargs)
         return data
 
-    def get_match_info(self, **kwargs: str) -> pd.DataFrame:
+    def get_match_info(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get information about the match
 
         :param kwargs: Keyword argument to pass to
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
-        data = self._get_data(query="match_info", **kwargs).T
+        data = self._get_data(query="match_info", **kwargs)
         return data

@@ -1,6 +1,6 @@
 """ League endpoint """
+from typing import Dict, Any
 import requests
-import pandas as pd
 from .base import BaseEndpoint
 from ..exceptions import PrimaryAttribute
 
@@ -50,7 +50,7 @@ class LeagueEndpoint(BaseEndpoint):
 
     def _get_data(
         self, season: str, query: str, **kwargs: str
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Get data on a league-wide basis
 
@@ -62,14 +62,14 @@ class LeagueEndpoint(BaseEndpoint):
         """
         if not isinstance(self.league, str):
             raise TypeError("``league`` must be a string")
-        self._check_args(league=self.league, season=season, query=query)
+        self._check_args(league=self.league, season=season)
         url = self.base_url + "league/" + self.league + "/" + season
 
         data = self._get_response(url=url, query=query, **kwargs)
 
         return data
 
-    def get_team_data(self, season: str, **kwargs: str) -> pd.DataFrame:
+    def get_team_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data for all teams in a given league and season
 
@@ -80,7 +80,7 @@ class LeagueEndpoint(BaseEndpoint):
         data = self._get_data(season=season, query="teamsData", **kwargs)
         return data
 
-    def get_match_data(self, season: str, **kwargs: str) -> pd.DataFrame:
+    def get_match_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data for all fixtures in a given league and season.
 
@@ -91,7 +91,7 @@ class LeagueEndpoint(BaseEndpoint):
         data = self._get_data(season=season, query="datesData", **kwargs)
         return data
 
-    def get_player_data(self, season: str, **kwargs: str) -> pd.DataFrame:
+    def get_player_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
         Get data for all players in a given league and season
 

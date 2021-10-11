@@ -1,13 +1,10 @@
 """ Base endpoint """
-from typing import List, Sequence
+from typing import List, Sequence, Dict, Any
 import json
 import requests
 from requests import Response
-import pandas as pd
 from ..parsers import BaseParser
-from ..utils import json_to_dataframe
 from ..exceptions import (
-    InvalidQuery,
     InvalidLeague,
     InvalidSeason,
     PrimaryAttribute,
@@ -44,7 +41,7 @@ class BaseEndpoint:
         self.parser = parser
 
     def __repr__(self) -> str:
-        return "<%s>" % self.__class__.__name__
+        return f"<{self.__class__.__name__}({self._primary_attr!r})>"
 
     def __len__(self) -> int:
         if isinstance(self._primary_attr, str):
@@ -60,19 +57,16 @@ class BaseEndpoint:
             return self.__class__(self._primary_attr, session=self.session)
         return self.__class__(self._primary_attr[index], session=self.session)
 
-    def _check_args(
-        self,
-        league: str = None,
-        season: str = None,
-        query: str = None,
-    ) -> None:
-        """Handle invalid arguments"""
+    def _check_args(self, league: str = None, season: str = None) -> None:
+        """ Handle invalid arguments """
         if league is not None and league not in self.leagues:
-            raise InvalidLeague(league)
+            raise InvalidLeague(
+                f"{league}is not a valid league", league=league
+            )
         if season is not None and int(season) < 2014:
-            raise InvalidSeason(season)
-        if query is not None and query not in self.queries:
-            raise InvalidQuery(query)
+            raise InvalidSeason(
+                f"{season} is not a valid season", season=season
+            )
 
     def _request_url(self, *args: str, **kwargs: str) -> Response:
         """
@@ -84,14 +78,13 @@ class BaseEndpoint:
         """
         res = self.session.get(*args, **kwargs)
         res.raise_for_status()
-
         return res
 
     @staticmethod
     def _extract_data_from_html(
         html: str,
         query: str = "teamsData",
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Finds a JSON in the HTML according to a query, and returns the
         dictionary corresponding to this JSON.
@@ -101,8 +94,6 @@ class BaseEndpoint:
         """
         # find the query in the html string
         query_index = html.find(query)
-        if not query_index > 0:
-            raise InvalidQuery(query)
         # get the start and end of the JSON data string
         start = html.find("(", query_index) + 2
         end = html.find(")", start) - 1
@@ -110,7 +101,6 @@ class BaseEndpoint:
         # Clean up the json and return the data
         json_data = json_data.encode("utf8").decode("unicode_escape")
         data = json.loads(json_data)
-        data = json_to_dataframe(data, orient="index")
         return data
 
     def _get_response(
@@ -118,7 +108,7 @@ class BaseEndpoint:
         url: str,
         query: str = "teamsData",
         **kwargs: str,
-    ) -> pd.DataFrame:
+    ) -> Dict[str, Any]:
         """
         Retrieve data from html page
 
@@ -126,7 +116,7 @@ class BaseEndpoint:
         :param query: str: A sub-string to look for in the html document
         :param kwargs: Keyword arguments to pass to ``requests.get()``
 
-        :return: pd.DataFrame: Data retrieved from html page
+        :return: JSON data retrieved from html page
         """
         res = self._request_url(url, **kwargs)
         data = self.parser.parse(res.text, query=query)

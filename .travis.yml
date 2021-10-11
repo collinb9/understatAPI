@@ -12,6 +12,9 @@ jobs:
   include:
     - name: "Testing"
       stage: test
+      if: |
+        type = pull_request AND \
+        branch = master
       before_script:
         - git remote set-branches --add origin master
         - git fetch
@@ -19,11 +22,12 @@ jobs:
         - ci/run_tests.sh
     - name: "Deploying"
       stage: deploy
-      if: branch = master
+      if: |
+        type = push
       script:
         - ci/make_docs.sh
         - python setup.py sdist
-      deploy: 
+      deploy:
         - provider: pages:git
           edge: true
           verbose: true
@@ -41,14 +45,12 @@ jobs:
           distributions: "sdist"
           skip_existing: true
           on:
-            branch: master
             tags: true
 
         - provider: releases
           edge: true
           token: $GITHUB_TOKEN
           on:
-            branch: master
             tags: true
 
 
