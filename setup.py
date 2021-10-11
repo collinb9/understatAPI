@@ -7,7 +7,8 @@ from setuptools import setup, find_packages
 def read_version():
     """ read the current version from understatapi.__init__.py """
     with open(
-        os.path.join(os.path.dirname(__file__), "understatapi", "__init__.py")
+        os.path.join(os.path.dirname(__file__), "understatapi", "__init__.py"),
+        encoding="utf-8",
     ) as fpath:
         for line in fpath:
             match = re.search(
@@ -20,7 +21,7 @@ def read_version():
 
 def long_description():
     """ Get description from readme """
-    with open("README.md", "r") as fpath:
+    with open("README.md", "r", encoding="utf-8") as fpath:
         long_des = fpath.read()
     return long_des
 
@@ -36,7 +37,7 @@ setup(
     author="collinb9",
     author_email="brendan.m.collins@outlook.com",
     license="MIT",
-    install_requires=["pandas>=1.1.0", "requests>=2.0.0", "selenium>=3.141.0"],
+    install_requires=["requests>=2.0.0", "selenium>=3.141.0"],
     keywords=(
         "statistics xG expected goals fpl fantasy"
         "premier league understat football web scraping"

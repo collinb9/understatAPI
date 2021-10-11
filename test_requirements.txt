@@ -6,7 +6,7 @@
 #
 appdirs==1.4.4
     # via black
-astroid==2.5.1
+astroid==2.8.2
     # via pylint
 black==20.8b1
     # via -r test_requirements.in
@@ -30,9 +30,11 @@ mypy==0.812
     # via -r test_requirements.in
 pathspec==0.8.1
     # via black
+platformdirs==2.4.0
+    # via pylint
 pyenchant==3.2.0
     # via -r test_requirements.in
-pylint==2.7.2
+pylint==2.11.1
     # via -r test_requirements.in
 regex==2020.11.13
     # via black
@@ -44,9 +46,14 @@ typed-ast==1.4.2
     # via
     #   black
     #   mypy
-typing-extensions==3.7.4.3
+typing-extensions==3.10.0.2
     # via
+    #   astroid
     #   black
     #   mypy
+    #   pylint
 wrapt==1.12.1
     # via astroid
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

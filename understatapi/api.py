@@ -3,7 +3,6 @@ from types import TracebackType
 from typing import Iterator
 import requests
 from selenium.common.exceptions import WebDriverException
-from understatapi.endpoints.base import BaseEndpoint
 from .utils import get_public_methods, str_to_class, find_endpoints
 from .endpoints import (
     LeagueEndpoint,
@@ -70,14 +69,12 @@ class UnderstatClient:
     ) -> None:
         if exception_type is AttributeError:
             endpoint = find_endpoints(str(exception_value))
-            if endpoint is not None:
-                endpoint_obj = str_to_class(__name__, endpoint[0])
-                if issubclass(endpoint_obj, BaseEndpoint):
-                    public_methods = get_public_methods(endpoint_obj)
-                    raise AttributeError(
-                        str(exception_value)
-                        + f"\nIts public methods are {public_methods}"
-                    )
+            endpoint_obj = str_to_class(__name__, endpoint[0])
+            public_methods = get_public_methods(endpoint_obj)
+            raise AttributeError(
+                str(exception_value)
+                + f"\nIts public methods are {public_methods}"
+            )
         self.session.close()
 
     def league(self, league: PrimaryAttribute) -> LeagueEndpoint:
@@ -183,7 +180,10 @@ class UnderstatClient:
             456
 
         """
-        return MatchEndpoint(match=match, session=self.session)
+        return MatchEndpoint(
+            match=match,
+            session=self.session,
+        )
 
     def search(
         self, player_name: str, max_ids: int = 5, page_load_timeout: int = 5

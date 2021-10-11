@@ -29,8 +29,9 @@ dist
 *.egg*
 
 # vscode files
-*.json
-.vscode
+.vscode/
+
+# node
 node_modules/
 
 # data files
@@ -38,9 +39,10 @@ node_modules/
 *.pkl
 *.pickle
 *.png
+*.json
 !test/resources/**
 
 # Credentials
-*.crt 
+*.crt
 *.key
 *.csr

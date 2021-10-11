@@ -56,6 +56,7 @@ class Search:
     opts = Options()
     opts.set_headless()
     url = "https://understat.com/"
+    _web_driver = Firefox
 
     def __init__(
         self,
@@ -78,7 +79,9 @@ class Search:
         self._initialise_browser()
 
     def __repr__(self) -> str:
-        return f"<{self.__class__.__name__}>"
+        return (
+            f"<{self.__class__.__name__}" f"({self.player_name})>"
+        )  # pragma: no cover
 
     def __enter__(self) -> "Search":
         return self
@@ -96,7 +99,7 @@ class Search:
 
     def _initialise_browser(self) -> None:
         """ Initialise the Firefox WebDriver object """
-        self.browser = Firefox(options=self.opts)
+        self.browser = self._web_driver(options=self.opts)
 
     def get_player_ids(self) -> Iterator[str]:
         """
@@ -145,7 +148,7 @@ class Search:
                     (By.XPATH, "/html/body/div[1]/div[1]")
                 )
             )
-        except TimeoutError as err:
+        except TimeoutError as err:  # pragma: no cover
             raise TimeoutError(err) from err
 
     def _make_search(self, **kwargs: int) -> None:
