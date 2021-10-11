@@ -23,8 +23,7 @@ jobs:
     - name: "Deploying"
       stage: deploy
       if: |
-        type = push AND \
-        branch = master
+        type = push
       script:
         - ci/make_docs.sh
         - python setup.py sdist
@@ -46,14 +45,12 @@ jobs:
           distributions: "sdist"
           skip_existing: true
           on:
-            branch: master
             tags: true
 
         - provider: releases
           edge: true
           token: $GITHUB_TOKEN
           on:
-            branch: master
             tags: true
 
 
