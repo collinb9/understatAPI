@@ -164,6 +164,7 @@
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">requests.exceptions</span> <span class="kn">import</span> <span class="n">HTTPError</span>
 <span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">BaseEndpoint</span>
+<span class="kn">from</span> <span class="nn">..parsers</span> <span class="kn">import</span> <span class="n">TeamParser</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="n">InvalidTeam</span><span class="p">,</span> <span class="n">PrimaryAttribute</span>
 
 
@@ -194,7 +195,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">queries</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="s2">&quot;statisticsData&quot;</span><span class="p">,</span> <span class="s2">&quot;playersData&quot;</span><span class="p">]</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">TeamParser</span><span class="p">()</span>
 
 <div class="viewcode-block" id="TeamEndpoint.__init__"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span>
@@ -211,17 +212,13 @@
         <span class="sd">&quot;&quot;&quot; team name &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span>
 
-<div class="viewcode-block" id="TeamEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<div class="viewcode-block" id="TeamEndpoint._get_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint._get_data">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get data on a per-team basis</span>
 
 <span class="sd">        :param season: Season to get data for</span>
-<span class="sd">        :param query: Identifies the type of data to get,</span>
-<span class="sd">            one of {playersData, statisticsData, datesData}</span>
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``team`` must be a string&quot;</span><span class="p">)</span>
@@ -229,13 +226,13 @@
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;team/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">team</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">season</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_response</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_url</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">InvalidTeam</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">team</span><span class="si">}</span><span class="s2"> is not a valid team&quot;</span><span class="p">,</span> <span class="n">team</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">team</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span>
 
-        <span class="k">return</span> <span class="n">data</span></div>
+        <span class="k">return</span> <span class="n">response</span></div>
 
 <div class="viewcode-block" id="TeamEndpoint.get_player_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_player_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_player_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -245,7 +242,8 @@
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;playersData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_player_data</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="TeamEndpoint.get_match_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_match_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_match_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
@@ -256,7 +254,8 @@
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;datesData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
 <div class="viewcode-block" id="TeamEndpoint.get_context_data"><a class="viewcode-back" href="../../../understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span>
@@ -271,7 +270,8 @@
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
 <span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="s2">&quot;statisticsData&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 

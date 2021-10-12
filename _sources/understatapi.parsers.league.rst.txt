@@ -1,0 +1,7 @@
+understatapi.parsers.league module
+==================================
+
+.. automodule:: understatapi.parsers.league
+   :members:
+   :undoc-members:
+   :show-inheritance:

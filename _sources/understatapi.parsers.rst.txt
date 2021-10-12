@@ -1,0 +1,22 @@
+understatapi.parsers package
+============================
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   understatapi.parsers.base
+   understatapi.parsers.league
+   understatapi.parsers.match
+   understatapi.parsers.player
+   understatapi.parsers.team
+
+Module contents
+---------------
+
+.. automodule:: understatapi.parsers
+   :members:
+   :undoc-members:
+   :show-inheritance:

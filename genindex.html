@@ -197,8 +197,6 @@
 </li>
       <li><a href="understatapi.services.search.html#understatapi.services.search.Search._cycle_results">_cycle_results() (understatapi.services.search.Search method)</a>
 </li>
-      <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._extract_data_from_html">_extract_data_from_html() (understatapi.endpoints.base.BaseEndpoint static method)</a>
-</li>
       <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint._get_data">_get_data() (understatapi.endpoints.league.LeagueEndpoint method)</a>
 
       <ul>
@@ -212,8 +210,6 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.services.search.html#understatapi.services.search.Search._get_player_id_from_url">_get_player_id_from_url() (understatapi.services.search.Search static method)</a>
-</li>
-      <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response">_get_response() (understatapi.endpoints.base.BaseEndpoint method)</a>
 </li>
       <li><a href="understatapi.services.search.html#understatapi.services.search.Search._get_search_results">_get_search_results() (understatapi.services.search.Search method)</a>
 </li>
@@ -237,6 +233,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint">BaseEndpoint (class in understatapi.endpoints.base)</a>
 </li>
+      <li><a href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser">BaseParser (class in understatapi.parsers.base)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -254,7 +252,11 @@
       <li><a href="understatapi.utils.html#understatapi.utils.get_all_methods">get_all_methods() (in module understatapi.utils)</a>
 </li>
       <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_context_data">get_context_data() (understatapi.endpoints.team.TeamEndpoint method)</a>
+
+      <ul>
+        <li><a href="understatapi.parsers.team.html#understatapi.parsers.team.TeamParser.get_context_data">(understatapi.parsers.team.TeamParser method)</a>
 </li>
+      </ul></li>
       <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_match_data">get_match_data() (understatapi.endpoints.league.LeagueEndpoint method)</a>
 
       <ul>
@@ -262,13 +264,27 @@
 </li>
         <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_match_data">(understatapi.endpoints.team.TeamEndpoint method)</a>
 </li>
+        <li><a href="understatapi.parsers.league.html#understatapi.parsers.league.LeagueParser.get_match_data">(understatapi.parsers.league.LeagueParser method)</a>
+</li>
+        <li><a href="understatapi.parsers.player.html#understatapi.parsers.player.PlayerParser.get_match_data">(understatapi.parsers.player.PlayerParser method)</a>
+</li>
+        <li><a href="understatapi.parsers.team.html#understatapi.parsers.team.TeamParser.get_match_data">(understatapi.parsers.team.TeamParser method)</a>
+</li>
       </ul></li>
       <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.get_match_info">get_match_info() (understatapi.endpoints.match.MatchEndpoint method)</a>
+
+      <ul>
+        <li><a href="understatapi.parsers.match.html#understatapi.parsers.match.MatchParser.get_match_info">(understatapi.parsers.match.MatchParser method)</a>
 </li>
+      </ul></li>
       <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_player_data">get_player_data() (understatapi.endpoints.league.LeagueEndpoint method)</a>
 
       <ul>
         <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.get_player_data">(understatapi.endpoints.team.TeamEndpoint method)</a>
+</li>
+        <li><a href="understatapi.parsers.league.html#understatapi.parsers.league.LeagueParser.get_player_data">(understatapi.parsers.league.LeagueParser method)</a>
+</li>
+        <li><a href="understatapi.parsers.team.html#understatapi.parsers.team.TeamParser.get_player_data">(understatapi.parsers.team.TeamParser method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -278,17 +294,33 @@
       <li><a href="understatapi.utils.html#understatapi.utils.get_public_methods">get_public_methods() (in module understatapi.utils)</a>
 </li>
       <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.get_roster_data">get_roster_data() (understatapi.endpoints.match.MatchEndpoint method)</a>
+
+      <ul>
+        <li><a href="understatapi.parsers.match.html#understatapi.parsers.match.MatchParser.get_roster_data">(understatapi.parsers.match.MatchParser method)</a>
 </li>
+      </ul></li>
       <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_season_data">get_season_data() (understatapi.endpoints.player.PlayerEndpoint method)</a>
+
+      <ul>
+        <li><a href="understatapi.parsers.player.html#understatapi.parsers.player.PlayerParser.get_season_data">(understatapi.parsers.player.PlayerParser method)</a>
 </li>
+      </ul></li>
       <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.get_shot_data">get_shot_data() (understatapi.endpoints.match.MatchEndpoint method)</a>
 
       <ul>
         <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.get_shot_data">(understatapi.endpoints.player.PlayerEndpoint method)</a>
 </li>
+        <li><a href="understatapi.parsers.match.html#understatapi.parsers.match.MatchParser.get_shot_data">(understatapi.parsers.match.MatchParser method)</a>
+</li>
+        <li><a href="understatapi.parsers.player.html#understatapi.parsers.player.PlayerParser.get_shot_data">(understatapi.parsers.player.PlayerParser method)</a>
+</li>
       </ul></li>
       <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.get_team_data">get_team_data() (understatapi.endpoints.league.LeagueEndpoint method)</a>
+
+      <ul>
+        <li><a href="understatapi.parsers.league.html#understatapi.parsers.league.LeagueParser.get_team_data">(understatapi.parsers.league.LeagueParser method)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -323,6 +355,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint">LeagueEndpoint (class in understatapi.endpoints.league)</a>
 </li>
+      <li><a href="understatapi.parsers.league.html#understatapi.parsers.league.LeagueParser">LeagueParser (class in understatapi.parsers.league)</a>
+</li>
       <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.leagues">leagues (understatapi.endpoints.base.BaseEndpoint attribute)</a>
 </li>
   </ul></td>
@@ -338,6 +372,8 @@
 </li>
       </ul></li>
       <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint">MatchEndpoint (class in understatapi.endpoints.match)</a>
+</li>
+      <li><a href="understatapi.parsers.match.html#understatapi.parsers.match.MatchParser">MatchParser (class in understatapi.parsers.match)</a>
 </li>
       <li>
     module
@@ -361,6 +397,18 @@
 </li>
         <li><a href="understatapi.exceptions.html#module-understatapi.exceptions">understatapi.exceptions</a>
 </li>
+        <li><a href="understatapi.parsers.html#module-understatapi.parsers">understatapi.parsers</a>
+</li>
+        <li><a href="understatapi.parsers.base.html#module-understatapi.parsers.base">understatapi.parsers.base</a>
+</li>
+        <li><a href="understatapi.parsers.league.html#module-understatapi.parsers.league">understatapi.parsers.league</a>
+</li>
+        <li><a href="understatapi.parsers.match.html#module-understatapi.parsers.match">understatapi.parsers.match</a>
+</li>
+        <li><a href="understatapi.parsers.player.html#module-understatapi.parsers.player">understatapi.parsers.player</a>
+</li>
+        <li><a href="understatapi.parsers.team.html#module-understatapi.parsers.team">understatapi.parsers.team</a>
+</li>
         <li><a href="understatapi.services.html#module-understatapi.services">understatapi.services</a>
 </li>
         <li><a href="understatapi.services.search.html#module-understatapi.services.search">understatapi.services.search</a>
@@ -374,15 +422,31 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser.parse">parse() (understatapi.parsers.base.BaseParser static method)</a>
+</li>
+      <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.parser">parser (understatapi.endpoints.base.BaseEndpoint attribute)</a>
+
+      <ul>
+        <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.parser">(understatapi.endpoints.league.LeagueEndpoint attribute)</a>
+</li>
+        <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.parser">(understatapi.endpoints.match.MatchEndpoint attribute)</a>
+</li>
+        <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.parser">(understatapi.endpoints.player.PlayerEndpoint attribute)</a>
+</li>
+        <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.parser">(understatapi.endpoints.team.TeamEndpoint attribute)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.api.html#understatapi.api.UnderstatClient.player">player() (understatapi.api.UnderstatClient method)</a>
 
       <ul>
         <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.player">(understatapi.endpoints.player.PlayerEndpoint property)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint">PlayerEndpoint (class in understatapi.endpoints.player)</a>
+</li>
+      <li><a href="understatapi.parsers.player.html#understatapi.parsers.player.PlayerParser">PlayerParser (class in understatapi.parsers.player)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -390,16 +454,16 @@
 <h2 id="Q">Q</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.queries">queries (understatapi.endpoints.base.BaseEndpoint attribute)</a>
+      <li><a href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser.queries">queries (understatapi.parsers.base.BaseParser attribute)</a>
 
       <ul>
-        <li><a href="understatapi.endpoints.league.html#understatapi.endpoints.league.LeagueEndpoint.queries">(understatapi.endpoints.league.LeagueEndpoint attribute)</a>
+        <li><a href="understatapi.parsers.league.html#understatapi.parsers.league.LeagueParser.queries">(understatapi.parsers.league.LeagueParser attribute)</a>
 </li>
-        <li><a href="understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.queries">(understatapi.endpoints.match.MatchEndpoint attribute)</a>
+        <li><a href="understatapi.parsers.match.html#understatapi.parsers.match.MatchParser.queries">(understatapi.parsers.match.MatchParser attribute)</a>
 </li>
-        <li><a href="understatapi.endpoints.player.html#understatapi.endpoints.player.PlayerEndpoint.queries">(understatapi.endpoints.player.PlayerEndpoint attribute)</a>
+        <li><a href="understatapi.parsers.player.html#understatapi.parsers.player.PlayerParser.queries">(understatapi.parsers.player.PlayerParser attribute)</a>
 </li>
-        <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint.queries">(understatapi.endpoints.team.TeamEndpoint attribute)</a>
+        <li><a href="understatapi.parsers.team.html#understatapi.parsers.team.TeamParser.queries">(understatapi.parsers.team.TeamParser attribute)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -431,6 +495,8 @@
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="understatapi.endpoints.team.html#understatapi.endpoints.team.TeamEndpoint">TeamEndpoint (class in understatapi.endpoints.team)</a>
+</li>
+      <li><a href="understatapi.parsers.team.html#understatapi.parsers.team.TeamParser">TeamParser (class in understatapi.parsers.team)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -487,8 +553,6 @@
         <li><a href="understatapi.endpoints.player.html#module-understatapi.endpoints.player">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     understatapi.endpoints.team
 
@@ -501,6 +565,50 @@
 
       <ul>
         <li><a href="understatapi.exceptions.html#module-understatapi.exceptions">module</a>
+</li>
+      </ul></li>
+      <li>
+    understatapi.parsers
+
+      <ul>
+        <li><a href="understatapi.parsers.html#module-understatapi.parsers">module</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li>
+    understatapi.parsers.base
+
+      <ul>
+        <li><a href="understatapi.parsers.base.html#module-understatapi.parsers.base">module</a>
+</li>
+      </ul></li>
+      <li>
+    understatapi.parsers.league
+
+      <ul>
+        <li><a href="understatapi.parsers.league.html#module-understatapi.parsers.league">module</a>
+</li>
+      </ul></li>
+      <li>
+    understatapi.parsers.match
+
+      <ul>
+        <li><a href="understatapi.parsers.match.html#module-understatapi.parsers.match">module</a>
+</li>
+      </ul></li>
+      <li>
+    understatapi.parsers.player
+
+      <ul>
+        <li><a href="understatapi.parsers.player.html#module-understatapi.parsers.player">module</a>
+</li>
+      </ul></li>
+      <li>
+    understatapi.parsers.team
+
+      <ul>
+        <li><a href="understatapi.parsers.team.html#module-understatapi.parsers.team">module</a>
 </li>
       </ul></li>
       <li>

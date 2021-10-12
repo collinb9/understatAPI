@@ -160,10 +160,10 @@
             
   <h1>Source code for understatapi.endpoints.base</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; Base endpoint &quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
-<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span> <span class="nn">..parsers</span> <span class="kn">import</span> <span class="n">BaseParser</span>
 <span class="kn">from</span> <span class="nn">..exceptions</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">InvalidLeague</span><span class="p">,</span>
     <span class="n">InvalidSeason</span><span class="p">,</span>
@@ -179,16 +179,16 @@
 <span class="sd">        ``https://understat.com/``</span>
 <span class="sd">    :attr leagues: List[str]: The available leagues, ``EPL``, ``La_Liga``,</span>
 <span class="sd">        ``Bundesliga``, optional``Serie_A``, ``Ligue_1``, ``RFPL``</span>
-<span class="sd">    :attr queries: List[str]: Strings that can be searched for in the html</span>
-<span class="sd">        pages.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">base_url</span> <span class="o">=</span> <span class="s2">&quot;https://understat.com/&quot;</span>
     <span class="n">leagues</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;EPL&quot;</span><span class="p">,</span> <span class="s2">&quot;La_Liga&quot;</span><span class="p">,</span> <span class="s2">&quot;Bundesliga&quot;</span><span class="p">,</span> <span class="s2">&quot;Serie_A&quot;</span><span class="p">,</span> <span class="s2">&quot;Ligue_1&quot;</span><span class="p">,</span> <span class="s2">&quot;RFPL&quot;</span><span class="p">]</span>
-    <span class="n">queries</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">parser</span><span class="p">:</span> <span class="n">BaseParser</span>
 
 <div class="viewcode-block" id="BaseEndpoint.__init__"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">primary_attr</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span> <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">primary_attr</span><span class="p">:</span> <span class="n">PrimaryAttribute</span><span class="p">,</span>
+        <span class="n">session</span><span class="p">:</span> <span class="n">requests</span><span class="o">.</span><span class="n">Session</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        :session: requests.Session: The current ``request`` session</span>
@@ -234,50 +234,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">res</span></div>
-
-<div class="viewcode-block" id="BaseEndpoint._extract_data_from_html"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._extract_data_from_html">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_extract_data_from_html</span><span class="p">(</span>
-        <span class="n">html</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;teamsData&quot;</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Finds a JSON in the HTML according to a query, and returns the</span>
-<span class="sd">        dictionary corresponding to this JSON.</span>
-
-<span class="sd">        :param html: A html document</span>
-<span class="sd">        :param query: A sub-string to look for in the html document</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># find the query in the html string</span>
-        <span class="n">query_index</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
-        <span class="c1"># get the start and end of the JSON data string</span>
-        <span class="n">start</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="n">query_index</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
-        <span class="n">end</span> <span class="o">=</span> <span class="n">html</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="n">json_data</span> <span class="o">=</span> <span class="n">html</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
-        <span class="c1"># Clean up the json and return the data</span>
-        <span class="n">json_data</span> <span class="o">=</span> <span class="n">json_data</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;unicode_escape&quot;</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_data</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">data</span></div>
-
-<div class="viewcode-block" id="BaseEndpoint._get_response"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response">[docs]</a>    <span class="k">def</span> <span class="nf">_get_response</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;teamsData&quot;</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve data from html page</span>
-
-<span class="sd">        :param url: str: url to parse</span>
-<span class="sd">        :param query: str: A sub-string to look for in the html document</span>
-<span class="sd">        :param kwargs: Keyword arguments to pass to ``requests.get()``</span>
-
-<span class="sd">        :return: JSON data retrieved from html page</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extract_data_from_html</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">data</span></div></div>
+        <span class="k">return</span> <span class="n">res</span></div></div>
 </pre></div>
 
            </div>

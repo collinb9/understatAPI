@@ -1,0 +1,7 @@
+understatapi.parsers.match module
+=================================
+
+.. automodule:: understatapi.parsers.match
+   :members:
+   :undoc-members:
+   :show-inheritance:

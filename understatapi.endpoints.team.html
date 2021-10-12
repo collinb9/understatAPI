@@ -189,8 +189,8 @@
 </pre></div>
 </div>
 <dl class="py attribute">
-<dt id="understatapi.endpoints.team.TeamEndpoint.queries">
-<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">['datesData',</span> <span class="pre">'statisticsData',</span> <span class="pre">'playersData']</span></em><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.queries" title="Permalink to this definition">¶</a></dt>
+<dt id="understatapi.endpoints.team.TeamEndpoint.parser">
+<code class="sig-name descname"><span class="pre">parser</span></code><em class="property"><span class="pre">:</span> <a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><span class="pre">understatapi.parsers.base.BaseParser</span></a></em><em class="property"> <span class="pre">=</span> <span class="pre">&lt;understatapi.parsers.team.TeamParser</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint.parser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -219,20 +219,18 @@
 
 <dl class="py method">
 <dt id="understatapi.endpoints.team.TeamEndpoint._get_data">
-<code class="sig-name descname"><span class="pre">_get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/team.html#TeamEndpoint._get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint._get_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">_get_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">season</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/team.html#TeamEndpoint._get_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.team.TeamEndpoint._get_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data on a per-team basis</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>season</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Season to get data for</p></li>
-<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Identifies the type of data to get,
-one of {playersData, statisticsData, datesData}</p></li>
 <li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
-<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response" title="understatapi.endpoints.base.BaseEndpoint._get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></a></p></li>
+<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._request_url" title="understatapi.endpoints.base.BaseEndpoint._request_url"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._request_url()</span></code></a></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -246,7 +244,7 @@ one of {playersData, statisticsData, datesData}</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>season</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Season to get data for</p></li>
 <li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
-<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response" title="understatapi.endpoints.base.BaseEndpoint._get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></a></p></li>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -264,7 +262,7 @@ one of {playersData, statisticsData, datesData}</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>season</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Season to get data for</p></li>
 <li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
-<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response" title="understatapi.endpoints.base.BaseEndpoint._get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></a></p></li>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -282,7 +280,7 @@ one of {playersData, statisticsData, datesData}</p></li>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>season</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Season to get data for</p></li>
 <li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword argument to pass to
-<a class="reference internal" href="understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._get_response" title="understatapi.endpoints.base.BaseEndpoint._get_response"><code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></a></p></li>
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">understatapi.endpoints.base.BaseEndpoint._get_response()</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>

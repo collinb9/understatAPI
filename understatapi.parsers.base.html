@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatAPI &mdash; understatAPI 0.5.0 documentation</title>
+  <title>understatapi.parsers.base module &mdash; understatAPI 0.5.0 documentation</title>
   
 
   
@@ -142,13 +142,13 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>understatAPI</li>
+      <li>understatapi.parsers.base module</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="_sources/modules.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/understatapi.parsers.base.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -161,40 +161,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <section id="understatapi">
-<h1>understatAPI<a class="headerlink" href="#understatapi" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="understatapi.html">understatapi package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="understatapi.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.endpoints.html">understatapi.endpoints package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.endpoints.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.endpoints.html#module-understatapi.endpoints">Module contents</a></li>
+  <section id="module-understatapi.parsers.base">
+<span id="understatapi-parsers-base-module"></span><h1>understatapi.parsers.base module<a class="headerlink" href="#module-understatapi.parsers.base" title="Permalink to this headline">¶</a></h1>
+<p>Base html parser</p>
+<dl class="py class">
+<dt id="understatapi.parsers.base.BaseParser">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.parsers.base.</span></code><code class="sig-name descname"><span class="pre">BaseParser</span></code><a class="reference internal" href="_modules/understatapi/parsers/base.html#BaseParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.base.BaseParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Parse a html document and extract relevant data</p>
+<dl class="py attribute">
+<dt id="understatapi.parsers.base.BaseParser.queries">
+<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#understatapi.parsers.base.BaseParser.queries" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="understatapi.parsers.base.BaseParser.parse">
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">parse</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/base.html#BaseParser.parse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.base.BaseParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds a JSON in the HTML according to a query, and returns the
+object corresponding to this JSON.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>html</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A html document</p></li>
+<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A sub-string to look for in the html document</p></li>
 </ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.parsers.html">understatapi.parsers package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.parsers.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.parsers.html#module-understatapi.parsers">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.services.html">understatapi.services package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.services.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="understatapi.services.html#module-understatapi.services">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="understatapi.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.api.html">understatapi.api module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.exceptions.html">understatapi.exceptions module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="understatapi.utils.html">understatapi.utils module</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="understatapi.html#module-understatapi">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</div>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 

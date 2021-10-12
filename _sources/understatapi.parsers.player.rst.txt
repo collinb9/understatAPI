@@ -1,0 +1,7 @@
+understatapi.parsers.player module
+==================================
+
+.. automodule:: understatapi.parsers.player
+   :members:
+   :undoc-members:
+   :show-inheritance:

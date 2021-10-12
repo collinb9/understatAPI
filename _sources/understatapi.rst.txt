@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    understatapi.endpoints
+   understatapi.parsers
    understatapi.services
 
 Submodules

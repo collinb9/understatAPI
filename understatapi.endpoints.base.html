@@ -184,10 +184,6 @@
 <dd class="field-even"><p>List[str]: The available leagues, <code class="docutils literal notranslate"><span class="pre">EPL</span></code>, <code class="docutils literal notranslate"><span class="pre">La_Liga</span></code>,
 <code class="docutils literal notranslate"><span class="pre">Bundesliga</span></code>, optional``Serie_A``, <code class="docutils literal notranslate"><span class="pre">Ligue_1</span></code>, <code class="docutils literal notranslate"><span class="pre">RFPL</span></code></p>
 </dd>
-<dt class="field-odd">Attr queries</dt>
-<dd class="field-odd"><p>List[str]: Strings that can be searched for in the html
-pages.</p>
-</dd>
 </dl>
 <dl class="py attribute">
 <dt id="understatapi.endpoints.base.BaseEndpoint.base_url">
@@ -200,8 +196,8 @@ pages.</p>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="understatapi.endpoints.base.BaseEndpoint.queries">
-<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"> <span class="pre">=</span> <span class="pre">[]</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.queries" title="Permalink to this definition">¶</a></dt>
+<dt id="understatapi.endpoints.base.BaseEndpoint.parser">
+<code class="sig-name descname"><span class="pre">parser</span></code><em class="property"><span class="pre">:</span> <a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><span class="pre">understatapi.parsers.base.BaseParser</span></a></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.parser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -239,45 +235,6 @@ that this request worked.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint._extract_data_from_html">
-<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">_extract_data_from_html</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._extract_data_from_html"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._extract_data_from_html" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds a JSON in the HTML according to a query, and returns the
-dictionary corresponding to this JSON.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>html</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A html document</p></li>
-<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – A sub-string to look for in the html document</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint._get_response">
-<code class="sig-name descname"><span class="pre">_get_response</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'teamsData'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._get_response"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._get_response" title="Permalink to this definition">¶</a></dt>
-<dd><p>Retrieve data from html page</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – str: url to parse</p></li>
-<li><p><strong>query</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – str: A sub-string to look for in the html document</p></li>
-<li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
-</dd>
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>JSON data retrieved from html page</p>
 </dd>
 </dl>
 </dd></dl>

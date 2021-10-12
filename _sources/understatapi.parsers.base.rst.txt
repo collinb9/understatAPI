@@ -1,0 +1,7 @@
+understatapi.parsers.base module
+================================
+
+.. automodule:: understatapi.parsers.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
