@@ -1,8 +1,8 @@
 """ Base endpoint """
-from typing import List, Sequence, Dict, Any
-import json
+from typing import Sequence
 import requests
 from requests import Response
+from ..parsers import BaseParser
 from ..exceptions import (
     InvalidLeague,
     InvalidSeason,
@@ -18,16 +18,16 @@ class BaseEndpoint:
         ``https://understat.com/``
     :attr leagues: List[str]: The available leagues, ``EPL``, ``La_Liga``,
         ``Bundesliga``, optional``Serie_A``, ``Ligue_1``, ``RFPL``
-    :attr queries: List[str]: Strings that can be searched for in the html
-        pages.
     """
 
     base_url = "https://understat.com/"
     leagues = ["EPL", "La_Liga", "Bundesliga", "Serie_A", "Ligue_1", "RFPL"]
-    queries: List[str] = []
+    parser: BaseParser
 
     def __init__(
-        self, primary_attr: PrimaryAttribute, session: requests.Session
+        self,
+        primary_attr: PrimaryAttribute,
+        session: requests.Session,
     ) -> None:
         """
         :session: requests.Session: The current ``request`` session
@@ -74,46 +74,3 @@ class BaseEndpoint:
         res = self.session.get(*args, **kwargs)
         res.raise_for_status()
         return res
-
-    @staticmethod
-    def _extract_data_from_html(
-        html: str,
-        query: str = "teamsData",
-    ) -> Dict[str, Any]:
-        """
-        Finds a JSON in the HTML according to a query, and returns the
-        dictionary corresponding to this JSON.
-
-        :param html: A html document
-        :param query: A sub-string to look for in the html document
-        """
-        # find the query in the html string
-        query_index = html.find(query)
-        # get the start and end of the JSON data string
-        start = html.find("(", query_index) + 2
-        end = html.find(")", start) - 1
-        json_data = html[start:end]
-        # Clean up the json and return the data
-        json_data = json_data.encode("utf8").decode("unicode_escape")
-        data = json.loads(json_data)
-        return data
-
-    def _get_response(
-        self,
-        url: str,
-        query: str = "teamsData",
-        **kwargs: str,
-    ) -> Dict[str, Any]:
-        """
-        Retrieve data from html page
-
-        :param url: str: url to parse
-        :param query: str: A sub-string to look for in the html document
-        :param kwargs: Keyword arguments to pass to ``requests.get()``
-
-        :return: JSON data retrieved from html page
-        """
-        res = self._request_url(url, **kwargs)
-        data = self._extract_data_from_html(res.text, query=query)
-
-        return data

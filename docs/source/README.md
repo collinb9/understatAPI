@@ -74,7 +74,7 @@ understat = UnderstatClient()
 # get data for every league match involving Manchester United in 2019/20
 team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 # get the id for the first match of the season
-match_id = match_data.iloc[0]["id"]
+match_id = match_data[0]["id"]
 # get the rosters for the both teams in that match
 roster_data = understat.match(match=match_id).get_roster_data()
 ```
