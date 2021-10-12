@@ -1,6 +1,5 @@
 """ Base endpoint """
-from typing import List, Sequence, Dict, Any
-import json
+from typing import Sequence
 import requests
 from requests import Response
 from ..parsers import BaseParser

@@ -49,24 +49,22 @@ class LeagueEndpoint(BaseEndpoint):
         """ league name """
         return self._primary_attr
 
-    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: str) -> requests.Response:
         """
         Get data on a league-wide basis
 
         :param season: Season to get data for
-        :param query: Identifies the type of data to get,
-            one of {teamsData, playersData, datesData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
         """
         if not isinstance(self.league, str):
             raise TypeError("``league`` must be a string")
         self._check_args(league=self.league, season=season)
         url = self.base_url + "league/" + self.league + "/" + season
 
-        data = self._request_url(url=url, **kwargs)
+        response = self._request_url(url=url, **kwargs)
 
-        return data
+        return response
 
     def get_team_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """

@@ -1,11 +1,6 @@
 """Base html parser"""
-from typing import List
+from typing import List, Any, Dict
 import json
-from ..exceptions import (
-    InvalidLeague,
-    InvalidSeason,
-    PrimaryAttribute,
-)
 
 
 class BaseParser:
@@ -17,7 +12,7 @@ class BaseParser:
     #     self.html = html
 
     @staticmethod
-    def parse(html: str, query: str = "teamsData"):
+    def parse(html: str, query: str = "teamsData") -> Dict[str, Any]:
         """
         Finds a JSON in the HTML according to a query, and returns the
         object corresponding to this JSON.

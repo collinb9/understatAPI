@@ -51,15 +51,13 @@ class TeamEndpoint(BaseEndpoint):
         """ team name """
         return self._primary_attr
 
-    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: str) -> requests.Response:
         """
         Get data on a per-team basis
 
         :param season: Season to get data for
-        :param query: Identifies the type of data to get,
-            one of {playersData, statisticsData, datesData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
         """
         if not isinstance(self.team, str):
             raise TypeError("``team`` must be a string")
@@ -67,13 +65,13 @@ class TeamEndpoint(BaseEndpoint):
         url = self.base_url + "team/" + self.team + "/" + season
 
         try:
-            data = self._request_url(url=url, **kwargs)
+            response = self._request_url(url=url, **kwargs)
         except HTTPError as err:
             raise InvalidTeam(
                 f"{self.team} is not a valid team", team=self.team
             ) from err
 
-        return data
+        return response
 
     def get_player_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """

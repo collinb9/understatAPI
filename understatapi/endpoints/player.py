@@ -51,7 +51,7 @@ class PlayerEndpoint(BaseEndpoint):
         """ player id """
         return self._primary_attr
 
-    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, **kwargs: str) -> requests.Response:
         """
         Get data on a per-player basis
 
@@ -66,14 +66,14 @@ class PlayerEndpoint(BaseEndpoint):
         url = self.base_url + "player/" + self.player
 
         try:
-            data = self._request_url(url=url, **kwargs)
+            response = self._request_url(url=url, **kwargs)
         except HTTPError as err:
             raise InvalidPlayer(
                 f"{self.player} is not a valid player or player id",
                 player=self.player,
             ) from err
 
-        return data
+        return response
 
     def get_match_data(self, **kwargs: str) -> Dict[str, Any]:
         """

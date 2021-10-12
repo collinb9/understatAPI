@@ -48,14 +48,12 @@ class MatchEndpoint(BaseEndpoint):
         """  match id """
         return self._primary_attr
 
-    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, **kwargs: str) -> requests.Response:
         """
         Get data on a per-match basis
 
-        :param query: Identifies the type of data to get,
-            one of {shotsData, rostersData, match_info}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
         """
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
@@ -63,13 +61,13 @@ class MatchEndpoint(BaseEndpoint):
         url = self.base_url + "match/" + self.match
 
         try:
-            data = self._request_url(url=url, **kwargs)
+            response = self._request_url(url=url, **kwargs)
         except HTTPError as err:
             raise InvalidMatch(
                 f"{self.match} is not a valid match", match=self.match
             ) from err
 
-        return data
+        return response
 
     def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """

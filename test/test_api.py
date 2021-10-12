@@ -13,7 +13,7 @@ import requests
 from selenium.common.exceptions import WebDriverException
 from understatapi import UnderstatClient
 from understatapi.services import Search
-from understatapi.endpoints import BaseEndpoint, PlayerEndpoint
+from understatapi.endpoints import PlayerEndpoint
 from understatapi.exceptions import (
     InvalidMatch,
     InvalidPlayer,
