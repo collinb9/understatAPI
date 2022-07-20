@@ -1,0 +1,166 @@
+version: 2.1
+
+commands:
+
+  setup:
+    description: Checkout & Get name of target branch
+    steps:
+      - checkout
+      - run:
+          name: Get name of target branch
+          command: |
+            if [[ ! -z ${CIRCLE_PULL_REQUEST} ]]
+            then
+              curl -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64" \
+                -o jq
+              chmod u+x jq
+              pr_number="${CIRCLE_PULL_REQUEST##*/}"
+              url="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${pr_number}"
+              export TARGET_BRANCH=$(\
+                  curl "$url" \
+                  -H "Authorization: $GITHUB_TOKEN" \
+                      | ./jq '.base.ref' \
+                      |  tr -d '"' \
+                  )
+              if [[  "$TARGET_BRANCH" = "master" || "$TARGET_BRANCH" = "staging" ]]
+              then
+                echo "Target branch - $TARGET_BRANCH"
+                echo "$TARGET_BRANCH" > /tmp/target_branch
+              else
+                echo "Target branch - $TARGET_BRANCH"
+                echo "Cannot continue build on this branch"
+                exit 1
+              fi
+            else
+              echo "Build is not for a PR. Using current branch as the target branch"
+              echo "$CIRCLE_BRANCH" > /tmp/target_branch
+            fi
+
+  pr_or_push:
+    description: Check if the current build is happening because of a PR
+    steps:
+      - run:
+          name: Check if PR
+          command: |
+            if [[ ! -z ${CIRCLE_PULL_REQUEST} ]]
+            then
+              echo "Build is for pr ${CIRCLE_PR_NUMBER}"
+              echo "pr" > /tmp/pr_or_push
+            else
+              echo "Build is not for a PR"
+              echo "push" > /tmp/pr_or_push
+            fi
+
+  install_dependencies:
+    description: Install all dependencies
+    parameters:
+      allowed_branch:
+        default: staging
+        type: string
+    steps:
+      - run:
+          name: Install dependencies
+          command: |
+            ./ci/install_dependencies.sh
+            venv/bin/python -m pip install toml
+
+
+jobs:
+
+  test:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - pr_or_push
+      - setup
+      - run:
+          name: Test
+          command: |
+            target_branch="$(cat /tmp/target_branch)"
+            pr_or_push="$(cat /tmp/pr_or_push)"
+            if [[ $target_branch = master ]]
+            then
+                ./ci/run_tests.sh
+            else
+                echo Can test pushes against master
+                exit 1
+            fi
+
+    # - name: "Deploying"
+    #   stage: deploy
+    #   if: |
+    #     type = push
+    #   script:
+    #     - ci/make_docs.sh
+    #     - python setup.py sdist
+    #   deploy:
+    #     - provider: pages:git
+    #       edge: true
+    #       verbose: true
+    #       cleanup: false
+    #       token: $GITHUB_TOKEN
+    #       keep_history: true
+    #       local_dir: ./docs/build/html/
+    #       on:
+    #         branch: master
+
+    #     - provider: pypi
+    #       edge: true
+    #       username: __token__
+    #       password: $PYPI_TOKEN
+    #       distributions: "sdist"
+    #       skip_existing: true
+    #       on:
+    #         tags: true
+
+    #     - provider: releases
+    #       edge: true
+    #       token: $GITHUB_TOKEN
+    #       on:
+    #         tags: true
+
+  deploy:
+    docker:
+      - image: cimg/python:3.9
+    steps:
+      - pr_or_push
+      - setup
+      - restore_cache:
+          key: python-requirements-V1-{{ checksum "dev_requirements.txt" }}
+      - install_dependencies
+      - run:
+          name: Deploy
+          command: |
+            source venv/bin/activate
+            target_branch="$(cat /tmp/target_branch)"
+            pr_or_push="$(cat /tmp/pr_or_push)"
+
+            if [[ $pr_or_push = pr ]]
+            then
+                echo Only deploy merges. Exiting.
+                exit 0
+            fi
+
+
+            if [[ $target_branch = master ]]
+              ./ci/make_docs.sh
+              python setup.py sdist
+            then
+            else
+                echo Can only deploy master or staging. Exiting.
+                exit 1
+            fi
+
+workflows:
+    version: 2
+    test-build-deploy:
+      jobs:
+        - test
+        - build:
+            requires:
+              - test
+        - deploy:
+            requires:
+              - test
+              - build
+
