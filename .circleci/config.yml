@@ -91,6 +91,7 @@ jobs:
           name: Deploy
           command: |
             echo test
+            echo $CIRCLE_TAG
             # source venv/bin/activate
             # ./ci/make_docs.sh
             # ./ci/deploy_docs.sh
