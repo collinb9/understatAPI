@@ -24,11 +24,17 @@ jobs:
     steps:
       - checkout
       - install_dependencies
+      - add_ssh_keys:
+          fingerprints:
+            - "mdxjWOyOjnT5f7EURHlHZgeAGZ+hhVYl6g6g7m7LWRw"
       - run:
           name: Test
           command: |
             ./ci/make_docs.sh
             ./ci/run_tests.sh
+            git config --global user.email "$GIT_EMAIL"
+            git config --global user.name "$GIT_USERNAME"
+            ./cd/deploy_docs.sh
 
   deploy:
     docker:
@@ -36,6 +42,9 @@ jobs:
     steps:
       - checkout
       - install_dependencies
+      - add_ssh_keys:
+          fingerprints:
+            - "mdxjWOyOjnT5f7EURHlHZgeAGZ+hhVYl6g6g7m7LWRw"
       - run:
           name: Deploy
           command: |
