@@ -104,10 +104,10 @@ workflows:
     jobs:
       - test
   deploy:
-      jobs:
-        - deploy:
-            filters:
-              tags:
-                only: /^v.*/
-              branches:
-                ignore: /.*/
+    jobs:
+      - deploy:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
