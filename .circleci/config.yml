@@ -90,20 +90,19 @@ jobs:
       - run:
           name: Deploy
           command: |
-            echo test
             echo $CIRCLE_TAG
-            # source venv/bin/activate
-            # ./ci/make_docs.sh
-            # ./ci/deploy_docs.sh
-            # ./ci/make_release.sh $CIRCLE_TAG
-            # ./ci/deploy_package.sh
+            source venv/bin/activate
+            ./ci/make_docs.sh
+            ./ci/deploy_docs.sh
+            ./ci/make_release.sh $CIRCLE_TAG
+            ./ci/deploy_package.sh
 
 workflows:
   version: 2
   build:
     jobs:
       - test
-  tagged-deploy:
+  deploy:
       jobs:
         - deploy:
             filters:
