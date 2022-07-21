@@ -112,6 +112,7 @@ These checks are in place to ensure a consistent style and quality across the co
 ```bash
 pip install -r requirements.txt
 pip install -r test_requirments.txt
+pip install -r docs_requirments.txt
 chmod +x ci/run_tests.sh
 ci/run_tests.sh
 ```

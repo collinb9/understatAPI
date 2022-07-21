@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 set -e
 CHANGED_FILES=`git diff --name-only --diff-filter=d origin/master | grep -E '\.py$' | tr '\n' ' '`
 echo $CHANGED_FILES
