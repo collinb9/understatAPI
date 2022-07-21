@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.api &mdash; understatAPI 0.5.2 documentation</title>
+  <title>understatapi.api &mdash; understatAPI 0.6.0 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.6.0
               </div>
             
           
@@ -161,9 +161,7 @@
   <h1>Source code for understatapi.api</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot; understatAPI client &quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">TracebackType</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterator</span>
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">from</span> <span class="nn">selenium.common.exceptions</span> <span class="kn">import</span> <span class="n">WebDriverException</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">get_public_methods</span><span class="p">,</span> <span class="n">str_to_class</span><span class="p">,</span> <span class="n">find_endpoints</span>
 <span class="kn">from</span> <span class="nn">.endpoints</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">LeagueEndpoint</span><span class="p">,</span>
@@ -171,7 +169,6 @@
     <span class="n">TeamEndpoint</span><span class="p">,</span>
     <span class="n">MatchEndpoint</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">.services</span> <span class="kn">import</span> <span class="n">Search</span>
 <span class="kn">from</span> <span class="nn">.exceptions</span> <span class="kn">import</span> <span class="n">PrimaryAttribute</span>
 
 
@@ -180,7 +177,7 @@
 <span class="sd">    API client for understat</span>
 
 <span class="sd">    The main interface for interacting with understatAPI. Exposes</span>
-<span class="sd">    each of the entrypoints and services, maintains a consistent</span>
+<span class="sd">    each of the entrypoints, maintains a consistent</span>
 <span class="sd">    session and handles errors</span>
 
 <span class="sd">    :Example:</span>
@@ -194,7 +191,6 @@
 <span class="sd">            player_shot_data = understat.player(player=&quot;2371&quot;).get_shot_data()</span>
 <span class="sd">            team_match_data = understat.team(team=&quot;Manchester_United&quot;).get_match_data(season=&quot;2019&quot;)</span>
 <span class="sd">            roster_data = understat.match(match=&quot;14711&quot;).get_roster_data()</span>
-<span class="sd">            player_match_data = understat.search(&quot;Cristiano Ronaldo&quot;).get_match_data()</span>
 
 <span class="sd">    Using the context manager gives some more verbose error handling</span>
 
@@ -344,72 +340,7 @@
         <span class="k">return</span> <span class="n">MatchEndpoint</span><span class="p">(</span>
             <span class="n">match</span><span class="o">=</span><span class="n">match</span><span class="p">,</span>
             <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span>
-        <span class="p">)</span></div>
-
-<div class="viewcode-block" id="UnderstatClient.search"><a class="viewcode-back" href="../../understatapi.api.html#understatapi.api.UnderstatClient.search">[docs]</a>    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">player_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">max_ids</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">page_load_timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">PlayerEndpoint</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;#pylint: disable=line-too-long</span>
-<span class="sd">        Search for a player by name</span>
-
-<span class="sd">        :param player_name: Player name to enter into the</span>
-<span class="sd">            seach bar</span>
-<span class="sd">        :param max_ids: The maximum number of player ids to return</span>
-<span class="sd">        :param page_load_timeout: Number of seconds to wait for the page</span>
-<span class="sd">            to load before raising a ``TimeoutError``</span>
-<span class="sd">        :rtype: :class:`Iterator` [:class:`~understatapi.endpoints.player.PlayerEndpoint`]</span>
-
-
-<span class="sd">        :Example:</span>
-
-<span class="sd">        .. testsetup::</span>
-
-<span class="sd">            from minimock import Mock</span>
-<span class="sd">            from understatapi import UnderstatClient</span>
-<span class="sd">            from understatapi.endpoints import PlayerEndpoint</span>
-<span class="sd">            from understatapi.services import Search</span>
-<span class="sd">            players = [[</span>
-<span class="sd">                &quot;2371&quot;,</span>
-<span class="sd">                &quot;2028&quot;,</span>
-<span class="sd">                &quot;7097&quot;,</span>
-<span class="sd">                ],</span>
-<span class="sd">                [&quot;2371&quot;]</span>
-<span class="sd">            ]</span>
-<span class="sd">            Search.get_player_ids = Mock(</span>
-<span class="sd">                &quot;Search.get_player_ids&quot;,</span>
-<span class="sd">                returns_iter=players,</span>
-<span class="sd">                tracker=None</span>
-<span class="sd">            )</span>
-
-<span class="sd">        .. doctest::</span>
-
-<span class="sd">            &gt;&gt;&gt; player_name = &quot;Ronaldo&quot;</span>
-<span class="sd">            &gt;&gt;&gt; with UnderstatClient() as understat:</span>
-<span class="sd">            ...     for player in understat.search(player_name):</span>
-<span class="sd">            ...         print(player.player)</span>
-<span class="sd">            2371</span>
-<span class="sd">            2028</span>
-<span class="sd">            7097</span>
-<span class="sd">            &gt;&gt;&gt; with UnderstatClient() as understat:</span>
-<span class="sd">            ...     for player in understat.search(player_name, max_ids=1):</span>
-<span class="sd">            ...         print(player.player)</span>
-<span class="sd">            2371</span>
-
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">Search</span><span class="p">(</span>
-                <span class="n">player_name</span><span class="o">=</span><span class="n">player_name</span><span class="p">,</span>
-                <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">,</span>
-                <span class="n">max_ids</span><span class="o">=</span><span class="n">max_ids</span><span class="p">,</span>
-                <span class="n">page_load_timeout</span><span class="o">=</span><span class="n">page_load_timeout</span><span class="p">,</span>
-            <span class="p">)</span> <span class="k">as</span> <span class="n">search</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">search</span><span class="o">.</span><span class="n">get_player_ids</span><span class="p">():</span>
-                    <span class="k">yield</span> <span class="n">PlayerEndpoint</span><span class="p">(</span><span class="n">player</span><span class="o">=</span><span class="n">player</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
-        <span class="k">except</span> <span class="n">WebDriverException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">WebDriverException</span><span class="p">(</span>
-                <span class="s2">&quot;You must have &#39;geckodriver&#39; installed to &quot;</span>
-                <span class="s2">&quot;use UnderstatClient.search()&quot;</span>
-            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div></div>
+        <span class="p">)</span></div></div>
 </pre></div>
 
            </div>
@@ -421,7 +352,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Brendan Collins.
+        &#169; Copyright 2022, Brendan Collins.
 
     </p>
   </div>

@@ -29,10 +29,6 @@ git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
 python setup.py install
 ```
-
-This package primarily uses the [requests](https://github.com/psf/requests) library for interacting with understat.com, but the method `UnderstatClient.search()`, which allows you to use the search bar, is implemented using [selenium](https://github.com/SeleniumHQ/selenium/tree/trunk/py).
-If you wish to use this method then you will have to install [geckodriver](https://github.com/mozilla/geckodriver).
-
 ## Getting started
 
 ---
@@ -112,6 +108,7 @@ These checks are in place to ensure a consistent style and quality across the co
 ```bash
 pip install -r requirements.txt
 pip install -r test_requirments.txt
+pip install -r docs_requirments.txt
 chmod +x ci/run_tests.sh
 ci/run_tests.sh
 ```

@@ -1,5 +1,5 @@
-understatAPI
-============
+project
+=======
 
 .. toctree::
    :maxdepth: 4

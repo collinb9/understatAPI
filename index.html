@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatAPI Home &mdash; understatAPI 0.5.2 documentation</title>
+  <title>understatAPI Home &mdash; understatAPI 0.6.0 documentation</title>
   
 
   
@@ -63,7 +63,7 @@
             
             
               <div class="version">
-                0.5.2
+                0.6.0
               </div>
             
           
@@ -177,7 +177,6 @@
 <li class="toctree-l1"><a class="reference internal" href="api_index.html">API Referance</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="understatapi.api.html">UnderstatClient</a></li>
 <li class="toctree-l2"><a class="reference internal" href="endpoints_index.html">Endpoints</a></li>
-<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
 <li class="toctree-l2"><a class="reference internal" href="misc_index.html">Misc</a></li>
 </ul>
 </li>
@@ -207,8 +206,6 @@
 python setup.py install
 </pre></div>
 </div>
-<p>This package primarily uses the <a class="reference external" href="https://github.com/psf/requests">requests</a> library for interacting with understat.com, but the method <code class="docutils literal notranslate"><span class="pre">UnderstatClient.search()</span></code>, which allows you to use the search bar, is implemented using <a class="reference external" href="https://github.com/SeleniumHQ/selenium/tree/trunk/py">selenium</a>.
-If you wish to use this method then you will have to install <a class="reference external" href="https://github.com/mozilla/geckodriver">geckodriver</a>.</p>
 </section>
 <section id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
@@ -295,6 +292,7 @@ Each method returns JSON with the relevant data. Below are some examples of how 
 <p>These checks are in place to ensure a consistent style and quality across the code. To check if the changes you have made will pass these tests run</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements.txt
 pip install -r test_requirments.txt
+pip install -r docs_requirments.txt
 chmod +x ci/run_tests.sh
 ci/run_tests.sh
 </pre></div>
@@ -326,7 +324,7 @@ ci/run_tests.sh
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2021, Brendan Collins.
+        &#169; Copyright 2022, Brendan Collins.
 
     </p>
   </div>
