@@ -31,7 +31,7 @@ jobs:
           name: Test
           command: |
             ./ci/make_docs.sh
-            ./ci/run_tests.sh
+            # ./ci/run_tests.sh
             git config --global user.email "$GIT_EMAIL"
             git config --global user.name "$GIT_USERNAME"
             ./cd/deploy_docs.sh
@@ -61,7 +61,8 @@ workflows:
   version: 2
   build:
     jobs:
-      - test
+      - test:
+          context: production
   deploy:
     jobs:
       - deploy:
