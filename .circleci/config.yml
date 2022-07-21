@@ -26,7 +26,7 @@ jobs:
       - install_dependencies
       - add_ssh_keys:
           fingerprints:
-            - "mdxjWOyOjnT5f7EURHlHZgeAGZ+hhVYl6g6g7m7LWRw"
+            - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
       - run:
           name: Test
           command: |
@@ -44,7 +44,7 @@ jobs:
       - install_dependencies
       - add_ssh_keys:
           fingerprints:
-            - "mdxjWOyOjnT5f7EURHlHZgeAGZ+hhVYl6g6g7m7LWRw"
+            - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
       - run:
           name: Deploy
           command: |
