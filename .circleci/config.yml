@@ -22,6 +22,7 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
+      - checkout
       - install_dependencies
       - run:
           name: Test
@@ -53,6 +54,7 @@ workflows:
   deploy:
     jobs:
       - deploy:
+          context: production
           filters:
             tags:
               only: /^v.*/
