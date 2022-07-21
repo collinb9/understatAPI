@@ -1,12 +1,10 @@
 # Environments
 venv
-*.env
+.env
+.python-version
 
 # log files
 *.log
-*.txt
-!requirements.txt
-!test_requirements.txt
 
 # Notebooks
 *.ipynb
