@@ -47,9 +47,9 @@ jobs:
             git config --global user.email "$GIT_EMAIL"
             git config --global user.name "$GIT_USERNAME"
             ./ci/make_docs.sh
-            ./cd/deploy_docs.sh
             ./cd/make_release.sh $CIRCLE_TAG
             ./cd/deploy_package.sh
+            ./cd/deploy_docs.sh
 
 workflows:
   version: 2
