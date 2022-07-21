@@ -2,55 +2,6 @@ version: 2.1
 
 commands:
 
-  setup:
-    description: Checkout & Get name of target branch
-    steps:
-      - checkout
-      - run:
-          name: Get name of target branch
-          command: |
-            if [[ ! -z ${CIRCLE_PULL_REQUEST} ]]
-            then
-              curl -L "https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64" \
-                -o jq
-              chmod u+x jq
-              pr_number="${CIRCLE_PULL_REQUEST##*/}"
-              url="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${pr_number}"
-              export TARGET_BRANCH=$(\
-                  curl "$url" \
-                  -H "Authorization: $GITHUB_TOKEN" \
-                      | ./jq '.base.ref' \
-                      |  tr -d '"' \
-                  )
-              if [[  "$TARGET_BRANCH" = "master" ]]
-              then
-                echo "Target branch - $TARGET_BRANCH"
-                echo "$TARGET_BRANCH" > /tmp/target_branch
-              else
-                echo "Target branch - $TARGET_BRANCH"
-                echo "Cannot continue build on this branch"
-                exit 1
-              fi
-            else
-              echo "Build is not for a PR. Using current branch as the target branch"
-              echo "$CIRCLE_BRANCH" > /tmp/target_branch
-            fi
-
-  pr_or_push:
-    description: Check if the current build is happening because of a PR
-    steps:
-      - run:
-          name: Check if PR
-          command: |
-            if [[ ! -z ${CIRCLE_PULL_REQUEST} ]]
-            then
-              echo "Build is for pr ${CIRCLE_PR_NUMBER}"
-              echo "pr" > /tmp/pr_or_push
-            else
-              echo "Build is not for a PR"
-              echo "push" > /tmp/pr_or_push
-            fi
-
   install_dependencies:
     description: Install all dependencies
     parameters:
@@ -65,14 +16,12 @@ commands:
             ./ci/install_dependencies.sh
             venv/bin/python -m pip install toml
 
-
 jobs:
 
   test:
     docker:
       - image: cimg/python:3.9
     steps:
-      - setup
       - install_dependencies
       - run:
           name: Test
@@ -92,9 +41,9 @@ jobs:
             echo $CIRCLE_TAG
             source venv/bin/activate
             ./ci/make_docs.sh
-            ./ci/deploy_docs.sh
-            ./ci/make_release.sh $CIRCLE_TAG
-            ./ci/deploy_package.sh
+            ./cd/deploy_docs.sh
+            ./cd/make_release.sh $CIRCLE_TAG
+            ./cd/deploy_package.sh
 
 workflows:
   version: 2
