@@ -22,7 +22,7 @@ commands:
                       | ./jq '.base.ref' \
                       |  tr -d '"' \
                   )
-              if [[  "$TARGET_BRANCH" = "master" || "$TARGET_BRANCH" = "staging" ]]
+              if [[  "$TARGET_BRANCH" = "master" ]]
               then
                 echo "Target branch - $TARGET_BRANCH"
                 echo "$TARGET_BRANCH" > /tmp/target_branch
@@ -35,6 +35,7 @@ commands:
               echo "Build is not for a PR. Using current branch as the target branch"
               echo "$CIRCLE_BRANCH" > /tmp/target_branch
             fi
+            python -m venv venv
 
   pr_or_push:
     description: Check if the current build is happening because of a PR
@@ -76,48 +77,7 @@ jobs:
       - run:
           name: Test
           command: |
-            target_branch="$(cat /tmp/target_branch)"
-            pr_or_push="$(cat /tmp/pr_or_push)"
-            if [[ $target_branch = master ]]
-            then
-                ./ci/run_tests.sh
-            else
-                echo Can test pushes against master
-                exit 1
-            fi
-
-    # - name: "Deploying"
-    #   stage: deploy
-    #   if: |
-    #     type = push
-    #   script:
-    #     - ci/make_docs.sh
-    #     - python setup.py sdist
-    #   deploy:
-    #     - provider: pages:git
-    #       edge: true
-    #       verbose: true
-    #       cleanup: false
-    #       token: $GITHUB_TOKEN
-    #       keep_history: true
-    #       local_dir: ./docs/build/html/
-    #       on:
-    #         branch: master
-
-    #     - provider: pypi
-    #       edge: true
-    #       username: __token__
-    #       password: $PYPI_TOKEN
-    #       distributions: "sdist"
-    #       skip_existing: true
-    #       on:
-    #         tags: true
-
-    #     - provider: releases
-    #       edge: true
-    #       token: $GITHUB_TOKEN
-    #       on:
-    #         tags: true
+            ./ci/run_tests.sh
 
   deploy:
     docker:
@@ -125,42 +85,24 @@ jobs:
     steps:
       - pr_or_push
       - setup
-      - restore_cache:
-          key: python-requirements-V1-{{ checksum "dev_requirements.txt" }}
       - install_dependencies
       - run:
           name: Deploy
           command: |
             source venv/bin/activate
-            target_branch="$(cat /tmp/target_branch)"
-            pr_or_push="$(cat /tmp/pr_or_push)"
-
-            if [[ $pr_or_push = pr ]]
-            then
-                echo Only deploy merges. Exiting.
-                exit 0
-            fi
-
-
-            if [[ $target_branch = master ]]
-              ./ci/make_docs.sh
-              python setup.py sdist
-            then
-            else
-                echo Can only deploy master or staging. Exiting.
-                exit 1
-            fi
+            ./ci/make_docs.sh
+            ./ci/deploy_docs.sh
+            ./ci/make_release.sh $CIRCLE_TAG
+            ./ci/deploy_package.sh
 
 workflows:
-    version: 2
-    test-build-deploy:
+  version: 2
+  build:
+    test:
+      - test
+  tagged-deploy:
       jobs:
-        - test
-        - build:
-            requires:
-              - test
         - deploy:
-            requires:
-              - test
-              - build
-
+            filters:
+              tags:
+                only: /^v.*/
