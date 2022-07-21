@@ -35,7 +35,6 @@ commands:
               echo "Build is not for a PR. Using current branch as the target branch"
               echo "$CIRCLE_BRANCH" > /tmp/target_branch
             fi
-            python -m venv venv
 
   pr_or_push:
     description: Check if the current build is happening because of a PR
@@ -62,6 +61,7 @@ commands:
       - run:
           name: Install dependencies
           command: |
+            python -m venv venv
             ./ci/install_dependencies.sh
             venv/bin/python -m pip install toml
 
@@ -72,7 +72,6 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
-      - pr_or_push
       - setup
       - install_dependencies
       - run:
@@ -85,9 +84,7 @@ jobs:
     docker:
       - image: cimg/python:3.9
     steps:
-      # - pr_or_push
-      # - setup
-      # - install_dependencies
+      - install_dependencies
       - run:
           name: Deploy
           command: |
