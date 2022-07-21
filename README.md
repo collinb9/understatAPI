@@ -96,7 +96,7 @@ If you find any bugs in the code or have any feature requests, please make an is
 - Push your changes `git push`
 - Come back to the repo on github, and click on Pull requests -> New pull request
 
-Before a pull request can be merged the code will have to pass a number of checks that are run using TravisCI. These checks are
+Before a pull request can be merged the code will have to pass a number of checks that are run using CircleCI. These checks are
 
 - Check that the code has been formatted using [black](https://github.com/psf/black)
 - Lint the code using [pylint](https://github.com/PyCQA/pylint)

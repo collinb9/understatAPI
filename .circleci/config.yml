@@ -24,17 +24,11 @@ jobs:
     steps:
       - checkout
       - install_dependencies
-      - add_ssh_keys:
-          fingerprints:
-            - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
       - run:
           name: Test
           command: |
             ./ci/make_docs.sh
-            # ./ci/run_tests.sh
-            git config --global user.email "$GIT_EMAIL"
-            git config --global user.name "$GIT_USERNAME"
-            ./cd/deploy_docs.sh
+            ./ci/run_tests.sh
 
   deploy:
     docker:
@@ -61,8 +55,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - test:
-          context: production
+      - test
   deploy:
     jobs:
       - deploy:
