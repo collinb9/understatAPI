@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+
 if [ -d "docs/build" ]; then
     rm -rf docs/build
 fi
