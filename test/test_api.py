@@ -8,12 +8,8 @@ import unittest
 from unittest.mock import patch
 import json
 from test import mocked_requests_get
-from test.mock_selenium import MockWebDriver, MockWebDriverWait
 import requests
-from selenium.common.exceptions import WebDriverException
 from understatapi import UnderstatClient
-from understatapi.services import Search
-from understatapi.endpoints import PlayerEndpoint
 from understatapi.exceptions import (
     InvalidMatch,
     InvalidPlayer,
@@ -53,7 +49,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     """Test that endpoints return the expected output"""
 
     def test_match_get_shot_data(self, mock_get):
-        """ test ``match.get_shot_data()`` """
+        """test ``match.get_shot_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
@@ -63,7 +59,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(expected_data, data)
 
     def test_match_get_roster_data(self, mock_get):
-        """ test ``match.get_roster_data()`` """
+        """test ``match.get_roster_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
@@ -73,7 +69,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(expected_data, data)
 
     def test_match_get_match_info(self, mock_get):
-        """ test ``match.get_match_info()`` """
+        """test ``match.get_match_info()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/match.html"
         )
@@ -83,7 +79,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(expected_data, data)
 
     def test_player_get_match_data(self, mock_get):
-        """ test ``player.get_match_data()`` """
+        """test ``player.get_match_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
@@ -97,7 +93,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
                 self.assertDictEqual(record, expected_record)
 
     def test_get_shot_data_return_value(self, mock_get):
-        """ test ``player.get_shot_data()`` """
+        """test ``player.get_shot_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
@@ -111,7 +107,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
                 self.assertDictEqual(record, expected_record)
 
     def test_player_get_season_data(self, mock_get):
-        """ test ``player.get_season_data()`` """
+        """test ``player.get_season_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/player.html"
         )
@@ -121,7 +117,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(data, expected_data)
 
     def test_team_get_player_data(self, mock_get):
-        """ test ``team.get_match_data()`` """
+        """test ``team.get_match_data()``"""
         mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_player_data(season="2019")
         data_path = "test/resources/data/team_playersdata.json"
@@ -133,7 +129,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
                 self.assertDictEqual(record, expected_record)
 
     def test_team_get_match_data(self, mock_get):
-        """ test ``team.get_match_data()`` """
+        """test ``team.get_match_data()``"""
         mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_match_data(season="2019")
         data_path = "test/resources/data/team_datesdata.json"
@@ -145,7 +141,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
                 self.assertDictEqual(record, expected_record)
 
     def test_team_get_context_data(self, mock_get):
-        """ test ``team.get_context_data()`` """
+        """test ``team.get_context_data()``"""
         mock_get.return_value = mocked_requests_get("test/resources/team.html")
         data = self.team.get_context_data(season="2019")
         data_path = "test/resources/data/team_statisticsdata.json"
@@ -153,7 +149,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(data, expected_data)
 
     def test_league_get_team_data(self, mock_get):
-        """ test ``league.get_team_data()`` """
+        """test ``league.get_team_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
@@ -163,7 +159,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
         self.assertDictEqual(data, expected_data)
 
     def test_league_get_match_data(self, mock_get):
-        """ test ``league.get_match_data()`` """
+        """test ``league.get_match_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
@@ -177,7 +173,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
                 self.assertDictEqual(record, expected_record)
 
     def test_league_get_player_data(self, mock_get):
-        """ test ``league.get_player_data()`` """
+        """test ``league.get_player_data()``"""
         mock_get.return_value = mocked_requests_get(
             "test/resources/league_epl.html"
         )
@@ -196,7 +192,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
     """Test the conditions under which exceptions are expected"""
 
     def test_match_get_data_bad_player(self, mock_get):
-        """ test that ``match._get_data()`` raises an InvalidMatch error """
+        """test that ``match._get_data()`` raises an InvalidMatch error"""
         with self.assertRaises(InvalidMatch):
             self.match.get_shot_data(status_code=404)
 
@@ -210,7 +206,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
             _ = match.get_shot_data()
 
     def test_get_data_bad_player(self, mock_get):
-        """ test that ``player._get_data()`` raises an InvalidPlayer error """
+        """test that ``player._get_data()`` raises an InvalidPlayer error"""
         with self.assertRaises(InvalidPlayer):
             self.player.get_shot_data(status_code=404)
 
@@ -224,7 +220,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
             _ = player.get_shot_data()
 
     def test_team_get_data_bad_team(self, mock_get):
-        """ test that ``team._get_data()`` raises an InvalidTeam error """
+        """test that ``team._get_data()`` raises an InvalidTeam error"""
         team = self.understat.team(self.team_name)
         with self.assertRaises(InvalidTeam):
             _ = team.get_match_data(season="2019", status_code=404)
@@ -239,7 +235,7 @@ class TestEndpointErrors(EndpointBaseTestCase):
             _ = team.get_match_data(season="")
 
     def test_league_get_data_bad_team(self, mock_get):
-        """ test that ``league._get_data()`` raises an InvalidLeague error """
+        """test that ``league._get_data()`` raises an InvalidLeague error"""
         league = self.understat.league("dummy_team")
         with self.assertRaises(InvalidLeague):
             _ = league.get_match_data(season="2019", status_code=404)
@@ -277,47 +273,33 @@ class TestEndpointErrors(EndpointBaseTestCase):
                 "'get_match_data', get_player_data']",
             )
 
-    @patch.object(Search, "__init__")
-    def test_search_web_driver_error(self, mock_get_player_ids, mock_get):
-        """
-        test that ``search()`` raises a custom exception if ``geckodriver``
-        is not installed
-        """
-        mock_get_player_ids.side_effect = WebDriverException()
-        with self.assertRaisesRegex(
-            WebDriverException,
-            "You must have 'geckodriver' installed to use "
-            "UnderstatClient.search()",
-        ):
-            _ = list(self.understat.search(""))
-
 
 class TestEndpointDunder(EndpointBaseTestCase):
     """Tests for the dunder methods in the endpoint class"""
 
     def test_league(self):
-        """ test ``league()`` """
+        """test ``league()``"""
         self.assertEqual(
             repr(self.understat.league(league="EPL")),
             "<LeagueEndpoint('EPL')>",
         )
 
     def test_player(self):
-        """ test ``player()`` """
+        """test ``player()``"""
         self.assertEqual(
             repr(self.understat.player(player="1234")),
             "<PlayerEndpoint('1234')>",
         )
 
     def test_team(self):
-        """ test ``team()`` """
+        """test ``team()``"""
         self.assertEqual(
             repr(self.understat.team(team="Manchester_United")),
             "<TeamEndpoint('Manchester_United')>",
         )
 
     def test_match(self):
-        """ test ``match()`` """
+        """test ``match()``"""
         self.assertEqual(
             repr(self.understat.match(match="1234")), "<MatchEndpoint('1234')>"
         )
@@ -353,57 +335,6 @@ class TestEndpointDunder(EndpointBaseTestCase):
                 pass
         except Exception:  # pylint: disable=broad-except
             self.fail()
-
-
-class TestSearch(unittest.TestCase):
-    """ Test ``Search`` service """
-
-    def setUp(self):
-        """ setUp """
-        self.url = "test/resources/home.html"
-        self.real_url = Search.url
-        Search.url = self.url
-        self.real_web_driver = Search._web_driver
-        Search._web_driver = MockWebDriver
-        self.understat = UnderstatClient()
-
-    def tearDown(self):
-        self.understat.session.close()
-        Search._web_driver = self.real_web_driver
-        Search.url = self.real_url
-
-    def test_search(self):
-        """Test the search endpoint"""
-        search = self.understat.search(player_name="Ronaldo")
-        with patch(
-            "understatapi.services.search.WebDriverWait", new=MockWebDriverWait
-        ):
-            for i, player in enumerate(search):
-                # Looking at the exact output here is unhelpful because
-                # of the limitations of mocking here. Need to perform
-                # integration tests here
-                with self.subTest(test="return value"):
-                    self.assertIsInstance(player, PlayerEndpoint)
-        with self.subTest(test="number of players returned"):
-            self.assertEqual(i, 2)
-
-    def test_search_with_max_ids(self):
-        """
-        Test the search endpoint where ``max_ids`` is less than the total
-        number of results
-        """
-        search = self.understat.search(player_name="Ronaldo", max_ids=2)
-        with patch(
-            "understatapi.services.search.WebDriverWait", new=MockWebDriverWait
-        ):
-            for i, player in enumerate(search):
-                # Looking at the exact output here is unhelpful because
-                # of the limitations of mocking here. Need to perform
-                # integration tests here
-                with self.subTest(test="return value"):
-                    self.assertIsInstance(player, PlayerEndpoint)
-        with self.subTest(test="number of players returned"):
-            self.assertEqual(i, 1)
 
 
 if __name__ == "__main__":

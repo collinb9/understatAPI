@@ -1,8 +1,6 @@
 """ understatAPI client """
 from types import TracebackType
-from typing import Iterator
 import requests
-from selenium.common.exceptions import WebDriverException
 from .utils import get_public_methods, str_to_class, find_endpoints
 from .endpoints import (
     LeagueEndpoint,
@@ -10,7 +8,6 @@ from .endpoints import (
     TeamEndpoint,
     MatchEndpoint,
 )
-from .services import Search
 from .exceptions import PrimaryAttribute
 
 
@@ -19,7 +16,7 @@ class UnderstatClient:
     API client for understat
 
     The main interface for interacting with understatAPI. Exposes
-    each of the entrypoints and services, maintains a consistent
+    each of the entrypoints, maintains a consistent
     session and handles errors
 
     :Example:
@@ -33,7 +30,6 @@ class UnderstatClient:
             player_shot_data = understat.player(player="2371").get_shot_data()
             team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
             roster_data = understat.match(match="14711").get_roster_data()
-            player_match_data = understat.search("Cristiano Ronaldo").get_match_data()
 
     Using the context manager gives some more verbose error handling
 
@@ -184,68 +180,3 @@ class UnderstatClient:
             match=match,
             session=self.session,
         )
-
-    def search(
-        self, player_name: str, max_ids: int = 5, page_load_timeout: int = 5
-    ) -> Iterator[PlayerEndpoint]:
-        """#pylint: disable=line-too-long
-        Search for a player by name
-
-        :param player_name: Player name to enter into the
-            seach bar
-        :param max_ids: The maximum number of player ids to return
-        :param page_load_timeout: Number of seconds to wait for the page
-            to load before raising a ``TimeoutError``
-        :rtype: :class:`Iterator` [:class:`~understatapi.endpoints.player.PlayerEndpoint`]
-
-
-        :Example:
-
-        .. testsetup::
-
-            from minimock import Mock
-            from understatapi import UnderstatClient
-            from understatapi.endpoints import PlayerEndpoint
-            from understatapi.services import Search
-            players = [[
-                "2371",
-                "2028",
-                "7097",
-                ],
-                ["2371"]
-            ]
-            Search.get_player_ids = Mock(
-                "Search.get_player_ids",
-                returns_iter=players,
-                tracker=None
-            )
-
-        .. doctest::
-
-            >>> player_name = "Ronaldo"
-            >>> with UnderstatClient() as understat:
-            ...     for player in understat.search(player_name):
-            ...         print(player.player)
-            2371
-            2028
-            7097
-            >>> with UnderstatClient() as understat:
-            ...     for player in understat.search(player_name, max_ids=1):
-            ...         print(player.player)
-            2371
-
-        """
-        try:
-            with Search(
-                player_name=player_name,
-                session=self.session,
-                max_ids=max_ids,
-                page_load_timeout=page_load_timeout,
-            ) as search:
-                for player in search.get_player_ids():
-                    yield PlayerEndpoint(player=player, session=self.session)
-        except WebDriverException as err:
-            raise WebDriverException(
-                "You must have 'geckodriver' installed to "
-                "use UnderstatClient.search()"
-            ) from err

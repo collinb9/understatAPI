@@ -78,6 +78,7 @@ jobs:
       - run:
           name: Test
           command: |
+            ./ci/make_docs.sh
             ./ci/run_tests.sh
 
   deploy:

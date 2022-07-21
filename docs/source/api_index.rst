@@ -7,5 +7,4 @@ API
 
     UnderstatClient <understatapi.api.rst>
     Endpoints <endpoints_index.rst>
-    Services <services_index.rst>
     Misc <misc_index.rst>
