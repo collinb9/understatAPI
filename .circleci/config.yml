@@ -49,13 +49,13 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
-      - run:
-          name: Deploy package
-          command: |
-            echo $CIRCLE_BRANCH
-            source venv/bin/activate
-            ./cd/deploy_package.sh
-            ./cd/make_release.sh $CIRCLE_TAG
+      # - run:
+      #     name: Deploy package
+      #     command: |
+      #       echo $CIRCLE_BRANCH
+      #       source venv/bin/activate
+      #       ./cd/deploy_package.sh
+      #       ./cd/make_release.sh $CIRCLE_TAG
       - run:
           name: Publish documentation
           command: |
