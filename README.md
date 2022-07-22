@@ -81,7 +81,7 @@ You can also use the `UnderstatClient` class as a context manager which closes t
 from understatapi import UnderstatClient
 
 with UnderstatClient() as understat:
-    team_match_data = understat.team(team="Manchester_United").get_match_data()
+    team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 ```
 
 For a full API reference, see [the documentation](https://collinb9.github.io/understatAPI/)
