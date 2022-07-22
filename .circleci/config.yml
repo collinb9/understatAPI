@@ -61,6 +61,8 @@ jobs:
           command: |
             echo $CIRCLE_BRANCH
             source venv/bin/activate
+            git config --global user.email "$GIT_EMAIL"
+            git config --global user.name "$GIT_USERNAME"
             ./ci/make_docs.sh
             ./cd/deploy_docs.sh
 
@@ -72,7 +74,6 @@ workflows:
   deploy:
     jobs:
       - deploy:
-          context: production
           filters:
             tags:
               only: /^v.*/
