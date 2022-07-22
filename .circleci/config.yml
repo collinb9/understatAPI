@@ -37,25 +37,32 @@ jobs:
       - checkout
       - install_dependencies
       - run:
-          name: init .pypirc
-          command: |
-            echo -e "[pypi]" >> ~/.pypirc
-            echo -e "username = $TWINE_USERNAME" >> ~/.pypirc
-            echo -e "password = $TWINE_PASSWORD" >> ~/.pypirc
-      - add_ssh_keys:
-          fingerprints:
-            - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
-      - run:
-          name: Deploy
+          name: Setup
           command: |
             echo $CIRCLE_TAG
             source venv/bin/activate
             git config --global user.email "$GIT_EMAIL"
             git config --global user.name "$GIT_USERNAME"
-            ./ci/make_docs.sh
-            ./cd/make_release.sh $CIRCLE_TAG
-            ./cd/deploy_package.sh
-            ./cd/deploy_docs.sh
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = __token__" >> ~/.pypirc
+            echo -e "password = $PYPI_TOKEN" >> ~/.pypirc
+      - add_ssh_keys:
+          fingerprints:
+            - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
+      - run:
+          name: Deploy package
+          command: |
+            if [ $CIRCLE_BRANCH == 'main' ] ; then
+              ./cd/deploy_package.sh
+              ./cd/make_release.sh $CIRCLE_TAG
+            fi
+      - run:
+          name: Publish documentation
+          command: |
+            if [ $CIRCLE_BRANCH == 'main' ] ; then
+              ./ci/make_docs.sh
+              ./cd/deploy_docs.sh
+            fi
 
 workflows:
   version: 2
