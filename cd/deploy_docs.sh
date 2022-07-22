@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 
 set -e
-set -x
 
 mkdir -p /tmp/gh-pages
 cp -r docs/build/html /tmp/gh-pages
