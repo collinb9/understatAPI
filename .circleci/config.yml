@@ -36,6 +36,12 @@ jobs:
     steps:
       - checkout
       - install_dependencies
+      - run:
+          name: init .pypirc
+          command: |
+            echo -e "[pypi]" >> ~/.pypirc
+            echo -e "username = $TWINE_USERNAME" >> ~/.pypirc
+            echo -e "password = $TWINE_PASSWORD" >> ~/.pypirc
       - add_ssh_keys:
           fingerprints:
             - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
