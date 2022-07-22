@@ -52,17 +52,15 @@ jobs:
       - run:
           name: Deploy package
           command: |
-            if [ $CIRCLE_BRANCH == 'main' ] ; then
-              ./cd/deploy_package.sh
-              ./cd/make_release.sh $CIRCLE_TAG
-            fi
+            echo $CIRCLE_BRANCH
+            ./cd/deploy_package.sh
+            ./cd/make_release.sh $CIRCLE_TAG
       - run:
           name: Publish documentation
           command: |
-            if [ $CIRCLE_BRANCH == 'main' ] ; then
-              ./ci/make_docs.sh
-              ./cd/deploy_docs.sh
-            fi
+            echo $CIRCLE_BRANCH
+            ./ci/make_docs.sh
+            ./cd/deploy_docs.sh
 
 workflows:
   version: 2
