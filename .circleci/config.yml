@@ -40,7 +40,6 @@ jobs:
           name: Setup
           command: |
             echo $CIRCLE_TAG
-            source venv/bin/activate
             git config --global user.email "$GIT_EMAIL"
             git config --global user.name "$GIT_USERNAME"
             echo -e "[pypi]" >> ~/.pypirc
@@ -53,12 +52,14 @@ jobs:
           name: Deploy package
           command: |
             echo $CIRCLE_BRANCH
+            source venv/bin/activate
             ./cd/deploy_package.sh
             ./cd/make_release.sh $CIRCLE_TAG
       - run:
           name: Publish documentation
           command: |
             echo $CIRCLE_BRANCH
+            source venv/bin/activate
             ./ci/make_docs.sh
             ./cd/deploy_docs.sh
 
