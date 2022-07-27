@@ -6,8 +6,10 @@
 #
 alabaster==0.7.12
     # via sphinx
-babel==2.9.0
-    # via sphinx
+babel==2.10.3
+    # via
+    #   -r docs_requirements.in
+    #   sphinx
 certifi==2020.12.5
     # via requests
 chardet==4.0.0
@@ -69,8 +71,10 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.4
     # via sphinx
-urllib3==1.26.4
-    # via requests
+urllib3==1.26.11
+    # via
+    #   -r docs_requirements.in
+    #   requests
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

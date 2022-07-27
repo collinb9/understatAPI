@@ -4,4 +4,4 @@ black==21.10b0
 coverage==6.0.1
 mypy==0.812
 pyenchant==3.2.0
-lxml==4.6.3
+lxml>=4.9.1

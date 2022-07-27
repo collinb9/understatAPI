@@ -16,7 +16,7 @@ isort==5.7.0
     # via pylint
 lazy-object-proxy==1.5.2
     # via astroid
-lxml==4.6.3
+lxml==4.9.1
     # via -r test_requirements.in
 mccabe==0.6.1
     # via pylint
