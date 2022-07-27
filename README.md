@@ -27,7 +27,7 @@ If you would like to use the package with the latest development changes you can
 ```bash
 git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
-python setup.py install
+python -m pip install .
 ```
 ## Getting started
 
