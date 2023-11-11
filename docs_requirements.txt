@@ -10,7 +10,7 @@ babel==2.10.3
     # via
     #   -r docs_requirements.in
     #   sphinx
-certifi==2020.12.5
+certifi==2023.7.22
     # via requests
 chardet==4.0.0
     # via requests
