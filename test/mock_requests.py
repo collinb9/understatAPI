@@ -1,15 +1,16 @@
 """ Mock the requests library """
+import json
 from requests.exceptions import HTTPError
 
 
 class MockResponse:
     """ Mock response from requests.get() """
 
-    def __init__(self, url, status_code=200, reason="OK"):
+    def __init__(self, url=None, status_code=200, reason="OK", **kwargs):
+        # Accept and ignore extra kwargs like 'headers' that requests.get() accepts
         self.url = url
         self.status_code = status_code
         self.reason = reason
-        self.url = url
 
     @property
     def content(self):
@@ -24,6 +25,11 @@ class MockResponse:
         with open(self.url) as file:
             text = file.read()
         return text
+
+    def json(self):
+        """ Response.json() """
+        with open(self.url) as file:
+            return json.load(file)
 
     def raise_for_status(self):
         """Raises ``HTTPError``, if one occurred."""

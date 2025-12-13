@@ -1,0 +1,1982 @@
+{
+  "dates": [
+    {
+      "id": "14098",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "78",
+        "title": "Crystal Palace",
+        "short_title": "CRY"
+      },
+      "goals": {
+        "h": "1",
+        "a": "3"
+      },
+      "xG": {
+        "h": "1.09737",
+        "a": "1.91456"
+      },
+      "datetime": "2020-09-19 16:30:00",
+      "forecast": {
+        "w": 0.21451946658065246,
+        "d": 0.22133392682042802,
+        "l": 0.564146604420384
+      },
+      "result": "l"
+    },
+    {
+      "id": "14106",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "220",
+        "title": "Brighton",
+        "short_title": "BRI"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "2",
+        "a": "3"
+      },
+      "xG": {
+        "h": "2.97659",
+        "a": "1.57583"
+      },
+      "datetime": "2020-09-26 11:30:00",
+      "forecast": {
+        "w": 0.66096217645782,
+        "d": 0.15895234861098081,
+        "l": 0.18008486565339443
+      },
+      "result": "w"
+    },
+    {
+      "id": "14471",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "82",
+        "title": "Tottenham",
+        "short_title": "TOT"
+      },
+      "goals": {
+        "h": "1",
+        "a": "6"
+      },
+      "xG": {
+        "h": "0.873435",
+        "a": "3.3017"
+      },
+      "datetime": "2020-10-04 15:30:00",
+      "forecast": {
+        "w": 0.0627841003430905,
+        "d": 0.10398721011194013,
+        "l": 0.8332265545026284
+      },
+      "result": "l"
+    },
+    {
+      "id": "14481",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "86",
+        "title": "Newcastle United",
+        "short_title": "NEW"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "1",
+        "a": "4"
+      },
+      "xG": {
+        "h": "0.867496",
+        "a": "2.21729"
+      },
+      "datetime": "2020-10-17 19:00:00",
+      "forecast": {
+        "w": 0.13325121478925717,
+        "d": 0.1862443683311705,
+        "l": 0.6805044020191591
+      },
+      "result": "w"
+    },
+    {
+      "id": "14491",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "80",
+        "title": "Chelsea",
+        "short_title": "CHE"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "0.648427",
+        "a": "0.219906"
+      },
+      "datetime": "2020-10-24 16:30:00",
+      "forecast": {
+        "w": 0.4078690853907332,
+        "d": 0.48165700939610445,
+        "l": 0.11047390521316129
+      },
+      "result": "d"
+    },
+    {
+      "id": "14500",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "83",
+        "title": "Arsenal",
+        "short_title": "ARS"
+      },
+      "goals": {
+        "h": "0",
+        "a": "1"
+      },
+      "xG": {
+        "h": "0.394113",
+        "a": "0.998072"
+      },
+      "datetime": "2020-11-01 16:30:00",
+      "forecast": {
+        "w": 0.14356691856324408,
+        "d": 0.35633667162390653,
+        "l": 0.5000964098125575
+      },
+      "result": "l"
+    },
+    {
+      "id": "14509",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "72",
+        "title": "Everton",
+        "short_title": "EVE"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "1",
+        "a": "3"
+      },
+      "xG": {
+        "h": "0.376464",
+        "a": "1.59642"
+      },
+      "datetime": "2020-11-07 12:30:00",
+      "forecast": {
+        "w": 0.08329464010851619,
+        "d": 0.2360539528097624,
+        "l": 0.6806514068899713
+      },
+      "result": "w"
+    },
+    {
+      "id": "14520",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "76",
+        "title": "West Bromwich Albion",
+        "short_title": "WBA"
+      },
+      "goals": {
+        "h": "1",
+        "a": "0"
+      },
+      "xG": {
+        "h": "2.42994",
+        "a": "0.438646"
+      },
+      "datetime": "2020-11-21 20:00:00",
+      "forecast": {
+        "w": 0.8149384312413306,
+        "d": 0.1354686706591009,
+        "l": 0.04959284991843597
+      },
+      "result": "w"
+    },
+    {
+      "id": "14534",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "74",
+        "title": "Southampton",
+        "short_title": "SOU"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "2",
+        "a": "3"
+      },
+      "xG": {
+        "h": "0.498783",
+        "a": "2.47547"
+      },
+      "datetime": "2020-11-29 14:00:00",
+      "forecast": {
+        "w": 0.05582293255626284,
+        "d": 0.13652044114596074,
+        "l": 0.8076565652794164
+      },
+      "result": "w"
+    },
+    {
+      "id": "14544",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "81",
+        "title": "West Ham",
+        "short_title": "WHU"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "1",
+        "a": "3"
+      },
+      "xG": {
+        "h": "2.53006",
+        "a": "1.78708"
+      },
+      "datetime": "2020-12-05 17:30:00",
+      "forecast": {
+        "w": 0.542161063608623,
+        "d": 0.18772802144015974,
+        "l": 0.2701108336220972
+      },
+      "result": "w"
+    },
+    {
+      "id": "14549",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "88",
+        "title": "Manchester City",
+        "short_title": "MCI"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "0.591617",
+        "a": "1.28434"
+      },
+      "datetime": "2020-12-12 17:30:00",
+      "forecast": {
+        "w": 0.17140280342046546,
+        "d": 0.2936938639079481,
+        "l": 0.5349033326617674
+      },
+      "result": "d"
+    },
+    {
+      "id": "14560",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "238",
+        "title": "Sheffield United",
+        "short_title": "SHE"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "2",
+        "a": "3"
+      },
+      "xG": {
+        "h": "1.23525",
+        "a": "1.78667"
+      },
+      "datetime": "2020-12-17 20:00:00",
+      "forecast": {
+        "w": 0.26441755352506724,
+        "d": 0.23225445592770402,
+        "l": 0.5033279896720257
+      },
+      "result": "w"
+    },
+    {
+      "id": "14570",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "245",
+        "title": "Leeds",
+        "short_title": "LED"
+      },
+      "goals": {
+        "h": "6",
+        "a": "2"
+      },
+      "xG": {
+        "h": "4.77743",
+        "a": "1.63467"
+      },
+      "datetime": "2020-12-20 16:30:00",
+      "forecast": {
+        "w": 0.856996601813555,
+        "d": 0.07596984071086851,
+        "l": 0.06689344746982284
+      },
+      "result": "w"
+    },
+    {
+      "id": "14579",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "75",
+        "title": "Leicester",
+        "short_title": "LEI"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "2",
+        "a": "2"
+      },
+      "xG": {
+        "h": "1.0396",
+        "a": "2.08423"
+      },
+      "datetime": "2020-12-26 12:30:00",
+      "forecast": {
+        "w": 0.1808992729317085,
+        "d": 0.20519918388634734,
+        "l": 0.6139015365352054
+      },
+      "result": "d"
+    },
+    {
+      "id": "14592",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "229",
+        "title": "Wolverhampton Wanderers",
+        "short_title": "WOL"
+      },
+      "goals": {
+        "h": "1",
+        "a": "0"
+      },
+      "xG": {
+        "h": "1.48207",
+        "a": "0.411046"
+      },
+      "datetime": "2020-12-29 20:00:00",
+      "forecast": {
+        "w": 0.642164819856352,
+        "d": 0.2573039388915537,
+        "l": 0.1005312411821372
+      },
+      "result": "w"
+    },
+    {
+      "id": "14596",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "71",
+        "title": "Aston Villa",
+        "short_title": "AVL"
+      },
+      "goals": {
+        "h": "2",
+        "a": "1"
+      },
+      "xG": {
+        "h": "2.46473",
+        "a": "1.56434"
+      },
+      "datetime": "2021-01-01 20:00:00",
+      "forecast": {
+        "w": 0.5742766132689795,
+        "d": 0.1888353314768562,
+        "l": 0.23688799737021607
+      },
+      "result": "w"
+    },
+    {
+      "id": "14088",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "92",
+        "title": "Burnley",
+        "short_title": "BUR"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "1"
+      },
+      "xG": {
+        "h": "0.648582",
+        "a": "1.23996"
+      },
+      "datetime": "2021-01-12 22:15:00",
+      "forecast": {
+        "w": 0.19436777826982385,
+        "d": 0.2997257725659128,
+        "l": 0.5059064491582237
+      },
+      "result": "w"
+    },
+    {
+      "id": "14620",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "87",
+        "title": "Liverpool",
+        "short_title": "LIV"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "1.20205",
+        "a": "1.18929"
+      },
+      "datetime": "2021-01-17 16:30:00",
+      "forecast": {
+        "w": 0.36449615611620356,
+        "d": 0.27720718226484475,
+        "l": 0.35829666161163864
+      },
+      "result": "d"
+    },
+    {
+      "id": "14607",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "228",
+        "title": "Fulham",
+        "short_title": "FLH"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "1",
+        "a": "2"
+      },
+      "xG": {
+        "h": "0.753669",
+        "a": "1.68401"
+      },
+      "datetime": "2021-01-20 20:15:00",
+      "forecast": {
+        "w": 0.16481932436067429,
+        "d": 0.2388013972233927,
+        "l": 0.5963792780221339
+      },
+      "result": "w"
+    },
+    {
+      "id": "14628",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "238",
+        "title": "Sheffield United",
+        "short_title": "SHE"
+      },
+      "goals": {
+        "h": "1",
+        "a": "2"
+      },
+      "xG": {
+        "h": "0.9931",
+        "a": "0.689548"
+      },
+      "datetime": "2021-01-27 20:15:00",
+      "forecast": {
+        "w": 0.4164305808016704,
+        "d": 0.33669333960931014,
+        "l": 0.24687607958874555
+      },
+      "result": "l"
+    },
+    {
+      "id": "14635",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "83",
+        "title": "Arsenal",
+        "short_title": "ARS"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "0.747166",
+        "a": "1.51332"
+      },
+      "datetime": "2021-01-30 17:30:00",
+      "forecast": {
+        "w": 0.18439183922681335,
+        "d": 0.2600660747788027,
+        "l": 0.5555420859014581
+      },
+      "result": "d"
+    },
+    {
+      "id": "14651",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "74",
+        "title": "Southampton",
+        "short_title": "SOU"
+      },
+      "goals": {
+        "h": "9",
+        "a": "0"
+      },
+      "xG": {
+        "h": "5.0325",
+        "a": "0.507893"
+      },
+      "datetime": "2021-02-02 20:15:00",
+      "forecast": {
+        "w": 0.9700794855075544,
+        "d": 0.022510945619181322,
+        "l": 0.007167528022898979
+      },
+      "result": "w"
+    },
+    {
+      "id": "14660",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "72",
+        "title": "Everton",
+        "short_title": "EVE"
+      },
+      "goals": {
+        "h": "3",
+        "a": "3"
+      },
+      "xG": {
+        "h": "1.71769",
+        "a": "1.5571"
+      },
+      "datetime": "2021-02-06 20:00:00",
+      "forecast": {
+        "w": 0.4186728083511068,
+        "d": 0.23048828366092938,
+        "l": 0.35083890733750217
+      },
+      "result": "d"
+    },
+    {
+      "id": "14673",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "76",
+        "title": "West Bromwich Albion",
+        "short_title": "WBA"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "1",
+        "a": "1"
+      },
+      "xG": {
+        "h": "0.945964",
+        "a": "0.423885"
+      },
+      "datetime": "2021-02-14 14:00:00",
+      "forecast": {
+        "w": 0.47243822983658834,
+        "d": 0.3667349338432797,
+        "l": 0.16082683631999464
+      },
+      "result": "d"
+    },
+    {
+      "id": "14681",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "86",
+        "title": "Newcastle United",
+        "short_title": "NEW"
+      },
+      "goals": {
+        "h": "3",
+        "a": "1"
+      },
+      "xG": {
+        "h": "1.7256",
+        "a": "0.341778"
+      },
+      "datetime": "2021-02-21 19:00:00",
+      "forecast": {
+        "w": 0.719794634255231,
+        "d": 0.21288311507878657,
+        "l": 0.06732225011974248
+      },
+      "result": "w"
+    },
+    {
+      "id": "14685",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "80",
+        "title": "Chelsea",
+        "short_title": "CHE"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "1.17294",
+        "a": "0.35954"
+      },
+      "datetime": "2021-02-28 16:30:00",
+      "forecast": {
+        "w": 0.5695527936860393,
+        "d": 0.3171560768109821,
+        "l": 0.11329112950018488
+      },
+      "result": "d"
+    },
+    {
+      "id": "14717",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "78",
+        "title": "Crystal Palace",
+        "short_title": "CRY"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "0"
+      },
+      "xG": {
+        "h": "0.742397",
+        "a": "0.584016"
+      },
+      "datetime": "2021-03-03 20:15:00",
+      "forecast": {
+        "w": 0.3516996388866015,
+        "d": 0.393601137514086,
+        "l": 0.25469922359930813
+      },
+      "result": "d"
+    },
+    {
+      "id": "14700",
+      "isResult": true,
+      "side": "a",
+      "h": {
+        "id": "88",
+        "title": "Manchester City",
+        "short_title": "MCI"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": "0",
+        "a": "2"
+      },
+      "xG": {
+        "h": "1.27561",
+        "a": "2.11411"
+      },
+      "datetime": "2021-03-07 16:30:00",
+      "forecast": {
+        "w": 0.22594153532419387,
+        "d": 0.20777932647194736,
+        "l": 0.5662791301921102
+      },
+      "result": "w"
+    },
+    {
+      "id": "14711",
+      "isResult": true,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "81",
+        "title": "West Ham",
+        "short_title": "WHU"
+      },
+      "goals": {
+        "h": "1",
+        "a": "0"
+      },
+      "xG": {
+        "h": "1.70128",
+        "a": "0.463737"
+      },
+      "datetime": "2021-03-14 19:15:00",
+      "forecast": {
+        "w": 0.6795496769251961,
+        "d": 0.22477876380875295,
+        "l": 0.09567155881445273
+      },
+      "result": "w"
+    },
+    {
+      "id": "14731",
+      "isResult": false,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "220",
+        "title": "Brighton",
+        "short_title": "BRI"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-04-02 18:00:00"
+    },
+    {
+      "id": "14742",
+      "isResult": false,
+      "side": "a",
+      "h": {
+        "id": "82",
+        "title": "Tottenham",
+        "short_title": "TOT"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-04-09 18:00:00"
+    },
+    {
+      "id": "14751",
+      "isResult": false,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "92",
+        "title": "Burnley",
+        "short_title": "BUR"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-04-16 18:00:00"
+    },
+    {
+      "id": "14758",
+      "isResult": false,
+      "side": "a",
+      "h": {
+        "id": "245",
+        "title": "Leeds",
+        "short_title": "LED"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-04-23 18:00:00"
+    },
+    {
+      "id": "14770",
+      "isResult": false,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "87",
+        "title": "Liverpool",
+        "short_title": "LIV"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-04-30 18:00:00"
+    },
+    {
+      "id": "14776",
+      "isResult": false,
+      "side": "a",
+      "h": {
+        "id": "71",
+        "title": "Aston Villa",
+        "short_title": "AVL"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-05-07 18:00:00"
+    },
+    {
+      "id": "14788",
+      "isResult": false,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "75",
+        "title": "Leicester",
+        "short_title": "LEI"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-05-10 23:00:00"
+    },
+    {
+      "id": "14800",
+      "isResult": false,
+      "side": "h",
+      "h": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "a": {
+        "id": "228",
+        "title": "Fulham",
+        "short_title": "FLH"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-05-14 18:00:00"
+    },
+    {
+      "id": "14814",
+      "isResult": false,
+      "side": "a",
+      "h": {
+        "id": "229",
+        "title": "Wolverhampton Wanderers",
+        "short_title": "WOL"
+      },
+      "a": {
+        "id": "89",
+        "title": "Manchester United",
+        "short_title": "MUN"
+      },
+      "goals": {
+        "h": null,
+        "a": null
+      },
+      "xG": {
+        "h": null,
+        "a": null
+      },
+      "datetime": "2021-05-22 19:00:00"
+    }
+  ],
+  "players": [
+    {
+      "id": "1228",
+      "player_name": "Bruno Fernandes",
+      "games": "29",
+      "time": "2479",
+      "goals": "16",
+      "xG": "13.099921450950205",
+      "assists": "10",
+      "xA": "9.646174143999815",
+      "shots": "90",
+      "key_passes": "82",
+      "yellow_cards": "5",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "8",
+      "npxG": "6.249438648112118",
+      "xGChain": "19.98861371539533",
+      "xGBuildup": "8.240112544968724"
+    },
+    {
+      "id": "556",
+      "player_name": "Marcus Rashford",
+      "games": "29",
+      "time": "2390",
+      "goals": "9",
+      "xG": "8.376784265041351",
+      "assists": "7",
+      "xA": "2.9866093453019857",
+      "shots": "63",
+      "key_passes": "34",
+      "yellow_cards": "4",
+      "red_cards": "0",
+      "position": "F M S",
+      "team_title": "Manchester United",
+      "npg": "9",
+      "npxG": "8.376784265041351",
+      "xGChain": "16.367887154221535",
+      "xGBuildup": "7.064654899761081"
+    },
+    {
+      "id": "3294",
+      "player_name": "Edinson Cavani",
+      "games": "18",
+      "time": "910",
+      "goals": "6",
+      "xG": "6.466721750795841",
+      "assists": "2",
+      "xA": "1.6402411442250013",
+      "shots": "26",
+      "key_passes": "8",
+      "yellow_cards": "1",
+      "red_cards": "0",
+      "position": "F S",
+      "team_title": "Manchester United",
+      "npg": "6",
+      "npxG": "6.466721750795841",
+      "xGChain": "8.781574584543705",
+      "xGBuildup": "1.9556357935070992"
+    },
+    {
+      "id": "553",
+      "player_name": "Anthony Martial",
+      "games": "22",
+      "time": "1494",
+      "goals": "4",
+      "xG": "7.405651165172458",
+      "assists": "3",
+      "xA": "2.6198029601946473",
+      "shots": "42",
+      "key_passes": "17",
+      "yellow_cards": "0",
+      "red_cards": "1",
+      "position": "F M S",
+      "team_title": "Manchester United",
+      "npg": "4",
+      "npxG": "7.405651165172458",
+      "xGChain": "11.814813017845154",
+      "xGBuildup": "3.3195053301751614"
+    },
+    {
+      "id": "5560",
+      "player_name": "Scott McTominay",
+      "games": "25",
+      "time": "1604",
+      "goals": "4",
+      "xG": "1.1963342912495136",
+      "assists": "1",
+      "xA": "2.050936982035637",
+      "shots": "19",
+      "key_passes": "15",
+      "yellow_cards": "1",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "4",
+      "npxG": "1.1963342912495136",
+      "xGChain": "9.169829338788986",
+      "xGBuildup": "6.660057496279478"
+    },
+    {
+      "id": "1740",
+      "player_name": "Paul Pogba",
+      "games": "19",
+      "time": "1344",
+      "goals": "3",
+      "xG": "1.6847801934927702",
+      "assists": "0",
+      "xA": "0.7464981349185109",
+      "shots": "20",
+      "key_passes": "13",
+      "yellow_cards": "3",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "3",
+      "npxG": "1.6847801934927702",
+      "xGChain": "7.229092352092266",
+      "xGBuildup": "5.390020430088043"
+    },
+    {
+      "id": "5595",
+      "player_name": "Daniel James",
+      "games": "12",
+      "time": "737",
+      "goals": "3",
+      "xG": "1.9432968124747276",
+      "assists": "0",
+      "xA": "0.3018530663102865",
+      "shots": "16",
+      "key_passes": "6",
+      "yellow_cards": "3",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "3",
+      "npxG": "1.9432968124747276",
+      "xGChain": "3.674423024058342",
+      "xGBuildup": "1.5651227254420519"
+    },
+    {
+      "id": "1687",
+      "player_name": "Harry Maguire",
+      "games": "29",
+      "time": "2610",
+      "goals": "2",
+      "xG": "1.2747255498543382",
+      "assists": "1",
+      "xA": "0.2676918674260378",
+      "shots": "31",
+      "key_passes": "6",
+      "yellow_cards": "8",
+      "red_cards": "0",
+      "position": "D",
+      "team_title": "Manchester United",
+      "npg": "2",
+      "npxG": "1.2747255498543382",
+      "xGChain": "11.035578865557909",
+      "xGBuildup": "10.950173202902079"
+    },
+    {
+      "id": "5584",
+      "player_name": "Aaron Wan-Bissaka",
+      "games": "27",
+      "time": "2430",
+      "goals": "2",
+      "xG": "0.8909827638417482",
+      "assists": "2",
+      "xA": "1.855541504919529",
+      "shots": "6",
+      "key_passes": "20",
+      "yellow_cards": "2",
+      "red_cards": "0",
+      "position": "D",
+      "team_title": "Manchester United",
+      "npg": "2",
+      "npxG": "0.8909827638417482",
+      "xGChain": "9.927728943526745",
+      "xGBuildup": "7.866563767194748"
+    },
+    {
+      "id": "1006",
+      "player_name": "Luke Shaw",
+      "games": "25",
+      "time": "2029",
+      "goals": "1",
+      "xG": "0.5771848578006029",
+      "assists": "5",
+      "xA": "5.394548369571567",
+      "shots": "8",
+      "key_passes": "52",
+      "yellow_cards": "6",
+      "red_cards": "0",
+      "position": "D S",
+      "team_title": "Manchester United",
+      "npg": "1",
+      "npxG": "0.5771848578006029",
+      "xGChain": "9.244300354272127",
+      "xGBuildup": "6.846996210515499"
+    },
+    {
+      "id": "6080",
+      "player_name": "Victor Lindel\u00f6f",
+      "games": "22",
+      "time": "1957",
+      "goals": "1",
+      "xG": "0.7988894507288933",
+      "assists": "1",
+      "xA": "0.2897103577852249",
+      "shots": "4",
+      "key_passes": "5",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "D",
+      "team_title": "Manchester United",
+      "npg": "1",
+      "npxG": "0.7988894507288933",
+      "xGChain": "7.179988000541925",
+      "xGBuildup": "7.031541469506919"
+    },
+    {
+      "id": "7490",
+      "player_name": "Mason Greenwood",
+      "games": "23",
+      "time": "1300",
+      "goals": "1",
+      "xG": "3.335772570222616",
+      "assists": "1",
+      "xA": "1.740884579718113",
+      "shots": "40",
+      "key_passes": "10",
+      "yellow_cards": "1",
+      "red_cards": "0",
+      "position": "F M S",
+      "team_title": "Manchester United",
+      "npg": "1",
+      "npxG": "3.335772570222616",
+      "xGChain": "8.200904758647084",
+      "xGBuildup": "3.971968460828066"
+    },
+    {
+      "id": "8821",
+      "player_name": "Donny van de Beek",
+      "games": "13",
+      "time": "292",
+      "goals": "1",
+      "xG": "0.28271791338920593",
+      "assists": "0",
+      "xA": "0.12390778213739395",
+      "shots": "1",
+      "key_passes": "2",
+      "yellow_cards": "1",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "1",
+      "npxG": "0.28271791338920593",
+      "xGChain": "2.161629047244787",
+      "xGBuildup": "1.7550033256411552"
+    },
+    {
+      "id": "546",
+      "player_name": "David de Gea",
+      "games": "24",
+      "time": "2118",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "GK",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "2.067058579996228",
+      "xGBuildup": "2.067058579996228"
+    },
+    {
+      "id": "549",
+      "player_name": "Timothy Fosu-Mensah",
+      "games": "1",
+      "time": "85",
+      "goals": "0",
+      "xG": "0.015449298545718193",
+      "assists": "0",
+      "xA": "0.30515241622924805",
+      "shots": "1",
+      "key_passes": "2",
+      "yellow_cards": "1",
+      "red_cards": "0",
+      "position": "D",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0.015449298545718193",
+      "xGChain": "0.4019051194190979",
+      "xGBuildup": "0.3608218729496002"
+    },
+    {
+      "id": "554",
+      "player_name": "Juan Mata",
+      "games": "7",
+      "time": "341",
+      "goals": "0",
+      "xG": "0.3115340732038021",
+      "assists": "2",
+      "xA": "0.722595326602459",
+      "shots": "4",
+      "key_passes": "8",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0.3115340732038021",
+      "xGChain": "2.1740669272840023",
+      "xGBuildup": "1.3244589436799288"
+    },
+    {
+      "id": "573",
+      "player_name": "Odion Ighalo",
+      "games": "1",
+      "time": "5",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "0",
+      "xGBuildup": "0"
+    },
+    {
+      "id": "697",
+      "player_name": "Nemanja Matic",
+      "games": "15",
+      "time": "914",
+      "goals": "0",
+      "xG": "0.1647858265787363",
+      "assists": "0",
+      "xA": "0.6243858942762017",
+      "shots": "6",
+      "key_passes": "7",
+      "yellow_cards": "2",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0.1647858265787363",
+      "xGChain": "4.9117074981331825",
+      "xGBuildup": "4.28893250413239"
+    },
+    {
+      "id": "934",
+      "player_name": "Axel Tuanzebe",
+      "games": "6",
+      "time": "131",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "2",
+      "red_cards": "0",
+      "position": "D S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "0.6552485078573227",
+      "xGBuildup": "0.6552485078573227"
+    },
+    {
+      "id": "1739",
+      "player_name": "Eric Bailly",
+      "games": "8",
+      "time": "635",
+      "goals": "0",
+      "xG": "0.04878591373562813",
+      "assists": "0",
+      "xA": "0",
+      "shots": "1",
+      "key_passes": "0",
+      "yellow_cards": "2",
+      "red_cards": "0",
+      "position": "D S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0.04878591373562813",
+      "xGChain": "1.023825764656067",
+      "xGBuildup": "1.023825764656067"
+    },
+    {
+      "id": "1828",
+      "player_name": "Alex Telles",
+      "games": "7",
+      "time": "516",
+      "goals": "0",
+      "xG": "0.12450907565653324",
+      "assists": "2",
+      "xA": "0.686748668551445",
+      "shots": "4",
+      "key_passes": "10",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "D S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0.12450907565653324",
+      "xGChain": "2.7918532490730286",
+      "xGBuildup": "2.7112308740615845"
+    },
+    {
+      "id": "6817",
+      "player_name": "Fred",
+      "games": "23",
+      "time": "1840",
+      "goals": "0",
+      "xG": "1.0392025168985128",
+      "assists": "0",
+      "xA": "1.8865783978253603",
+      "shots": "21",
+      "key_passes": "19",
+      "yellow_cards": "4",
+      "red_cards": "0",
+      "position": "M S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "1.0392025168985128",
+      "xGChain": "10.218200903385878",
+      "xGBuildup": "8.164208553731441"
+    },
+    {
+      "id": "7702",
+      "player_name": "Dean Henderson",
+      "games": "6",
+      "time": "492",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "2",
+      "red_cards": "0",
+      "position": "GK S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "0.5076637826859951",
+      "xGBuildup": "0.5076637826859951"
+    },
+    {
+      "id": "8075",
+      "player_name": "Brandon Williams",
+      "games": "2",
+      "time": "5",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "0",
+      "xGBuildup": "0"
+    },
+    {
+      "id": "9359",
+      "player_name": "Shola Shoretire",
+      "games": "1",
+      "time": "1",
+      "goals": "0",
+      "xG": "0",
+      "assists": "0",
+      "xA": "0",
+      "shots": "0",
+      "key_passes": "0",
+      "yellow_cards": "0",
+      "red_cards": "0",
+      "position": "S",
+      "team_title": "Manchester United",
+      "npg": "0",
+      "npxG": "0",
+      "xGChain": "0",
+      "xGBuildup": "0"
+    }
+  ],
+  "statistics": {
+    "situation": {
+      "OpenPlay": {
+        "shots": 296,
+        "goals": 40,
+        "xG": 37.06387163233012,
+        "against": {
+          "shots": 253,
+          "goals": 18,
+          "xG": 24.169011445716023
+        }
+      },
+      "FromCorner": {
+        "shots": 73,
+        "goals": 5,
+        "xG": 5.12554657459259,
+        "against": {
+          "shots": 46,
+          "goals": 6,
+          "xG": 3.4720450434833765
+        }
+      },
+      "DirectFreekick": {
+        "shots": 15,
+        "goals": 0,
+        "xG": 0.9057546127587557,
+        "against": {
+          "shots": 13,
+          "goals": 1,
+          "xG": 0.8798475153744221
+        }
+      },
+      "SetPiece": {
+        "shots": 13,
+        "goals": 3,
+        "xG": 2.0923739448189735,
+        "against": {
+          "shots": 20,
+          "goals": 3,
+          "xG": 2.8743203384801745
+        }
+      },
+      "Penalty": {
+        "shots": 9,
+        "goals": 8,
+        "xG": 6.850482761859894,
+        "against": {
+          "shots": 4,
+          "goals": 4,
+          "xG": 3.0446385741233826
+        }
+      }
+    },
+    "formation": {
+      "4-2-3-1": {
+        "stat": "4-2-3-1",
+        "time": 2345,
+        "shots": 351,
+        "goals": 51,
+        "xG": 46.046491388231516,
+        "against": {
+          "shots": 292,
+          "goals": 28,
+          "xG": 29.969899957999587
+        }
+      },
+      "4-1-2-1-2": {
+        "stat": "4-1-2-1-2",
+        "time": 281,
+        "shots": 38,
+        "goals": 2,
+        "xG": 3.4509430108591914,
+        "against": {
+          "shots": 31,
+          "goals": 2,
+          "xG": 3.871929860673845
+        }
+      },
+      "4-3-1-2": {
+        "stat": "4-3-1-2",
+        "time": 95,
+        "shots": 15,
+        "goals": 3,
+        "xG": 2.5066683925688267,
+        "against": {
+          "shots": 10,
+          "goals": 2,
+          "xG": 0.4987832382321358
+        }
+      },
+      "4-2-2-2": {
+        "stat": "4-2-2-2",
+        "time": 11,
+        "shots": 2,
+        "goals": 0,
+        "xG": 0.03392673470079899,
+        "against": {
+          "shots": 1,
+          "goals": 0,
+          "xG": 0.02308344841003418
+        }
+      },
+      "4-4-2": {
+        "stat": "4-4-2",
+        "time": 7,
+        "shots": 0,
+        "goals": 0,
+        "xG": 0,
+        "against": {
+          "shots": 2,
+          "goals": 0,
+          "xG": 0.0761664118617773
+        }
+      }
+    },
+    "gameState": {
+      "Goal diff 0": {
+        "stat": "Goal diff 0",
+        "time": 1621,
+        "shots": 212,
+        "goals": 24,
+        "xG": 24.27265651896596,
+        "against": {
+          "shots": 167,
+          "goals": 13,
+          "xG": 16.585439119488
+        }
+      },
+      "Goal diff +1": {
+        "stat": "Goal diff +1",
+        "time": 430,
+        "shots": 59,
+        "goals": 9,
+        "xG": 9.178283012472093,
+        "against": {
+          "shots": 80,
+          "goals": 8,
+          "xG": 8.280326046980917
+        }
+      },
+      "Goal diff -1": {
+        "stat": "Goal diff -1",
+        "time": 318,
+        "shots": 61,
+        "goals": 9,
+        "xG": 5.2798657808452845,
+        "against": {
+          "shots": 35,
+          "goals": 4,
+          "xG": 3.9664257364347577
+        }
+      },
+      "Goal diff > +1": {
+        "stat": "Goal diff > +1",
+        "time": 273,
+        "shots": 64,
+        "goals": 12,
+        "xG": 12.130523779429495,
+        "against": {
+          "shots": 39,
+          "goals": 4,
+          "xG": 3.7812048410996795
+        }
+      },
+      "Goal diff < -1": {
+        "stat": "Goal diff < -1",
+        "time": 97,
+        "shots": 10,
+        "goals": 2,
+        "xG": 1.1767004346475005,
+        "against": {
+          "shots": 15,
+          "goals": 3,
+          "xG": 1.8264671731740236
+        }
+      }
+    },
+    "timing": {
+      "1-15": {
+        "stat": "1-15",
+        "shots": 45,
+        "goals": 4,
+        "xG": 5.221434570848942,
+        "against": {
+          "shots": 48,
+          "goals": 7,
+          "xG": 5.304950061254203
+        }
+      },
+      "16-30": {
+        "stat": "16-30",
+        "shots": 68,
+        "goals": 10,
+        "xG": 6.971111190505326,
+        "against": {
+          "shots": 59,
+          "goals": 5,
+          "xG": 3.966503909789026
+        }
+      },
+      "31-45": {
+        "stat": "31-45",
+        "shots": 63,
+        "goals": 9,
+        "xG": 8.017648584209383,
+        "against": {
+          "shots": 44,
+          "goals": 6,
+          "xG": 5.190296335145831
+        }
+      },
+      "46-60": {
+        "stat": "46-60",
+        "shots": 72,
+        "goals": 8,
+        "xG": 10.524363692849874,
+        "against": {
+          "shots": 63,
+          "goals": 4,
+          "xG": 6.51651868969202
+        }
+      },
+      "61-75": {
+        "stat": "61-75",
+        "shots": 77,
+        "goals": 12,
+        "xG": 10.413152324967086,
+        "against": {
+          "shots": 44,
+          "goals": 4,
+          "xG": 4.653240266256034
+        }
+      },
+      "76+": {
+        "stat": "76+",
+        "shots": 81,
+        "goals": 13,
+        "xG": 10.890319162979722,
+        "against": {
+          "shots": 78,
+          "goals": 6,
+          "xG": 8.808353655040264
+        }
+      }
+    },
+    "shotZone": {
+      "ownGoals": {
+        "stat": "ownGoals",
+        "shots": 3,
+        "goals": 3,
+        "xG": 3,
+        "against": {
+          "shots": 2,
+          "goals": 2,
+          "xG": 2
+        }
+      },
+      "shotOboxTotal": {
+        "stat": "shotOboxTotal",
+        "shots": 160,
+        "goals": 7,
+        "xG": 5.110826983116567,
+        "against": {
+          "shots": 120,
+          "goals": 3,
+          "xG": 3.7954597854986787
+        }
+      },
+      "shotPenaltyArea": {
+        "stat": "shotPenaltyArea",
+        "shots": 223,
+        "goals": 39,
+        "xG": 35.760384446009994,
+        "against": {
+          "shots": 186,
+          "goals": 17,
+          "xG": 20.65961684472859
+        }
+      },
+      "shotSixYardBox": {
+        "stat": "shotSixYardBox",
+        "shots": 20,
+        "goals": 7,
+        "xG": 8.166818097233772,
+        "against": {
+          "shots": 28,
+          "goals": 10,
+          "xG": 7.984786286950111
+        }
+      }
+    },
+    "attackSpeed": {
+      "Normal": {
+        "stat": "Normal",
+        "shots": 238,
+        "goals": 34,
+        "xG": 28.652238664217293,
+        "against": {
+          "shots": 203,
+          "goals": 14,
+          "xG": 18.807163101620972
+        }
+      },
+      "Standard": {
+        "stat": "Standard",
+        "shots": 110,
+        "goals": 16,
+        "xG": 14.974157894030213,
+        "against": {
+          "shots": 83,
+          "goals": 14,
+          "xG": 10.270851471461356
+        }
+      },
+      "Slow": {
+        "stat": "Slow",
+        "shots": 38,
+        "goals": 2,
+        "xG": 3.8474159631878138,
+        "against": {
+          "shots": 38,
+          "goals": 4,
+          "xG": 4.375127009116113
+        }
+      },
+      "Fast": {
+        "stat": "Fast",
+        "shots": 20,
+        "goals": 4,
+        "xG": 4.564217004925013,
+        "against": {
+          "shots": 12,
+          "goals": 0,
+          "xG": 0.9867213349789381
+        }
+      }
+    },
+    "result": {
+      "MissedShots": {
+        "shots": 115,
+        "goals": 0,
+        "xG": 11.371283490210772,
+        "against": {
+          "shots": 124,
+          "goals": 0,
+          "xG": 9.530040805228055
+        }
+      },
+      "SavedShot": {
+        "shots": 107,
+        "goals": 0,
+        "xG": 12.708629734814167,
+        "against": {
+          "shots": 73,
+          "goals": 0,
+          "xG": 6.267106755636632
+        }
+      },
+      "Goal": {
+        "shots": 56,
+        "goals": 56,
+        "xG": 20.739717919379473,
+        "against": {
+          "shots": 32,
+          "goals": 32,
+          "xG": 11.719112562015653
+        }
+      },
+      "BlockedShot": {
+        "shots": 125,
+        "goals": 0,
+        "xG": 6.706955146975815,
+        "against": {
+          "shots": 95,
+          "goals": 0,
+          "xG": 5.772894547320902
+        }
+      },
+      "ShotOnPost": {
+        "shots": 3,
+        "goals": 0,
+        "xG": 0.5114432349801064,
+        "against": {
+          "shots": 12,
+          "goals": 0,
+          "xG": 1.1507082469761372
+        }
+      }
+    }
+  }
+}
