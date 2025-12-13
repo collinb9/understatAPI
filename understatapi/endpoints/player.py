@@ -1,5 +1,5 @@
 """ Player endpoint """
-from typing import Dict, Any
+from typing import Dict, Any, List
 import requests
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
@@ -51,59 +51,53 @@ class PlayerEndpoint(BaseEndpoint):
         """ player id """
         return self._primary_attr
 
-    def _get_data(self, **kwargs: str) -> requests.Response:
+    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
         """
-        Get data on a per-player basis
+        Get data on a per-player basis via AJAX endpoint.
 
-        :param query: Identifies the type of data to get,
-            one of {matchesData, shotsData, groupsData}
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
+        :return: Dictionary with keys: player, matches, shots, groups, etc.
         """
         if not isinstance(self.player, str):
             raise TypeError("``player`` must be a string")
         self._check_args()
-        url = self.base_url + "player/" + self.player
+        endpoint = f"getPlayerData/{self.player}"
 
         try:
-            response = self._request_url(url=url, **kwargs)
+            return self._request_ajax(endpoint, **kwargs)
         except HTTPError as err:
             raise InvalidPlayer(
                 f"{self.player} is not a valid player or player id",
                 player=self.player,
             ) from err
 
-        return response
-
-    def get_match_data(self, **kwargs: str) -> Dict[str, Any]:
+    def get_match_data(self, **kwargs: str) -> List[Dict[str, Any]]:
         """
         Get match level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_match_data(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("matches", [])
 
-    def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
+    def get_shot_data(self, **kwargs: str) -> List[Dict[str, Any]]:
         """
         Get shot level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_shot_data(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("shots", [])
 
-    def get_season_data(self, **kwargs: str) -> Dict[str, Any]:
+    def get_season_data(self, **kwargs: str) -> List[Dict[str, Any]]:
         """
         Get season level data for a player
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_season_data(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("groups", [])

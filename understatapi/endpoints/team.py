@@ -1,5 +1,5 @@
 """ Team endpoint """
-from typing import Dict, Any
+from typing import Dict, Any, List
 import requests
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
@@ -51,51 +51,48 @@ class TeamEndpoint(BaseEndpoint):
         """ team name """
         return self._primary_attr
 
-    def _get_data(self, season: str, **kwargs: str) -> requests.Response:
+    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
         """
-        Get data on a per-team basis
+        Get data on a per-team basis via AJAX endpoint.
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
+        :return: Dictionary with keys: dates, players, statistics
         """
         if not isinstance(self.team, str):
             raise TypeError("``team`` must be a string")
         self._check_args()
-        url = self.base_url + "team/" + self.team + "/" + season
+        endpoint = f"getTeamData/{self.team}/{season}"
 
         try:
-            response = self._request_url(url=url, **kwargs)
+            return self._request_ajax(endpoint, **kwargs)
         except HTTPError as err:
             raise InvalidTeam(
                 f"{self.team} is not a valid team", team=self.team
             ) from err
 
-        return response
-
-    def get_player_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def get_player_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
         """
         Get data for all players on a given team in a given season
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(season=season, **kwargs)
-        data = self.parser.get_player_data(html=res.text)
-        return data
+        data = self._get_data(season=season, **kwargs)
+        return data.get("players", [])
 
-    def get_match_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def get_match_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
         """
         Get data on a per match level for a given team in a given season
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(season=season, **kwargs)
-        data = self.parser.get_match_data(html=res.text)
-        return data
+        data = self._get_data(season=season, **kwargs)
+        return data.get("dates", [])
 
     def get_context_data(
         self,
@@ -107,8 +104,7 @@ class TeamEndpoint(BaseEndpoint):
 
         :param season: Season to get data for
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(season=season, **kwargs)
-        data = self.parser.get_context_data(html=res.text)
-        return data
+        data = self._get_data(season=season, **kwargs)
+        return data.get("statistics", {})
