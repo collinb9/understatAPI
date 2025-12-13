@@ -1,5 +1,5 @@
 """ Base endpoint """
-from typing import Sequence
+from typing import Sequence, Dict, Any
 import requests
 from requests import Response
 from ..parsers import BaseParser
@@ -8,6 +8,11 @@ from ..exceptions import (
     InvalidSeason,
     PrimaryAttribute,
 )
+
+# Headers required for AJAX requests to Understat
+AJAX_HEADERS = {
+    "X-Requested-With": "XMLHttpRequest",
+}
 
 
 class BaseEndpoint:
@@ -74,3 +79,21 @@ class BaseEndpoint:
         res = self.session.get(*args, **kwargs)
         res.raise_for_status()
         return res
+
+    def _request_ajax(self, endpoint: str, **kwargs: str) -> Dict[str, Any]:
+        """
+        Make an AJAX request to Understat's internal API endpoints.
+
+        Understat loads data dynamically via AJAX calls. This method
+        handles the required headers and returns parsed JSON data.
+
+        :param endpoint: The AJAX endpoint path (e.g., 'getLeagueData/EPL/2024')
+        :param kwargs: Additional keyword arguments to pass to ``requests.get()``
+        :return: Parsed JSON response as a dictionary
+        """
+        url = self.base_url + endpoint
+        headers = kwargs.pop("headers", {})
+        headers.update(AJAX_HEADERS)
+        res = self.session.get(url, headers=headers, **kwargs)
+        res.raise_for_status()
+        return res.json()

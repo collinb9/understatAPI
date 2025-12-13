@@ -1,5 +1,5 @@
 """ Match endpoint """
-from typing import Dict, Any
+from typing import Dict, Any, List
 import requests
 from requests.exceptions import HTTPError
 from .base import BaseEndpoint
@@ -48,56 +48,52 @@ class MatchEndpoint(BaseEndpoint):
         """  match id """
         return self._primary_attr
 
-    def _get_data(self, **kwargs: str) -> requests.Response:
+    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
         """
-        Get data on a per-match basis
+        Get data on a per-match basis via AJAX endpoint.
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
+        :return: Dictionary with keys: rosters, shots, tmpl
         """
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
         self._check_args()
-        url = self.base_url + "match/" + self.match
+        endpoint = f"getMatchData/{self.match}"
 
         try:
-            response = self._request_url(url=url, **kwargs)
+            return self._request_ajax(endpoint, **kwargs)
         except HTTPError as err:
             raise InvalidMatch(
                 f"{self.match} is not a valid match", match=self.match
             ) from err
-
-        return response
 
     def get_shot_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get shot level data for a match
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_shot_data(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("shots", {})
 
     def get_roster_data(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get data about the roster for each team
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_roster_data(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("rosters", {})
 
     def get_match_info(self, **kwargs: str) -> Dict[str, Any]:
         """
         Get information about the match
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
         """
-        res = self._get_data(**kwargs)
-        data = self.parser.get_match_info(html=res.text)
-        return data
+        data = self._get_data(**kwargs)
+        return data.get("tmpl", {})
