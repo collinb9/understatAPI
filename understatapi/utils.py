@@ -1,4 +1,5 @@
-""" Helper functions for formatting data """
+"""Helper functions for formatting data"""
+
 import sys
 from typing import List
 import inspect

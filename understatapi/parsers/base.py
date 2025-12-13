@@ -1,4 +1,5 @@
 """Base html parser"""
+
 from typing import List, Any, Dict
 import json
 

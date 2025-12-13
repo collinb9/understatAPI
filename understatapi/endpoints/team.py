@@ -1,4 +1,5 @@
-""" Team endpoint """
+"""Team endpoint"""
+
 from typing import Dict, Any, List
 import requests
 from requests.exceptions import HTTPError
@@ -36,9 +37,7 @@ class TeamEndpoint(BaseEndpoint):
 
     parser = TeamParser()
 
-    def __init__(
-        self, team: PrimaryAttribute, session: requests.Session
-    ) -> None:
+    def __init__(self, team: PrimaryAttribute, session: requests.Session) -> None:
         """
         :param team: Name of the team(s) to get data for
         :param session: The current session
@@ -48,10 +47,10 @@ class TeamEndpoint(BaseEndpoint):
 
     @property
     def team(self) -> PrimaryAttribute:
-        """ team name """
+        """team name"""
         return self._primary_attr
 
-    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: Any) -> Dict[str, Any]:
         """
         Get data on a per-team basis via AJAX endpoint.
 
@@ -72,7 +71,7 @@ class TeamEndpoint(BaseEndpoint):
                 f"{self.team} is not a valid team", team=self.team
             ) from err
 
-    def get_player_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_player_data(self, season: str, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get data for all players on a given team in a given season
 
@@ -83,7 +82,7 @@ class TeamEndpoint(BaseEndpoint):
         data = self._get_data(season=season, **kwargs)
         return data.get("players", [])
 
-    def get_match_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_match_data(self, season: str, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get data on a per match level for a given team in a given season
 
@@ -97,7 +96,7 @@ class TeamEndpoint(BaseEndpoint):
     def get_context_data(
         self,
         season: str,
-        **kwargs: str,
+        **kwargs: Any,
     ) -> Dict[str, Any]:
         """
         Get data based on different contexts in the game

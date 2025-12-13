@@ -1,4 +1,5 @@
-""" League endpoint """
+"""League endpoint"""
+
 from typing import Dict, Any, List
 import requests
 from .base import BaseEndpoint
@@ -46,10 +47,10 @@ class LeagueEndpoint(BaseEndpoint):
 
     @property
     def league(self) -> PrimaryAttribute:
-        """ league name """
+        """league name"""
         return self._primary_attr
 
-    def _get_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, season: str, **kwargs: Any) -> Dict[str, Any]:
         """
         Get data on a league-wide basis via AJAX endpoint.
 
@@ -64,7 +65,7 @@ class LeagueEndpoint(BaseEndpoint):
         endpoint = f"getLeagueData/{self.league}/{season}"
         return self._request_ajax(endpoint, **kwargs)
 
-    def get_team_data(self, season: str, **kwargs: str) -> Dict[str, Any]:
+    def get_team_data(self, season: str, **kwargs: Any) -> Dict[str, Any]:
         """
         Get data for all teams in a given league and season
 
@@ -75,7 +76,7 @@ class LeagueEndpoint(BaseEndpoint):
         data = self._get_data(season=season, **kwargs)
         return data.get("teams", {})
 
-    def get_match_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_match_data(self, season: str, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get data for all fixtures in a given league and season.
 
@@ -86,7 +87,7 @@ class LeagueEndpoint(BaseEndpoint):
         data = self._get_data(season=season, **kwargs)
         return data.get("dates", [])
 
-    def get_player_data(self, season: str, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_player_data(self, season: str, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get data for all players in a given league and season
 

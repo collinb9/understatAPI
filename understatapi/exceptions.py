@@ -1,11 +1,12 @@
-""" Define custom exceptions """
+"""Define custom exceptions"""
+
 from typing import Union, List
 
 PrimaryAttribute = Union[List[str], str]
 
 
 class InvalidSeason(Exception):
-    """ Invalid season """
+    """Invalid season"""
 
     def __init__(self, message: str, season: str) -> None:
         super().__init__(message)
@@ -13,7 +14,7 @@ class InvalidSeason(Exception):
 
 
 class InvalidPlayer(Exception):
-    """ Invalid player """
+    """Invalid player"""
 
     def __init__(self, message: str, player: str) -> None:
         super().__init__(message)
@@ -21,7 +22,7 @@ class InvalidPlayer(Exception):
 
 
 class InvalidLeague(Exception):
-    """ Invalid league """
+    """Invalid league"""
 
     def __init__(self, message: str, league: str) -> None:
         super().__init__(message)
@@ -29,7 +30,7 @@ class InvalidLeague(Exception):
 
 
 class InvalidTeam(Exception):
-    """ Invalid team """
+    """Invalid team"""
 
     def __init__(self, message: str, team: str) -> None:
         super().__init__(message)
@@ -37,7 +38,7 @@ class InvalidTeam(Exception):
 
 
 class InvalidMatch(Exception):
-    """ Invalid match """
+    """Invalid match"""
 
     def __init__(self, message: str, match: str) -> None:
         super().__init__(message)
