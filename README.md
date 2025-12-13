@@ -1,34 +1,28 @@
-[![Build Status](https://travis-ci.com/collinb9/understatAPI.svg?branch=master)](https://travis-ci.com/collinb9/understatAPI)
-![PyPI](https://img.shields.io/pypi/v/understatapi)
-![PyPI - License](https://img.shields.io/pypi/l/understatapi)
+[![CI](https://github.com/jeke-deportivas/jeke-understat-scrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/jeke-deportivas/jeke-understat-scrapper/actions/workflows/ci.yml)
+![PyPI](https://img.shields.io/pypi/v/jeke-understat-scrapper)
+![PyPI - License](https://img.shields.io/pypi/l/jeke-understat-scrapper)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/jeke-understat-scrapper)
 
-# understatAPI
+# jeke-understat-scrapper
 
-This is a python API for scraping data from [understat.com](https://understat.com/). Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.
+A Python API for scraping football data from [understat.com](https://understat.com/). Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.
+
+> This is a maintained fork of [understatapi](https://github.com/collinb9/understatAPI) with fixes for Understat's new AJAX-based data loading.
 
 ---
 
 **NOTE**
 
-I am not affiliated with understat.com in any way
+This project is not affiliated with understat.com in any way
 
 ---
 
 ## Installation
 
-To install the package run
-
 ```bash
-pip install understatapi
+pip install jeke-understat-scrapper
 ```
 
-If you would like to use the package with the latest development changes you can clone this repo and install the package
-
-```bash
-git clone git@github.com:collinb9/understatAPI understatAPI
-cd understatAPI
-python -m pip install .
-```
 ## Getting started
 
 The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond
@@ -76,41 +70,14 @@ with UnderstatClient() as understat:
     team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 ```
 
-For a full API reference, see [the documentation](https://collinb9.github.io/understatAPI/)
-
 ## Contributing
 
-If you find any bugs in the code or have any feature requests, please make an issue and I'll try to address it as soon as possible. If you would like to implement the changes yourself you can make a pull request
-
-- Clone the repo `git clone git@github.com:collinb9/understatAPI`
-- Create a branch to work off `git checkout -b descriptive_branch_name`
-- Make and commit your changes
-- Push your changes `git push`
-- Come back to the repo on github, and click on Pull requests -> New pull request
-
-Before a pull request can be merged the code will have to pass a number of checks that are run using CircleCI. These checks are
-
-- Check that the code has been formatted using [black](https://github.com/psf/black)
-- Lint the code using [pylint](https://github.com/PyCQA/pylint)
-- Check type annotations using [mypy](https://github.com/python/mypy)
-- Run the unit tests and check that they have 100% coverage
-
-These checks are in place to ensure a consistent style and quality across the code. To check if the changes you have made will pass these tests run
-
-```bash
-pip install -r requirements.txt
-pip install -r test_requirments.txt
-pip install -r docs_requirments.txt
-chmod +x ci/run_tests.sh
-ci/run_tests.sh
-```
-
-Don't let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.
+If you find any bugs in the code or have any feature requests, please make an issue and I'll try to address it as soon as possible.
 
 ## Versioning
 
 The versioning for this project follows the [semantic versioning](https://semver.org/) conventions.
 
-## TODO
+## Credits
 
-- Add asynchronous support
+This package is based on the original [understatapi](https://github.com/collinb9/understatAPI) by collinb9.
