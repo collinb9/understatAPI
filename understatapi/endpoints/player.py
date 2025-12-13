@@ -1,4 +1,5 @@
-""" Player endpoint """
+"""Player endpoint"""
+
 from typing import Dict, Any, List
 import requests
 from requests.exceptions import HTTPError
@@ -36,9 +37,7 @@ class PlayerEndpoint(BaseEndpoint):
 
     parser = PlayerParser()
 
-    def __init__(
-        self, player: PrimaryAttribute, session: requests.Session
-    ) -> None:
+    def __init__(self, player: PrimaryAttribute, session: requests.Session) -> None:
         """
         :param player: Id of the player(s) to get data for
         :param session: The current session
@@ -48,10 +47,10 @@ class PlayerEndpoint(BaseEndpoint):
 
     @property
     def player(self) -> PrimaryAttribute:
-        """ player id """
+        """player id"""
         return self._primary_attr
 
-    def _get_data(self, **kwargs: str) -> Dict[str, Any]:
+    def _get_data(self, **kwargs: Any) -> Dict[str, Any]:
         """
         Get data on a per-player basis via AJAX endpoint.
 
@@ -72,7 +71,7 @@ class PlayerEndpoint(BaseEndpoint):
                 player=self.player,
             ) from err
 
-    def get_match_data(self, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_match_data(self, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get match level data for a player
 
@@ -82,7 +81,7 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(**kwargs)
         return data.get("matches", [])
 
-    def get_shot_data(self, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_shot_data(self, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get shot level data for a player
 
@@ -92,7 +91,7 @@ class PlayerEndpoint(BaseEndpoint):
         data = self._get_data(**kwargs)
         return data.get("shots", [])
 
-    def get_season_data(self, **kwargs: str) -> List[Dict[str, Any]]:
+    def get_season_data(self, **kwargs: Any) -> List[Dict[str, Any]]:
         """
         Get season level data for a player
 
