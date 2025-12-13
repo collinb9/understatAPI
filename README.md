@@ -1,7 +1,7 @@
 [![CI](https://github.com/jeke-deportivas/jeke-understat-scrapper/actions/workflows/ci.yml/badge.svg)](https://github.com/jeke-deportivas/jeke-understat-scrapper/actions/workflows/ci.yml)
-![PyPI](https://img.shields.io/pypi/v/jeke-understat-scrapper)
-![PyPI - License](https://img.shields.io/pypi/l/jeke-understat-scrapper)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/jeke-understat-scrapper)
+[![PyPI](https://img.shields.io/pypi/v/jeke-understat-scrapper)](https://pypi.org/project/jeke-understat-scrapper/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
 
 # jeke-understat-scrapper
 
