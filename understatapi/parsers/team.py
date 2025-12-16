@@ -1,5 +1,6 @@
 """ Team parser """
 from typing import Dict, Any
+import json
 from .base import BaseParser
 
 
@@ -13,22 +14,34 @@ class TeamParser(BaseParser):
         """
         Get data on a per-team basis
 
-        :param html: The html string to parse
+        :param html: The html string to parse (now JSON from AJAX API)
         """
-        return self.parse(html=html, query="playersData")
+        try:
+            data = json.loads(html)
+            return data.get('players', {})
+        except json.JSONDecodeError:
+            return self.parse(html=html, query="playersData")
 
     def get_match_data(self, html: str) -> Dict[str, Any]:
         """
         Get data on a per match level for a given team in a given season
 
-        :param html: The html string to parse
+        :param html: The html string to parse (now JSON from AJAX API)
         """
-        return self.parse(html=html, query="datesData")
+        try:
+            data = json.loads(html)
+            return data.get('dates', {})
+        except json.JSONDecodeError:
+            return self.parse(html=html, query="datesData")
 
     def get_context_data(self, html: str) -> Dict[str, Any]:
         """
         Get data based on different contexts in the game
 
-        :param html: The html string to parse
+        :param html: The html string to parse (now JSON from AJAX API)
         """
-        return self.parse(html=html, query="statisticsData")
+        try:
+            data = json.loads(html)
+            return data.get('statistics', {})
+        except json.JSONDecodeError:
+            return self.parse(html=html, query="statisticsData")

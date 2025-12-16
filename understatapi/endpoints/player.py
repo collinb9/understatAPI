@@ -63,15 +63,21 @@ class PlayerEndpoint(BaseEndpoint):
         if not isinstance(self.player, str):
             raise TypeError("``player`` must be a string")
         self._check_args()
-        url = self.base_url + "player/" + self.player
-
+        
+        # First visit the main page to get session cookies
+        main_page_url = self.base_url + "player/" + self.player
         try:
-            response = self._request_url(url=url, **kwargs)
+            self._request_url(url=main_page_url, **kwargs)
         except HTTPError as err:
             raise InvalidPlayer(
                 f"{self.player} is not a valid player or player id",
                 player=self.player,
             ) from err
+        
+        # Now get the AJAX API data
+        api_url = self.base_url + "getPlayerData/" + self.player
+        self.session.headers.update({'Referer': main_page_url})
+        response = self._request_url(url=api_url, **kwargs)
 
         return response
 
