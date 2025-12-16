@@ -53,6 +53,13 @@ class UnderstatClient:
 
     def __init__(self) -> None:
         self.session = requests.Session()
+        # Add headers required for the new AJAX API
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'application/json, text/javascript, */*; q=0.01',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'X-Requested-With': 'XMLHttpRequest',
+        })
 
     def __enter__(self) -> "UnderstatClient":
         return self

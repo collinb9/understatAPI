@@ -16,19 +16,26 @@ I am not affiliated with understat.com in any way
 
 ## Installation
 
-To install the package run
+### For Users
+
+To install the latest stable version:
 
 ```bash
 pip install understatapi
 ```
 
-If you would like to use the package with the latest development changes you can clone this repo and install the package
+### For Development
+
+If you would like to use the package with the latest development changes:
 
 ```bash
 git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
-python -m pip install .
+pip install -e ".[dev]"
 ```
+
+This installs the package in editable mode with all development dependencies.
+
 ## Getting started
 
 The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond
@@ -95,12 +102,22 @@ Before a pull request can be merged the code will have to pass a number of check
 - Check type annotations using [mypy](https://github.com/python/mypy)
 - Run the unit tests and check that they have 100% coverage
 
-These checks are in place to ensure a consistent style and quality across the code. To check if the changes you have made will pass these tests run
+These checks are in place to ensure a consistent style and quality across the code. To check if the changes you have made will pass these tests:
+
+### Modern approach (recommended):
+
+```bash
+pip install -e ".[dev]"
+chmod +x ci/run_tests.sh
+ci/run_tests.sh
+```
+
+### Traditional approach:
 
 ```bash
 pip install -r requirements.txt
-pip install -r test_requirments.txt
-pip install -r docs_requirments.txt
+pip install -r test_requirements.txt
+pip install -r docs_requirements.txt
 chmod +x ci/run_tests.sh
 ci/run_tests.sh
 ```

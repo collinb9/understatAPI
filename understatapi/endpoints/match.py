@@ -58,14 +58,20 @@ class MatchEndpoint(BaseEndpoint):
         if not isinstance(self.match, str):
             raise TypeError("``match`` must be a string")
         self._check_args()
-        url = self.base_url + "match/" + self.match
-
+        
+        # First visit the main page to get session cookies
+        main_page_url = self.base_url + "match/" + self.match
         try:
-            response = self._request_url(url=url, **kwargs)
+            self._request_url(url=main_page_url, **kwargs)
         except HTTPError as err:
             raise InvalidMatch(
                 f"{self.match} is not a valid match", match=self.match
             ) from err
+        
+        # Now get the AJAX API data
+        api_url = self.base_url + "getMatchData/" + self.match
+        self.session.headers.update({'Referer': main_page_url})
+        response = self._request_url(url=api_url, **kwargs)
 
         return response
 

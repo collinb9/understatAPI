@@ -62,14 +62,20 @@ class TeamEndpoint(BaseEndpoint):
         if not isinstance(self.team, str):
             raise TypeError("``team`` must be a string")
         self._check_args()
-        url = self.base_url + "team/" + self.team + "/" + season
-
+        
+        # First visit the main page to get session cookies
+        main_page_url = self.base_url + "team/" + self.team + "/" + season
         try:
-            response = self._request_url(url=url, **kwargs)
+            self._request_url(url=main_page_url, **kwargs)
         except HTTPError as err:
             raise InvalidTeam(
                 f"{self.team} is not a valid team", team=self.team
             ) from err
+        
+        # Now get the AJAX API data
+        api_url = self.base_url + "getTeamData/" + self.team + "/" + season
+        self.session.headers.update({'Referer': main_page_url})
+        response = self._request_url(url=api_url, **kwargs)
 
         return response
 

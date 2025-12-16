@@ -60,9 +60,15 @@ class LeagueEndpoint(BaseEndpoint):
         if not isinstance(self.league, str):
             raise TypeError("``league`` must be a string")
         self._check_args(league=self.league, season=season)
-        url = self.base_url + "league/" + self.league + "/" + season
-
-        response = self._request_url(url=url, **kwargs)
+        
+        # First visit the main page to get session cookies
+        main_page_url = self.base_url + "league/" + self.league + "/" + season
+        self._request_url(url=main_page_url, **kwargs)
+        
+        # Now get the AJAX API data
+        api_url = self.base_url + "getLeagueData/" + self.league + "/" + season
+        self.session.headers.update({'Referer': main_page_url})
+        response = self._request_url(url=api_url, **kwargs)
 
         return response
 
