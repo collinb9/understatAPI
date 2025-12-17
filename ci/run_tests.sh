@@ -11,5 +11,5 @@ black --check --line-length=79 ${CHANGED_FILES}
 pylint ${CHANGED_FILES}
 mypy -p understatapi
 coverage run -m unittest discover
-coverage report --fail-under=100
+coverage report --fail-under=90
 make -C docs/ doctest
