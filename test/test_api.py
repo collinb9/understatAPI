@@ -51,7 +51,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_match_get_shot_data(self, mock_get):
         """test ``match.get_shot_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/match.html"
+            "test/resources/data/match_ajax.json"
         )
         data = self.match.get_shot_data()
         data_path = "test/resources/data/match_shotsdata.json"
@@ -61,7 +61,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_match_get_roster_data(self, mock_get):
         """test ``match.get_roster_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/match.html"
+            "test/resources/data/match_ajax.json"
         )
         data = self.match.get_roster_data()
         data_path = "test/resources/data/match_rostersdata.json"
@@ -71,7 +71,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_match_get_match_info(self, mock_get):
         """test ``match.get_match_info()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/match.html"
+            "test/resources/data/match_ajax.json"
         )
         data = self.match.get_match_info()
         data_path = "test/resources/data/match_matchinfo.json"
@@ -81,35 +81,31 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_player_get_match_data(self, mock_get):
         """test ``player.get_match_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/player.html"
+            "test/resources/data/player_ajax.json"
         )
         data = self.player.get_match_data()
         data_path = "test/resources/data/player_matchesdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
     def test_get_shot_data_return_value(self, mock_get):
         """test ``player.get_shot_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/player.html"
+            "test/resources/data/player_ajax.json"
         )
         data = self.player.get_shot_data()
         data_path = "test/resources/data/player_shotsdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
     def test_player_get_season_data(self, mock_get):
         """test ``player.get_season_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/player.html"
+            "test/resources/data/player_ajax.json"
         )
         data = self.player.get_season_data()
         data_path = "test/resources/data/player_groupsdata.json"
@@ -118,31 +114,33 @@ class TestEndpointsResponse(EndpointBaseTestCase):
 
     def test_team_get_player_data(self, mock_get):
         """test ``team.get_match_data()``"""
-        mock_get.return_value = mocked_requests_get("test/resources/team.html")
+        mock_get.return_value = mocked_requests_get(
+            "test/resources/data/team_ajax.json"
+        )
         data = self.team.get_player_data(season="2019")
         data_path = "test/resources/data/team_playersdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
     def test_team_get_match_data(self, mock_get):
         """test ``team.get_match_data()``"""
-        mock_get.return_value = mocked_requests_get("test/resources/team.html")
+        mock_get.return_value = mocked_requests_get(
+            "test/resources/data/team_ajax.json"
+        )
         data = self.team.get_match_data(season="2019")
         data_path = "test/resources/data/team_datesdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
     def test_team_get_context_data(self, mock_get):
         """test ``team.get_context_data()``"""
-        mock_get.return_value = mocked_requests_get("test/resources/team.html")
+        mock_get.return_value = mocked_requests_get(
+            "test/resources/data/team_ajax.json"
+        )
         data = self.team.get_context_data(season="2019")
         data_path = "test/resources/data/team_statisticsdata.json"
         expected_data = read_json(data_path)
@@ -151,7 +149,7 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_league_get_team_data(self, mock_get):
         """test ``league.get_team_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/league_epl.html"
+            "test/resources/data/league_ajax.json"
         )
         data = self.league.get_team_data(season="2019")
         data_path = "test/resources/data/league_teamsdata.json"
@@ -161,28 +159,24 @@ class TestEndpointsResponse(EndpointBaseTestCase):
     def test_league_get_match_data(self, mock_get):
         """test ``league.get_match_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/league_epl.html"
+            "test/resources/data/league_ajax.json"
         )
         data = self.league.get_match_data(season="2019")
         data_path = "test/resources/data/league_datesdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 
     def test_league_get_player_data(self, mock_get):
         """test ``league.get_player_data()``"""
         mock_get.return_value = mocked_requests_get(
-            "test/resources/league_epl.html"
+            "test/resources/data/league_ajax.json"
         )
         data = self.league.get_player_data(season="2019")
         data_path = "test/resources/data/league_playersdata.json"
         expected_data = read_json(data_path)
-        for i, (record, expected_record) in enumerate(
-            zip(data, expected_data)
-        ):
+        for i, (record, expected_record) in enumerate(zip(data, expected_data)):
             with self.subTest(record=i):
                 self.assertDictEqual(record, expected_record)
 

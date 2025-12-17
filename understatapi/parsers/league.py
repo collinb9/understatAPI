@@ -1,4 +1,5 @@
-""" League parser """
+"""League parser"""
+
 from typing import Dict, Any
 from .base import BaseParser
 

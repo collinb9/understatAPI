@@ -1,5 +1,6 @@
-""" Base endpoint """
-from typing import Sequence
+"""Base endpoint"""
+
+from typing import Sequence, Dict, Any, Optional
 import requests
 from requests import Response
 from ..parsers import BaseParser
@@ -8,6 +9,11 @@ from ..exceptions import (
     InvalidSeason,
     PrimaryAttribute,
 )
+
+# Headers required for AJAX requests to Understat
+AJAX_HEADERS = {
+    "X-Requested-With": "XMLHttpRequest",
+}
 
 
 class BaseEndpoint:
@@ -52,18 +58,16 @@ class BaseEndpoint:
             return self.__class__(self._primary_attr, session=self.session)
         return self.__class__(self._primary_attr[index], session=self.session)
 
-    def _check_args(self, league: str = None, season: str = None) -> None:
-        """ Handle invalid arguments """
+    def _check_args(
+        self, league: Optional[str] = None, season: Optional[str] = None
+    ) -> None:
+        """Handle invalid arguments"""
         if league is not None and league not in self.leagues:
-            raise InvalidLeague(
-                f"{league}is not a valid league", league=league
-            )
+            raise InvalidLeague(f"{league}is not a valid league", league=league)
         if season is not None and int(season) < 2014:
-            raise InvalidSeason(
-                f"{season} is not a valid season", season=season
-            )
+            raise InvalidSeason(f"{season} is not a valid season", season=season)
 
-    def _request_url(self, *args: str, **kwargs: str) -> Response:
+    def _request_url(self, *args: Any, **kwargs: Any) -> Response:
         """
         Use the requests module to send a HTTP request to a url, and check
         that this request worked.
@@ -74,3 +78,21 @@ class BaseEndpoint:
         res = self.session.get(*args, **kwargs)
         res.raise_for_status()
         return res
+
+    def _request_ajax(self, endpoint: str, **kwargs: Any) -> Dict[str, Any]:
+        """
+        Make an AJAX request to Understat's internal API endpoints.
+
+        Understat loads data dynamically via AJAX calls. This method
+        handles the required headers and returns parsed JSON data.
+
+        :param endpoint: The AJAX endpoint path (e.g., 'getLeagueData/EPL/2024')
+        :param kwargs: Additional keyword arguments to pass to ``requests.get()``
+        :return: Parsed JSON response as a dictionary
+        """
+        url = self.base_url + endpoint
+        headers: Dict[str, str] = kwargs.pop("headers", {})
+        headers.update(AJAX_HEADERS)
+        res = self.session.get(url, headers=headers, **kwargs)
+        res.raise_for_status()
+        return res.json()

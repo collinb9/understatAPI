@@ -1,4 +1,5 @@
-""" Team parser """
+"""Team parser"""
+
 from typing import Dict, Any
 from .base import BaseParser
 
