@@ -8,12 +8,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.base module &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatapi.endpoints.base module &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -30,8 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -168,11 +172,11 @@
            <div itemprop="articleBody">
             
   <section id="module-understatapi.endpoints.base">
-<span id="understatapi-endpoints-base-module"></span><h1>understatapi.endpoints.base module<a class="headerlink" href="#module-understatapi.endpoints.base" title="Permalink to this headline">¶</a></h1>
+<span id="understatapi-endpoints-base-module"></span><h1>understatapi.endpoints.base module<a class="headerlink" href="#module-understatapi.endpoints.base" title="Permalink to this heading">¶</a></h1>
 <p>Base endpoint</p>
 <dl class="py class">
-<dt id="understatapi.endpoints.base.BaseEndpoint">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.endpoints.base.</span></code><code class="sig-name descname"><span class="pre">BaseEndpoint</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">understatapi.endpoints.base.</span></span><span class="sig-name descname"><span class="pre">BaseEndpoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Base endpoint for understat API</p>
 <dl class="field-list simple">
@@ -186,23 +190,23 @@
 </dd>
 </dl>
 <dl class="py attribute">
-<dt id="understatapi.endpoints.base.BaseEndpoint.base_url">
-<code class="sig-name descname"><span class="pre">base_url</span></code><em class="property"> <span class="pre">=</span> <span class="pre">'https://understat.com/'</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.base_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint.base_url">
+<span class="sig-name descname"><span class="pre">base_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'https://understat.com/'</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.base_url" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="understatapi.endpoints.base.BaseEndpoint.leagues">
-<code class="sig-name descname"><span class="pre">leagues</span></code><em class="property"> <span class="pre">=</span> <span class="pre">['EPL',</span> <span class="pre">'La_Liga',</span> <span class="pre">'Bundesliga',</span> <span class="pre">'Serie_A',</span> <span class="pre">'Ligue_1',</span> <span class="pre">'RFPL']</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.leagues" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint.leagues">
+<span class="sig-name descname"><span class="pre">leagues</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['EPL',</span> <span class="pre">'La_Liga',</span> <span class="pre">'Bundesliga',</span> <span class="pre">'Serie_A',</span> <span class="pre">'Ligue_1',</span> <span class="pre">'RFPL']</span></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.leagues" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="understatapi.endpoints.base.BaseEndpoint.parser">
-<code class="sig-name descname"><span class="pre">parser</span></code><em class="property"><span class="pre">:</span> <a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><span class="pre">understatapi.parsers.base.BaseParser</span></a></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.parser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint.parser">
+<span class="sig-name descname"><span class="pre">parser</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><span class="pre">BaseParser</span></a></em><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.parser" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint.__init__">
-<code class="sig-name descname"><span class="pre">__init__</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.__init__" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">primary_attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Session</dt>
 <dd class="field-odd"><p>requests.Session: The current <code class="docutils literal notranslate"><span class="pre">request</span></code> session</p>
@@ -211,8 +215,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint._check_args">
-<code class="sig-name descname"><span class="pre">_check_args</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._check_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._check_args" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint._check_args">
+<span class="sig-name descname"><span class="pre">_check_args</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">season</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._check_args"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._check_args" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle invalid arguments</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -222,19 +226,41 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.endpoints.base.BaseEndpoint._request_url">
-<code class="sig-name descname"><span class="pre">_request_url</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._request_url" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint._request_url">
+<span class="sig-name descname"><span class="pre">_request_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._request_url"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._request_url" title="Permalink to this definition">¶</a></dt>
 <dd><p>Use the requests module to send a HTTP request to a url, and check
 that this request worked.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>args</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
-<li><p><strong>kwargs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+<li><p><strong>args</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+<li><p><strong>kwargs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Response</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="understatapi.endpoints.base.BaseEndpoint._request_ajax">
+<span class="sig-name descname"><span class="pre">_request_ajax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">endpoint</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/endpoints/base.html#BaseEndpoint._request_ajax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.endpoints.base.BaseEndpoint._request_ajax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an AJAX request to Understat’s internal API endpoints.</p>
+<p>Understat loads data dynamically via AJAX calls. This method
+handles the required headers and returns parsed JSON data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>endpoint</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – The AJAX endpoint path (e.g., ‘getLeagueData/EPL/2024’)</p></li>
+<li><p><strong>kwargs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>) – Additional keyword arguments to pass to <code class="docutils literal notranslate"><span class="pre">requests.get()</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Parsed JSON response as a dictionary</p>
 </dd>
 </dl>
 </dd></dl>
@@ -257,7 +283,7 @@ that this request worked.</p>
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>

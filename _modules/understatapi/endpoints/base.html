@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.base &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatapi.endpoints.base &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,8 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../../_static/js/theme.js"></script>
@@ -61,7 +65,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -159,8 +163,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for understatapi.endpoints.base</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Base endpoint &quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
+<span></span><span class="sd">&quot;&quot;&quot;Base endpoint&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 <span class="kn">from</span> <span class="nn">requests</span> <span class="kn">import</span> <span class="n">Response</span>
 <span class="kn">from</span> <span class="nn">..parsers</span> <span class="kn">import</span> <span class="n">BaseParser</span>
@@ -169,6 +174,11 @@
     <span class="n">InvalidSeason</span><span class="p">,</span>
     <span class="n">PrimaryAttribute</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="c1"># Headers required for AJAX requests to Understat</span>
+<span class="n">AJAX_HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;X-Requested-With&quot;</span><span class="p">:</span> <span class="s2">&quot;XMLHttpRequest&quot;</span><span class="p">,</span>
+<span class="p">}</span>
 
 
 <div class="viewcode-block" id="BaseEndpoint"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint">[docs]</a><span class="k">class</span> <span class="nc">BaseEndpoint</span><span class="p">:</span>
@@ -213,18 +223,16 @@
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_primary_attr</span><span class="p">[</span><span class="n">index</span><span class="p">],</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="p">)</span>
 
-<div class="viewcode-block" id="BaseEndpoint._check_args"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._check_args">[docs]</a>    <span class="k">def</span> <span class="nf">_check_args</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot; Handle invalid arguments &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="BaseEndpoint._check_args"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._check_args">[docs]</a>    <span class="k">def</span> <span class="nf">_check_args</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Handle invalid arguments&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">league</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">league</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">leagues</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">InvalidLeague</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">league</span><span class="si">}</span><span class="s2">is not a valid league&quot;</span><span class="p">,</span> <span class="n">league</span><span class="o">=</span><span class="n">league</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="n">InvalidLeague</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">league</span><span class="si">}</span><span class="s2">is not a valid league&quot;</span><span class="p">,</span> <span class="n">league</span><span class="o">=</span><span class="n">league</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">season</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">season</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2014</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">InvalidSeason</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> is not a valid season&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span>
-            <span class="p">)</span></div>
+            <span class="k">raise</span> <span class="n">InvalidSeason</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">season</span><span class="si">}</span><span class="s2"> is not a valid season&quot;</span><span class="p">,</span> <span class="n">season</span><span class="o">=</span><span class="n">season</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="BaseEndpoint._request_url"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._request_url">[docs]</a>    <span class="k">def</span> <span class="nf">_request_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
+<div class="viewcode-block" id="BaseEndpoint._request_url"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._request_url">[docs]</a>    <span class="k">def</span> <span class="nf">_request_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Response</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Use the requests module to send a HTTP request to a url, and check</span>
 <span class="sd">        that this request worked.</span>
@@ -234,7 +242,25 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">res</span></div></div>
+        <span class="k">return</span> <span class="n">res</span></div>
+
+<div class="viewcode-block" id="BaseEndpoint._request_ajax"><a class="viewcode-back" href="../../../understatapi.endpoints.base.html#understatapi.endpoints.base.BaseEndpoint._request_ajax">[docs]</a>    <span class="k">def</span> <span class="nf">_request_ajax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Make an AJAX request to Understat&#39;s internal API endpoints.</span>
+
+<span class="sd">        Understat loads data dynamically via AJAX calls. This method</span>
+<span class="sd">        handles the required headers and returns parsed JSON data.</span>
+
+<span class="sd">        :param endpoint: The AJAX endpoint path (e.g., &#39;getLeagueData/EPL/2024&#39;)</span>
+<span class="sd">        :param kwargs: Additional keyword arguments to pass to ``requests.get()``</span>
+<span class="sd">        :return: Parsed JSON response as a dictionary</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="n">endpoint</span>
+        <span class="n">headers</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;headers&quot;</span><span class="p">,</span> <span class="p">{})</span>
+        <span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">AJAX_HEADERS</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">res</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">res</span><span class="o">.</span><span class="n">json</span><span class="p">()</span></div></div>
 </pre></div>
 
            </div>
@@ -246,7 +272,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>

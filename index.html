@@ -8,12 +8,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatAPI Home &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatAPI Home &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -30,8 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -63,7 +67,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -163,7 +167,7 @@
            <div itemprop="articleBody">
             
   <section id="understatapi-home">
-<h1>understatAPI Home<a class="headerlink" href="#understatapi-home" title="Permalink to this headline">¶</a></h1>
+<h1>understatAPI Home<a class="headerlink" href="#understatapi-home" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
 <div class="toctree-wrapper compound">
@@ -188,14 +192,14 @@
 <a class="reference external image-reference" href="https://img.shields.io/pypi/l/understatapi"><img alt="PyPI - License" src="https://img.shields.io/pypi/l/understatapi" /></a>
 </section>
 <section id="understatapi">
-<h1>understatAPI<a class="headerlink" href="#understatapi" title="Permalink to this headline">¶</a></h1>
+<h1>understatAPI<a class="headerlink" href="#understatapi" title="Permalink to this heading">¶</a></h1>
 <p>This is a python API for scraping data from <a class="reference external" href="https://understat.com/">understat.com</a>. Understat is a website with football data for 6 european leagues for every season since 2014/15 season. The leagues available are the Premier League, La Liga, Ligue 1, Serie A, Bundesliga and the Russian Premier League.</p>
 <hr class="docutils" />
 <p><strong>NOTE</strong></p>
 <p>I am not affiliated with understat.com in any way</p>
 <hr class="docutils" />
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
 <p>To install the package run</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install understatapi
 </pre></div>
@@ -203,16 +207,12 @@
 <p>If you would like to use the package with the latest development changes you can clone this repo and install the package</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:collinb9/understatAPI understatAPI
 <span class="nb">cd</span> understatAPI
-python setup.py install
+python -m pip install .
 </pre></div>
 </div>
 </section>
 <section id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<hr class="docutils" />
-<p><strong>NOTE</strong></p>
-<p>This package is in early stages of development and the API is likely to change</p>
-<hr class="docutils" />
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this heading">¶</a></h2>
 <p>The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond</p>
 <table class="docutils align-default">
 <colgroup>
@@ -239,7 +239,7 @@ python setup.py install
 </tr>
 </tbody>
 </table>
-<p>Every mwthod in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint.
+<p>Every method in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint.
 Each method returns JSON with the relevant data. Below are some examples of how to use the API. Note how the <code class="docutils literal notranslate"><span class="pre">league()</span></code> and <code class="docutils literal notranslate"><span class="pre">team()</span></code> methods can accept the names of leagues and teams respectively, but <code class="docutils literal notranslate"><span class="pre">player()</span></code> and <code class="docutils literal notranslate"><span class="pre">match()</span></code> must receive an id number.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">understatapi</span> <span class="kn">import</span> <span class="n">UnderstatClient</span>
 
@@ -258,7 +258,7 @@ Each method returns JSON with the relevant data. Below are some examples of how 
 <span class="c1"># get data for every league match involving Manchester United in 2019/20</span>
 <span class="n">team_match_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">team</span><span class="p">(</span><span class="n">team</span><span class="o">=</span><span class="s2">&quot;Manchester_United&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">get_match_data</span><span class="p">(</span><span class="n">season</span><span class="o">=</span><span class="s2">&quot;2019&quot;</span><span class="p">)</span>
 <span class="c1"># get the id for the first match of the season</span>
-<span class="n">match_id</span> <span class="o">=</span> <span class="n">match_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+<span class="n">match_id</span> <span class="o">=</span> <span class="n">team_match_data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
 <span class="c1"># get the rosters for the both teams in that match</span>
 <span class="n">roster_data</span> <span class="o">=</span> <span class="n">understat</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">match</span><span class="o">=</span><span class="n">match_id</span><span class="p">)</span><span class="o">.</span><span class="n">get_roster_data</span><span class="p">()</span>
 </pre></div>
@@ -273,7 +273,7 @@ Each method returns JSON with the relevant data. Below are some examples of how 
 <p>For a full API reference, see <a class="reference external" href="https://collinb9.github.io/understatAPI/">the documentation</a></p>
 </section>
 <section id="contributing">
-<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">¶</a></h2>
 <p>If you find any bugs in the code or have any feature requests, please make an issue and I’ll try to address it as soon as possible. If you would like to implement the changes yourself you can make a pull request</p>
 <ul class="simple">
 <li><p>Clone the repo <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">git&#64;github.com:collinb9/understatAPI</span></code></p></li>
@@ -300,11 +300,11 @@ ci/run_tests.sh
 <p>Don’t let these tests deter you from making a pull request. Make the changes to introduce the new functionality/bug fix and then I will be happy to help get the code to a stage where it passes the tests.</p>
 </section>
 <section id="versioning">
-<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this headline">¶</a></h2>
+<h2>Versioning<a class="headerlink" href="#versioning" title="Permalink to this heading">¶</a></h2>
 <p>The versioning for this project follows the <a class="reference external" href="https://semver.org/">semantic versioning</a> conventions.</p>
 </section>
 <section id="todo">
-<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<h2>TODO<a class="headerlink" href="#todo" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Add asynchronous support</p></li>
 </ul>
@@ -324,7 +324,7 @@ ci/run_tests.sh
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>

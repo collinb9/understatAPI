@@ -7,12 +7,14 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.exceptions &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatapi.exceptions &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
 
   
   
@@ -29,8 +31,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
     
     <script type="text/javascript" src="../../_static/js/theme.js"></script>
@@ -61,7 +65,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -159,14 +163,15 @@
            <div itemprop="articleBody">
             
   <h1>Source code for understatapi.exceptions</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Define custom exceptions &quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;Define custom exceptions&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
 
 <span class="n">PrimaryAttribute</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">str</span><span class="p">]</span>
 
 
 <div class="viewcode-block" id="InvalidSeason"><a class="viewcode-back" href="../../understatapi.exceptions.html#understatapi.exceptions.InvalidSeason">[docs]</a><span class="k">class</span> <span class="nc">InvalidSeason</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Invalid season &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Invalid season&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">season</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -174,7 +179,7 @@
 
 
 <div class="viewcode-block" id="InvalidPlayer"><a class="viewcode-back" href="../../understatapi.exceptions.html#understatapi.exceptions.InvalidPlayer">[docs]</a><span class="k">class</span> <span class="nc">InvalidPlayer</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Invalid player &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Invalid player&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">player</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -182,7 +187,7 @@
 
 
 <div class="viewcode-block" id="InvalidLeague"><a class="viewcode-back" href="../../understatapi.exceptions.html#understatapi.exceptions.InvalidLeague">[docs]</a><span class="k">class</span> <span class="nc">InvalidLeague</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Invalid league &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Invalid league&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">league</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -190,7 +195,7 @@
 
 
 <div class="viewcode-block" id="InvalidTeam"><a class="viewcode-back" href="../../understatapi.exceptions.html#understatapi.exceptions.InvalidTeam">[docs]</a><span class="k">class</span> <span class="nc">InvalidTeam</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Invalid team &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Invalid team&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">team</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -198,7 +203,7 @@
 
 
 <div class="viewcode-block" id="InvalidMatch"><a class="viewcode-back" href="../../understatapi.exceptions.html#understatapi.exceptions.InvalidMatch">[docs]</a><span class="k">class</span> <span class="nc">InvalidMatch</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Invalid match &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Invalid match&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">match</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
@@ -214,7 +219,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>

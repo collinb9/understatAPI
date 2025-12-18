@@ -27,17 +27,9 @@ If you would like to use the package with the latest development changes you can
 ```bash
 git clone git@github.com:collinb9/understatAPI understatAPI
 cd understatAPI
-python setup.py install
+python -m pip install .
 ```
 ## Getting started
-
----
-
-**NOTE**
-
-This package is in early stages of development and the API is likely to change
-
----
 
 The API contains endpoints which reflect the structure of the understat website. Below is a table showing the different endpoints and the pages on understat.com to which they correspond
 
@@ -48,7 +40,7 @@ The API contains endpoints which reflect the structure of the understat website.
 | UnderstatClient.player | `https://understat.com/player/<player_id>`        |
 | UnderstatClient.match  | `https://understat.com/match/<match_id>`          |
 
-Every mwthod in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint.
+Every method in the public API corresponds to one of the tables visible on the understat page for the relevant endpoint.
 Each method returns JSON with the relevant data. Below are some examples of how to use the API. Note how the `league()` and `team()` methods can accept the names of leagues and teams respectively, but `player()` and `match()` must receive an id number.
 
 ```python
@@ -70,7 +62,7 @@ understat = UnderstatClient()
 # get data for every league match involving Manchester United in 2019/20
 team_match_data = understat.team(team="Manchester_United").get_match_data(season="2019")
 # get the id for the first match of the season
-match_id = match_data[0]["id"]
+match_id = team_match_data[0]["id"]
 # get the rosters for the both teams in that match
 roster_data = understat.match(match=match_id).get_roster_data()
 ```

@@ -8,12 +8,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.parsers.league module &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatapi.parsers.league module &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -30,8 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -62,7 +66,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -162,17 +166,17 @@
            <div itemprop="articleBody">
             
   <section id="module-understatapi.parsers.league">
-<span id="understatapi-parsers-league-module"></span><h1>understatapi.parsers.league module<a class="headerlink" href="#module-understatapi.parsers.league" title="Permalink to this headline">¶</a></h1>
+<span id="understatapi-parsers-league-module"></span><h1>understatapi.parsers.league module<a class="headerlink" href="#module-understatapi.parsers.league" title="Permalink to this heading">¶</a></h1>
 <p>League parser</p>
 <dl class="py class">
-<dt id="understatapi.parsers.league.LeagueParser">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.parsers.league.</span></code><code class="sig-name descname"><span class="pre">LeagueParser</span></code><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">understatapi.parsers.base.BaseParser</span></code></a></p>
+<dt class="sig sig-object py" id="understatapi.parsers.league.LeagueParser">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">understatapi.parsers.league.</span></span><span class="sig-name descname"><span class="pre">LeagueParser</span></span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="understatapi.parsers.base.html#understatapi.parsers.base.BaseParser" title="understatapi.parsers.base.BaseParser"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseParser</span></code></a></p>
 <p>Parse a html page from a url of the form
 <code class="docutils literal notranslate"><span class="pre">https://understat.com/league/&lt;league&gt;/&lt;season&gt;</span></code></p>
 <dl class="py method">
-<dt id="understatapi.parsers.league.LeagueParser.get_team_data">
-<code class="sig-name descname"><span class="pre">get_team_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_team_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_team_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.parsers.league.LeagueParser.get_team_data">
+<span class="sig-name descname"><span class="pre">get_team_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_team_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_team_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data for all teams</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -185,8 +189,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.parsers.league.LeagueParser.get_match_data">
-<code class="sig-name descname"><span class="pre">get_match_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_match_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.parsers.league.LeagueParser.get_match_data">
+<span class="sig-name descname"><span class="pre">get_match_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_match_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_match_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data for all fixtures</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -199,8 +203,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.parsers.league.LeagueParser.get_player_data">
-<code class="sig-name descname"><span class="pre">get_player_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_player_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_player_data" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.parsers.league.LeagueParser.get_player_data">
+<span class="sig-name descname"><span class="pre">get_player_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">html</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/parsers/league.html#LeagueParser.get_player_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.get_player_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Get data for all players</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -211,11 +215,6 @@
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py attribute">
-<dt id="understatapi.parsers.league.LeagueParser.queries">
-<code class="sig-name descname"><span class="pre">queries</span></code><em class="property"><span class="pre">:</span> <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#understatapi.parsers.league.LeagueParser.queries" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 
@@ -231,7 +230,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>

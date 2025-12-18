@@ -8,12 +8,14 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.api module &mdash; understatAPI 0.6.1 documentation</title>
+  <title>understatapi.api module &mdash; understatAPI 0.7.0b1 documentation</title>
   
 
   
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
 
   
   
@@ -30,8 +32,10 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
@@ -64,7 +68,7 @@
             
             
               <div class="version">
-                0.6.1
+                0.7.0b1
               </div>
             
           
@@ -166,11 +170,11 @@
            <div itemprop="articleBody">
             
   <section id="module-understatapi.api">
-<span id="understatapi-api-module"></span><h1>understatapi.api module<a class="headerlink" href="#module-understatapi.api" title="Permalink to this headline">¶</a></h1>
+<span id="understatapi-api-module"></span><h1>understatapi.api module<a class="headerlink" href="#module-understatapi.api" title="Permalink to this heading">¶</a></h1>
 <p>understatAPI client</p>
 <dl class="py class">
-<dt id="understatapi.api.UnderstatClient">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">understatapi.api.</span></code><code class="sig-name descname"><span class="pre">UnderstatClient</span></code><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.api.UnderstatClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">understatapi.api.</span></span><span class="sig-name descname"><span class="pre">UnderstatClient</span></span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>API client for understat</p>
 <p>The main interface for interacting with understatAPI. Exposes
@@ -202,8 +206,8 @@ session and handles errors</p>
 </pre></div>
 </div>
 <dl class="py method">
-<dt id="understatapi.api.UnderstatClient.league">
-<code class="sig-name descname"><span class="pre">league</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.league"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.league" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.api.UnderstatClient.league">
+<span class="sig-name descname"><span class="pre">league</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">league</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.league"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.league" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint for league data. Use this function to get data from a
 url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/league/&lt;league&gt;/&lt;season&gt;</span></code></p>
 <dl class="field-list simple">
@@ -228,8 +232,8 @@ one of {EPL, La_Liga, Bundesliga, Serie_A, Ligue_1, RFPL}</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.api.UnderstatClient.player">
-<code class="sig-name descname"><span class="pre">player</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.player" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.api.UnderstatClient.player">
+<span class="sig-name descname"><span class="pre">player</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">player</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.player"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.player" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint for player data. Use this function to get data from a
 url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/player/&lt;player_id&gt;/</span></code></p>
 <dl class="field-list simple">
@@ -253,8 +257,8 @@ url of the form <code class="docutils literal notranslate"><span class="pre">htt
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.api.UnderstatClient.team">
-<code class="sig-name descname"><span class="pre">team</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.team" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.api.UnderstatClient.team">
+<span class="sig-name descname"><span class="pre">team</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">team</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.team"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.team" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint for team data. Use this function to get data from a
 url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/team/&lt;team&gt;/&lt;season&gt;</span></code></p>
 <dl class="field-list simple">
@@ -278,8 +282,8 @@ url of the form <code class="docutils literal notranslate"><span class="pre">htt
 </dd></dl>
 
 <dl class="py method">
-<dt id="understatapi.api.UnderstatClient.match">
-<code class="sig-name descname"><span class="pre">match</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">match</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.match" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="understatapi.api.UnderstatClient.match">
+<span class="sig-name descname"><span class="pre">match</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">match</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/understatapi/api.html#UnderstatClient.match"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#understatapi.api.UnderstatClient.match" title="Permalink to this definition">¶</a></dt>
 <dd><p>Endpoint for match data. Use this function to get data from a
 url of the form <code class="docutils literal notranslate"><span class="pre">https://understat.com/match/&lt;match_id&gt;</span></code></p>
 <dl class="field-list simple">
@@ -320,7 +324,7 @@ url of the form <code class="docutils literal notranslate"><span class="pre">htt
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2022, Brendan Collins.
+        &#169; Copyright 2025, Brendan Collins.
 
     </p>
   </div>
