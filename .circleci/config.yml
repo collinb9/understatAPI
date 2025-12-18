@@ -54,7 +54,6 @@ jobs:
           command: |
             echo $CIRCLE_BRANCH
             source venv/bin/activate
-            ./cd/deploy_package.sh
             ./cd/make_release.sh $CIRCLE_TAG
       - run:
           name: Publish documentation
