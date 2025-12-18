@@ -16,18 +16,13 @@ commands:
             ./ci/install_dependencies.sh
             venv/bin/python -m pip install toml
 
-orbs:
-  jq: circleci/jq@3.0.0
-
 jobs:
 
   test:
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/python:3.9
     steps:
       - checkout
-      - jq/install:
-          version: jq-1.7
       - install_dependencies
       - run:
           name: Test
@@ -37,12 +32,10 @@ jobs:
 
   deploy:
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/python:3.9
     steps:
       - checkout
       - install_dependencies
-      - jq/install:
-          version: jq-1.7
       - run:
           name: Setup
           command: |
