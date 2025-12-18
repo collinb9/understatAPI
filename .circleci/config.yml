@@ -49,13 +49,13 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:M0gQRqs0Xk8VoOZ4klOxGILuKVNfnYhUhkgo8Eefm50"
-      # - run:
-      #     name: Deploy package
-      #     command: |
-      #       echo $CIRCLE_BRANCH
-      #       source venv/bin/activate
-      #       ./cd/deploy_package.sh
-      #       ./cd/make_release.sh $CIRCLE_TAG
+      - run:
+          name: Deploy package
+          command: |
+            echo $CIRCLE_BRANCH
+            source venv/bin/activate
+            ./cd/deploy_package.sh
+            ./cd/make_release.sh $CIRCLE_TAG
       - run:
           name: Publish documentation
           command: |
@@ -73,10 +73,9 @@ workflows:
       - test
   deploy:
     jobs:
-      - deploy
-      # - deploy:
-          # filters:
-          #   tags:
-          #     only: /^v.*/
-          #   branches:
-          #     ignore: /.*/
+      - deploy:
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
