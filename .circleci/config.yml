@@ -73,7 +73,8 @@ workflows:
       - test
   deploy:
     jobs:
-      - deploy:
+      - deploy
+      # - deploy:
           # filters:
           #   tags:
           #     only: /^v.*/
