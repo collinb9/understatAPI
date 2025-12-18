@@ -4,3 +4,4 @@ black>=24.0.0
 coverage>=7.0.0
 mypy>=1.8.0
 pytest>=8.0.0
+types-requests==2.31.0.6
