@@ -46,9 +46,9 @@ jobs:
             echo -e "[user]" >> ~/.gitconfig
             echo -e "email = $GIT_EMAIL" >> ~/.gitconfig
             echo -e "name = $GIT_USERNAME" >> ~/.gitconfig
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - "79:f3:4e:44:f3:b9:7c:1e:95:f9:eb:ee:4b:c9:de:cf"
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:M0gQRqs0Xk8VoOZ4klOxGILuKVNfnYhUhkgo8Eefm50"
       # - run:
       #     name: Deploy package
       #     command: |
