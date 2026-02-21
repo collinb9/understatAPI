@@ -7,7 +7,7 @@ branch=master
 repo=understatapi
 owner=collinb9
 token=$GITHUB_TOKEN
-changeLog=`git log $(git tag -l | grep -v 'b' | tail -n 1)..HEAD --oneline --no-decorate --no-abbrev-commit | sed 's/\r$//'`
+changeLog=`git log refs/tags/$(git tag -l | grep -v 'b' | tail -n 2 | head -n 1)..HEAD --oneline --no-decorate --no-abbrev-commit | sed 's/\r$//'`
 
 generate_post_data()
 {
