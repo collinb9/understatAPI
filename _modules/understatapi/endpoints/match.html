@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>understatapi.endpoints.match &mdash; understatAPI 0.7.0 documentation</title>
+  <title>understatapi.endpoints.match &mdash; understatAPI 0.7.1 documentation</title>
   
 
   
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.7.0
+                0.7.1
               </div>
             
           
@@ -234,6 +234,25 @@
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2"> is not a valid match&quot;</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span>
             <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
 
+<div class="viewcode-block" id="MatchEndpoint._get_data_html"><a class="viewcode-back" href="../../../understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint._get_data_html">[docs]</a>    <span class="k">def</span> <span class="nf">_get_data_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">requests</span><span class="o">.</span><span class="n">Response</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get data on a per-match basis embedded in the html.</span>
+
+<span class="sd">        :param kwargs: Keyword argument to pass to</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;``match`` must be a string&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_args</span><span class="p">()</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_url</span> <span class="o">+</span> <span class="s2">&quot;match/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">match</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_request_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">HTTPError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">InvalidMatch</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span><span class="si">}</span><span class="s2"> is not a valid match&quot;</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">match</span>
+            <span class="p">)</span> <span class="kn">from</span> <span class="nn">err</span></div>
+
 <div class="viewcode-block" id="MatchEndpoint.get_shot_data"><a class="viewcode-back" href="../../../understatapi.endpoints.match.html#understatapi.endpoints.match.MatchEndpoint.get_shot_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_shot_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get shot level data for a match</span>
@@ -259,10 +278,11 @@
 <span class="sd">        Get information about the match</span>
 
 <span class="sd">        :param kwargs: Keyword argument to pass to</span>
-<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`</span>
+<span class="sd">            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;tmpl&quot;</span><span class="p">,</span> <span class="p">{})</span></div></div>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_data_html</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">get_match_info</span><span class="p">(</span><span class="n">html</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span></div></div>
 </pre></div>
 
            </div>
@@ -274,7 +294,7 @@
 
   <div role="contentinfo">
     <p>
-        &#169; Copyright 2025, Brendan Collins.
+        &#169; Copyright 2026, Brendan Collins.
 
     </p>
   </div>
