@@ -69,7 +69,8 @@ class UnderstatClient:
             endpoint_obj = str_to_class(__name__, endpoint[0])
             public_methods = get_public_methods(endpoint_obj)
             raise AttributeError(
-                str(exception_value) + f"\nIts public methods are {public_methods}"
+                str(exception_value)
+                + f"\nIts public methods are {public_methods}"
             )
         self.session.close()
 

@@ -69,6 +69,25 @@ class MatchEndpoint(BaseEndpoint):
                 f"{self.match} is not a valid match", match=self.match
             ) from err
 
+    def _get_data_html(self, **kwargs: Any) -> requests.Response:
+        """
+        Get data on a per-match basis embedded in the html.
+
+        :param kwargs: Keyword argument to pass to
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
+        """
+        if not isinstance(self.match, str):
+            raise TypeError("``match`` must be a string")
+        self._check_args()
+        url = self.base_url + "match/" + self.match
+
+        try:
+            return self._request_url(url, **kwargs)
+        except HTTPError as err:
+            raise InvalidMatch(
+                f"{self.match} is not a valid match", match=self.match
+            ) from err
+
     def get_shot_data(self, **kwargs: Any) -> Dict[str, Any]:
         """
         Get shot level data for a match
@@ -94,7 +113,8 @@ class MatchEndpoint(BaseEndpoint):
         Get information about the match
 
         :param kwargs: Keyword argument to pass to
-            :meth:`understatapi.endpoints.base.BaseEndpoint._request_ajax`
+            :meth:`understatapi.endpoints.base.BaseEndpoint._request_url`
         """
-        data = self._get_data(**kwargs)
-        return data.get("tmpl", {})
+        res = self._get_data_html(**kwargs)
+        data = self.parser.get_match_info(html=res.text)
+        return data
