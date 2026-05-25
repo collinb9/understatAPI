@@ -105,5 +105,6 @@ class MatchEndpoint(BaseEndpoint):
             :meth:`understatapi.endpoints.base.BaseEndpoint._get_response`
         """
         res = self._get_data(**kwargs)
+        print(res.text)
         data = self.parser.get_match_info(html=res.text)
         return data

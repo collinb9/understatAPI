@@ -42,6 +42,6 @@ class MatchParser(BaseParser):
         """
         try:
             data = json.loads(html)
-            return data.get('match', {})
+            return data.get('tmpl', {})
         except json.JSONDecodeError:
             return self.parse(html=html, query="match_info")
